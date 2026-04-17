@@ -1,0 +1,31 @@
+// 1. Представим, что это данные, которые пришли с сервера
+const myChats = [
+  { name: "Иван Иванов", message: "Скинь макет страницы", time: "12:40" },
+  { name: "Мария Ред", message: "Когда созвон?", time: "10:15" },
+  { name: "Дизайн-чат", message: "Круто выглядит!", time: "Вчера" }
+];
+
+// 2. Находим наш список в HTML
+const listContainer = document.getElementById('chat-history');
+
+// 3. Функция, которая превращает данные в "красивые карточки"
+function renderChats(chats) {
+  // Очищаем список на всякий случай
+  listContainer.innerHTML = '';
+
+  // Пробегаемся по каждому чату в списке
+  chats.forEach(chat => {
+    // Создаем элемент списка li
+    const li = document.createElement('li');
+    li.className = 'chat-item'; // Даем класс для CSS
+
+    // Наполняем его внутренностями (шаблонная строка)
+    li.innerHTML = chat.name
+
+    // Кладем готовый li внутрь нашего ul
+    listContainer.appendChild(li);
+  });
+}
+
+// Запускаем отрисовку!
+renderChats(myChats);
