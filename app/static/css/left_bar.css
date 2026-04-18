@@ -1,20 +1,74 @@
+
 .wrapper {
     display: flex;
-    min-height: 100vh;
 }
 
 .left-bar {
     display: flex;
     flex-direction: column;
-    background-color: #085fd1;
+    background-color: #171717;
+
+    height: 95.6vh;
+    width: 16rem;
+
+    overflow-y: auto; /* доавляет прокрутку */
+    color-scheme: light dark;
 }
 
-.site-logo {
+.left-bar-funcs {
     display: flex;
-    width: 128px;
-    height: 128px;
+    flex-direction: column;
+
+    top: 0;
+    position: sticky;
+    z-index: 10; 
+
+    background-color: #171717;
+    
+}
+
+.containers {
+    display: flex;
+    border-bottom: 3px solid #222529;
+    height: 3.4rem;
+}
+
+.h2-reset {
+    font-size: 0;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    font-weight: normal
+}
+
+.ico-funcs {
+    width: 36px;
+    height: 36px;
+
+    margin-left: 0.5rem;
+}
+
+.h2 {
+    color: #fff;
+    font-size: 1.5rem;
+}
+
+
+
+.left-bar-1 {
+
+}
+
+.left-bar-history {
+    align-items: flex-end;
+}
+
+
+#chat-history {
+    padding: 0;
+    margin: 0;
 }
 
 .chat-item {
     color: white;
+    list-style-type: none;
 }

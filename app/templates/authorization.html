@@ -8,15 +8,25 @@
     <link rel="stylesheet" href="static/css/body.css">
     <link rel="stylesheet" href="static/css/nav_bar.css">
     <link rel="stylesheet" href="static/css/left_bar.css">
+    <link rel="stylesheet" href="static/css/scroll_bar.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,100..900;1,100..900&family=Sekuya&display=swap"
         rel="stylesheet">
     <title>ИИ помошник</title>
 </head>
 
 <body>
     <nav class="nav-bar">
+        <div class="logo-bar">
+            <img src="static/image/logo.png" alt="logo" class="site-logo">
+            <h1 class="logo-name reset-logo-name">AI Agent</h1>
+        </div>
         <div class="list-block">
             <ul class="list-bar">
                 <li class="first-list-item">Поддержка</li>
@@ -26,24 +36,26 @@
     </nav>
     <div class="wrapper">
         <aside class="left-bar">
-            <div class="left-bar-1">
-                <img src="static/image/logo.png" alt="logo" class="site-logo">
+            <div class="left-bar-funcs">
+                <div class="containers">
+                    <img src="static/image/new_chat.png" alt="chat" class="ico-funcs">
+                    <h2 class="h2-reset h2">Новый чат</h2>
+                </div>
+                <div class="containers">
+                    <img src="static/image/search.png" alt="chat" class="ico-funcs">
+                    <h2 class="h2-reset h2">Поиск в чатах</h2>
+                </div>
             </div>
-            <div class="left-bar-2">
+            <div class="left-bar-history">
                 <ul id="chat-history">
                     <script src="static/js/chat_history.js"></script>
                     <!-- Сюда JS будет добавлять li -->
                 </ul>
             </div>
         </aside>
+        <section>
+        </section>
     </div>
-    <section>
-        <ul>
-            <li><img src="static/image/logo.png" alt="logo" class="site-logo"></li>
-            <li>Новый чат</li>
-            <li></li>
-        </ul>
-    </section>
 </body>
 
 </html>
