@@ -29,8 +29,18 @@
 
 .containers {
     display: flex;
+    align-items: center;
+
     border-bottom: 3px solid #222529;
-    height: 3.4rem;
+    height: 2.6rem;
+
+    padding-left: 0.8rem;
+
+}
+
+.containers:hover .ico-funcs,
+.containers:hover .h2 {
+    transform: scale(1.1);
 }
 
 .h2-reset {
@@ -41,22 +51,25 @@
 }
 
 .ico-funcs {
-    width: 36px;
-    height: 36px;
+    width: 30px;
+    height: 30px;
 
-    margin-left: 0.5rem;
+    transition: 0.2s;
+    transform-origin: left center;
 }
+
 
 .h2 {
+    display: inline-block;
+    font-size: 0.95rem;
     color: #fff;
-    font-size: 1.5rem;
+
+    margin-left: 0.3rem;
+
+    transition: 0.2s;
+    transform-origin: left center;
 }
 
-
-
-.left-bar-1 {
-
-}
 
 .left-bar-history {
     align-items: flex-end;
