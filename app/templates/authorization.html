@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="static/css/left_bar.css">
     <link rel="stylesheet" href="static/css/scroll_bar.css">
     <link rel="stylesheet" href="static/css/animation.css">
+    <link rel="stylesheet" href="static/css/modal_window.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,100..900;1,100..900&display=swap"
@@ -31,13 +32,13 @@
         <div class="drop-down-menu">
             <div class="edging">
                 <button id="drop-menu">ChatGPT</button>
-                <div id='arrow-ico'class="arrow-right"></div>
+                <div id='arrow-ico' class="arrow-right"></div>
             </div>
             <ul class="drop-down-list">
                 <!-- Сюда JS будет добавлять li -->
-                 <li class="drop-menu-item">ChatGPT</li>
-                 <li class="drop-menu-item">DeepSeek</li>
-                 <li class="drop-menu-item">Gemini</li>
+                <li class="drop-menu-item">ChatGPT</li>
+                <li class="drop-menu-item">DeepSeek</li>
+                <li class="drop-menu-item">Gemini</li>
             </ul>
         </div>
         <div class="list-block">
@@ -66,8 +67,28 @@
             </div>
         </aside>
     </div>
-    <div class="authorization">
-
+    <div class="modal-overlay">
+        <div class="modal-head">
+            <span class="modal-text">AI AGENT<img src="static/image/logo.png" alt="logo" width="36" height="36" id="logo"><br>Вы
+                можете войти или зарегистриоваться</span>
+            <div class="modal-choise">
+                <div class="toggle-bg"></div>
+                <button class="button-choice" id="button-log">Войти</button>
+                <button class="button-choice" id="button-reg">Зарегистрироваться</button>
+            </div>
+        </div>
+        <div class="modal-form">
+            <form action="api/fetch" method="post" id="authorization-form">
+                <label for="login">Логин:</label>
+                <input type="text" id="login">
+                <label for="password">Пароль:</label>
+                <input type="password" id="password">
+            </form>
+        </div>
+        <div class="footer">
+            <button type="submit" for="authorization-form">Войти</button>
+            <button>Войти через гугл</button>
+        </div>
     </div>
     <script src="static/js/chat_history.js"></script>
     <script src="static/js/dropdown_menu.js"></script>

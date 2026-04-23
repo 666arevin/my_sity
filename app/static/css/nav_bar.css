@@ -113,7 +113,7 @@ body {
     justify-content: center;
     flex-direction: row;
 
-    margin-left: 2rem;
+    margin-left: 1.5rem;
 }
 
 .edging {
@@ -171,14 +171,7 @@ body {
     border-top: 5px solid transparent; /* стрелка вниз */
 }
 
-/* стрелоочка вниз*/
-.arrow { 
-    transform: rotate(90deg);
-}
 
-.drop-down-list.visible {
-    display: block;
-}
 
 .drop-menu-item {
     padding: 1rem;
@@ -198,6 +191,22 @@ body {
     cursor: pointer;
 }
 
-.effect {
+/* появляется меню */
+.visible .drop-down-list {
+    display: block;
+}
+
+/* что делает стрелочка */
+.visible .edging #arrow-ico {
+    transform: rotate(90deg);
+} 
+
+/* что происходит с кнопкой */
+.visible .edging {
+    background-color: #2c3035 !important; 
+}
+
+/* что происходит с кнопкой */
+.visible .edging #drop-menu {
     background-color: #2c3035 !important; 
 }

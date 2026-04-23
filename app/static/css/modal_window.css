@@ -1,0 +1,88 @@
+.modal-overlay {
+    position: fixed;   /* Привязываем к экрану */
+    top: 50%;          /* Сдвигаем верхний край на середину */
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 25rem;
+    height: 32rem;
+
+    color: #fff;
+    background-color: #171717;
+    border-radius: 24px;
+}
+
+/* Шапка модального окна */
+.modal-head {
+    align-self: stretch;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* настройка текста */
+.modal-text {
+    margin: 1.1rem 0;
+
+    text-align: center;
+    font-size: larger;
+
+    font-family: "Sekuya", system-ui;
+    font-weight: 400;
+    font-style: normal;
+    word-spacing: -3px;
+    line-height: 2;
+}
+
+#logo {
+    vertical-align: sub;
+
+    margin-left: 0.3rem;
+}
+
+/* ползунок с выбором регистрации и входа */
+.modal-choise {
+    display: flex;
+    overflow: hidden;
+    justify-content: center;
+
+    height: 2rem;
+    align-self: stretch;
+    
+    margin: 0 2rem;
+
+    background-color: #222529;
+    border-radius: 16px;
+}
+
+.toggle-bg {
+    
+}
+
+.button-choice {
+    border-radius: 16px;
+
+    border: none;
+    color: #fff;
+
+    width: 100%;
+    align-self: stretch;
+}
+
+.button-choice:hover {
+    cursor: pointer;
+}
+
+#button-log {
+    background-color: #2c3035;
+
+}
+
+#button-reg {
+    background-color: #222529;
+}

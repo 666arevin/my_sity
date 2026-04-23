@@ -1,22 +1,32 @@
 
-const button = document.querySelector("#drop-menu")
-const DropMenu = document.querySelector(".drop-down-list");
-const ButtonContainer = document.querySelector('.edging')
-const Arrow = document.querySelector('#arrow-ico')
-// let content = null
+const ParentContainer = document.querySelector('.drop-down-menu');
+const ButtonContainer = document.querySelector('.edging');
+const DropMenu = document.querySelector('.drop-down-list');
+const Button = document.querySelector('#drop-menu');
 
-// function ButtonContent(content) {
-//     if 
-// }
+
+DropMenu.addEventListener('click', (event) => {
+    // Проверяем, что кликнули именно по пункту меню (li)
+    if (event.target.classList.contains('drop-menu-item')) {
+        
+        const choice = event.target.textContent; // Получаем текст (напр. "ChatGPT")
+        
+        // 1. Меняем текст кнопки на выбор пользователя
+        Button.textContent = choice;
+        
+        // 2. Закрываем меню
+        close();
+    }
+});
+
+
 
 function ShowDropMenu(event) {
     event.stopPropagation();
     
     // Если меню уже открыто — закрываем, если нет — открываем
-    const isVisible = DropMenu.classList.toggle('visible');
-    ButtonContainer.classList.toggle('effect')
-    button.classList.toggle('effect')
-    Arrow.classList.toggle('arrow')
+    const isVisible = ParentContainer.classList.toggle('visible');
+
 
     if (isVisible) {
         // Вешаем событие на окно, только если меню открылось
@@ -28,28 +38,9 @@ function ShowDropMenu(event) {
 }
 
 function close() {
-    DropMenu.classList.remove('visible');
-    ButtonContainer.classList.remove('effect')
-    button.classList.remove('effect')
+    ParentContainer.classList.remove('visible');
     // Как только закрыли — удаляем слушатель с окна
     window.removeEventListener('click', close);
 }
 
-button.addEventListener('click', ShowDropMenu);
-
-
-DropMenu.addEventListener('click', (event) => {
-    // Проверяем, что кликнули именно по пункту меню (li)
-    if (event.target.classList.contains('drop-menu-item')) {
-        
-        const choice = event.target.textContent; // Получаем текст (напр. "ChatGPT")
-        
-        console.log("Пользователь выбрал:", choice); // Теперь компьютер "видит" выбор
-        
-        // 1. Меняем текст кнопки на выбор пользователя
-        button.textContent = choice;
-        
-        // 2. Закрываем меню
-        close();
-    }
-});
+ButtonContainer.addEventListener('click', ShowDropMenu);
