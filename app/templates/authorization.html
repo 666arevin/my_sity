@@ -28,15 +28,18 @@
             <img src="static/image/logo.png" alt="logo" class="site-logo">
             <h1 class="logo-name reset-logo-name">AI Agent</h1>
         </div>
-        <div class="ai-list-bar">
-            <select name="ai-select" id="ai-select">
-                <option value="first AI" selected class="option-item">first AI</option>
-                <option value="second AI" class="option-item">second AI</option>
-                <option value="fourth AI" class="option-item">fourth AI</option>
-                <option value="fifth AI" class="option-item">fifth AI</option>
-            </select>
+        <div class="drop-down-menu">
+            <div class="edging">
+                <button id="drop-menu">ChatGPT</button>
+                <div id='arrow-ico'class="arrow-right"></div>
+            </div>
+            <ul class="drop-down-list">
+                <!-- Сюда JS будет добавлять li -->
+                 <li class="drop-menu-item">ChatGPT</li>
+                 <li class="drop-menu-item">DeepSeek</li>
+                 <li class="drop-menu-item">Gemini</li>
+            </ul>
         </div>
-        <button type=""></button>
         <div class="list-block">
             <ul class="list-bar">
                 <li class="first-list-item">Поддержка</li>
@@ -58,13 +61,16 @@
             </div>
             <div class="left-bar-history">
                 <ul id="chat-history">
-                    <script src="static/js/chat_history.js"></script>
                     <!-- Сюда JS будет добавлять li -->
                 </ul>
             </div>
         </aside>
     </div>
+    <div class="authorization">
 
+    </div>
+    <script src="static/js/chat_history.js"></script>
+    <script src="static/js/dropdown_menu.js"></script>
 </body>
 
 </html>

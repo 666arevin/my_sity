@@ -72,6 +72,11 @@ body {
 
 .option-item {
     background-color: #222529;
+    height: 10rem;
+}
+
+.test {
+    height: 10rem;
 }
 
 .list-block {
@@ -98,4 +103,101 @@ body {
 
     position: relative;
     overflow: hidden;
+}
+
+/* div вв котором лежит список и кнопка и все остальное */
+.drop-down-menu {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+
+    margin-left: 2rem;
+}
+
+.edging {
+    display: flex;
+    align-items: center;
+    
+    padding: 0.5rem;
+    border-radius: 10px;
+}
+
+.edging:hover { 
+    cursor: pointer;
+}
+
+#drop-menu:hover {
+    cursor: pointer;
+}
+
+
+/* кнопка для активации выпадающего меню */
+#drop-menu {
+    padding: 0;
+    
+    background-color: #222529;
+    color: #fff;
+    border: none;
+
+    font-family: "Libre Franklin", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+
+/* выпадающее меню */
+.drop-down-list {
+    margin: 0;
+    padding: 0;
+
+    display: none;
+    border-radius: 18px;
+    overflow: hidden;
+
+    position: absolute;
+    top: 100%
+
+}
+
+/* стрелоочка вниз вправо */
+.arrow-right {
+    margin-left: 0.5rem;
+
+    border-bottom: 5px solid transparent;
+    border-left: 5px solid white;
+    border-top: 5px solid transparent; /* стрелка вниз */
+}
+
+/* стрелоочка вниз*/
+.arrow { 
+    transform: rotate(90deg);
+}
+
+.drop-down-list.visible {
+    display: block;
+}
+
+.drop-menu-item {
+    padding: 1rem;
+    margin: 0;
+    width: 5rem;
+
+    list-style-type: none;
+    background-color: #171717;
+    color: #fff;
+
+    transition: 0.3s;
+}
+
+.drop-menu-item:hover {
+    background-color: #2c3035;
+
+    cursor: pointer;
+}
+
+.effect {
+    background-color: #2c3035 !important; 
 }

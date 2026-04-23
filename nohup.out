@@ -262,3 +262,20 @@
 (dotnet:20061): Gtk-WARNING **: 14:53:54.657: Widget reports min width of 459 for height of 618, but overall min width of 514
 
 (dotnet:20061): Gtk-WARNING **: 14:53:54.678: Widget reports min width of 459 for height of 618, but overall min width of 514
+
+(onenote-desktop-sahil:28157): Gtk-WARNING **: 20:14:33.517: Theme parsing error: gtk.css:1413:23: 'font-feature-settings' is not a valid property name
+
+(onenote-desktop-sahil:28157): Gtk-WARNING **: 20:14:33.519: Theme parsing error: gtk.css:3286:25: 'font-feature-settings' is not a valid property name
+
+(onenote-desktop-sahil:28157): Gtk-WARNING **: 20:14:33.520: Theme parsing error: gtk.css:3748:23: 'font-feature-settings' is not a valid property name
+[2026-04-20 20:14:33.976] [info]  app starting
+[28335:0420/201449.874012:ERROR:ssl_client_socket_impl.cc(978)] handshake failed; returned -1, SSL error code 1, net_error -101
+
+(onenote-desktop-sahil:19640): Gtk-WARNING **: 17:45:30.235: Theme parsing error: gtk.css:1413:23: 'font-feature-settings' is not a valid property name
+
+(onenote-desktop-sahil:19640): Gtk-WARNING **: 17:45:30.238: Theme parsing error: gtk.css:3286:25: 'font-feature-settings' is not a valid property name
+
+(onenote-desktop-sahil:19640): Gtk-WARNING **: 17:45:30.238: Theme parsing error: gtk.css:3748:23: 'font-feature-settings' is not a valid property name
+[2026-04-21 17:45:30.734] [info]  app starting
+[19786:0421/174546.228185:ERROR:ssl_client_socket_impl.cc(978)] handshake failed; returned -1, SSL error code 1, net_error -101
+[19786:0421/213355.229172:ERROR:ssl_client_socket_impl.cc(978)] handshake failed; returned -1, SSL error code 1, net_error -101

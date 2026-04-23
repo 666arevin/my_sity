@@ -8,3 +8,4 @@ def print_hello():
 @app.route("/index")
 def index():
     return render_template("authorization.html")
+
