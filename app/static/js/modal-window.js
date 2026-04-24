@@ -6,6 +6,7 @@ function closemodal(event){
     if (event.target === ModalWindow) {
         ModalWindow.classList.remove('visible');
         console.info('close');
+        ModalWindow.removeEventListener('click', closemodal)
     }
 }
 
@@ -15,7 +16,7 @@ function OpenModalWindow(event) {
 
     if (event.target.id === 'authorization-button') {
         ModalWindow.classList.add('visible');
-        ModalWindow.addEventListener('click', closemodal, {once: true})
+        ModalWindow.addEventListener('click', closemodal)
     }
 }
 
