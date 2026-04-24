@@ -98,6 +98,9 @@
     border-radius: 16px;
 }
 
+/* .modal-choise:has(#button-reg:hover) {
+    background-color: #3b3d3f;
+} */
 
 .toggle-bg {
     position: absolute;
@@ -129,6 +132,14 @@
 #button-log {
     color: #fff;
     transition: 0.3s;
+}
+
+#button-log:hover {
+    background-color: #2C3035;
+}
+
+#button-reg:hover {
+    background-color: #2C3035;
 }
 
 #button-reg {
