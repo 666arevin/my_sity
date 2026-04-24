@@ -2,39 +2,35 @@
     display: block;
 }
 
-.modal-overlay-blur.register .modal-overlay {
+.modal-overlay-blur.register {
+    & .modal-overlay {
     height: 30rem;
 }
-.modal-overlay-blur.register .toggle-bg {
+    & .toggle-bg {
     left: 50%;
 }
-
-.modal-overlay-blur.register #button-reg {
+    & #button-reg {
     color: #fff;
 }
-
-.modal-overlay-blur.register #button-log {
+    & #button-log {
     color: #acacac;
 }
-
-.modal-overlay-blur.register .pasw-rep {
+    & .pasw-rep {
     opacity: 1;
 
     max-height: 1.8rem;
     visibility: visible;
-
 }
-
-.modal-overlay-blur.register #label-pasw-rep {
+    & #label-pasw-rep {
     opacity: 1;
 }
-
-.modal-overlay-blur.register .footer {
+    & .footer {
     margin-top: 1.5rem;
 }
-
+}
+    
 .modal-overlay-blur {
-    display: block;
+    display: none;
     position: fixed;
     width: 100%;
     height: 100%;
@@ -230,6 +226,7 @@ label {
     margin-top: 1.2rem;
 }
 
+/* класс для обоих кнопок внизу */
 .footer-button {
     all: unset;
     align-self: center;
@@ -243,11 +240,13 @@ label {
     transition: 0.2s;
 }
 
+/* кнопка войти */
 #main-button {
     border: 2px solid #2C3035; 
 }
 
 #main-button:hover {
+    cursor: pointer;
     background-color: #3b3d3f;
     border: 2px solid #acacac;
 }
@@ -262,6 +261,7 @@ label {
 }
 
 #goole-authorization:hover {
+    cursor: pointer;
     background-color: #3b3d3f;
     border: 2px solid #acacac;
     color: #fff;
