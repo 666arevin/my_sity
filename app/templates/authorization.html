@@ -82,15 +82,15 @@
             <div class="modal-form">
                 <form action="api/fetch" method="post" id="authorization-form">
                     <label for="login">Логин:</label>
-                    <input type="text" id="login" class="input-block">
+                    <input type="text" name="login" id="login" class="input-block">
                     <label for="password">Пароль:</label>
-                    <input type="password" id="password" class="input-block">
+                    <input type="password" name="password" id="password" class="input-block">
                     <label for="password-repeat" class="pasw-rep" id="label-pasw-rep">Повторите пароль:</label>
-                    <input type="password" id="password-repeat" class="input-block pasw-rep">
+                    <input type="password" name="password-repeat" id="password-repeat" class="input-block pasw-rep">
                 </form>
             </div>
             <div class="footer">
-                <button type="submit" for="authorization-form" id="main-button" class="footer-button">Войти</button>
+                <button type="submit" form="authorization-form" id="main-button" class="footer-button">Войти</button>
                 <button id="goole-authorization" class="footer-button">Войти через гугл<img
                         src="static/image/google.png" alt="google" width="16" height="16" id="google-ico"></button>
             </div>
