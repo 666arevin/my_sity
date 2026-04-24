@@ -17,6 +17,17 @@
     color: #acacac;
 }
 
+.modal-overlay-blur.register .pasw-rep {
+    
+    max-height: 1.8rem;
+    visibility: visible;
+
+}
+
+.modal-overlay-blur.register #label-pasw-rep {
+    opacity: 1;
+}
+
 .modal-overlay-blur {
     display: block;
     position: fixed;
@@ -179,6 +190,19 @@ label {
     height: 1.8rem;
     padding-left: 10px;
 
+}
+
+#label-pasw-rep {
+    opacity: 0;
+
+    transition: 0.5s;
+}
+
+.pasw-rep {
+    max-height: 0;
+    visibility: hidden;
+
+    transition: 0.3s;
 }
 
 .input-block:hover {
