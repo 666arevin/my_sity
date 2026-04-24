@@ -23,15 +23,17 @@ Buttons.addEventListener('click', OpenModalWindow);
 
 const ButtonContainer2 = document.querySelector('.modal-choise');
 const BackGroundToggle = document.querySelector('.toggle-bg');
+const MainButton = document.querySelector('#main-button')
 
 function AnimationBG(event) {
-
     if (event.target.id === 'button-log') {
         ModalWindow.classList.remove('register')
+        MainButton.textContent = 'Войти';
     }
     
     if (event.target.id === 'button-reg') {
-        ModalWindow.classList.add('register')
+        ModalWindow.classList.add('register');
+        MainButton.textContent = 'Зарегистрироваться';
     }
 
 }

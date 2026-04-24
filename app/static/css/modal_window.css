@@ -3,7 +3,7 @@
 }
 
 .modal-overlay-blur.register .modal-overlay {
-    height: 32rem;
+    height: 30rem;
 }
 .modal-overlay-blur.register .toggle-bg {
     left: 50%;
@@ -18,7 +18,8 @@
 }
 
 .modal-overlay-blur.register .pasw-rep {
-    
+    opacity: 1;
+
     max-height: 1.8rem;
     visibility: visible;
 
@@ -26,6 +27,10 @@
 
 .modal-overlay-blur.register #label-pasw-rep {
     opacity: 1;
+}
+
+.modal-overlay-blur.register .footer {
+    margin-top: 1.5rem;
 }
 
 .modal-overlay-blur {
@@ -199,6 +204,7 @@ label {
 }
 
 .pasw-rep {
+    opacity: 0;
     max-height: 0;
     visibility: hidden;
 
@@ -221,7 +227,7 @@ label {
     gap: 1rem;
 
     margin: 2rem;
-    margin-top: 1.8rem;
+    margin-top: 1.2rem;
 }
 
 .footer-button {
