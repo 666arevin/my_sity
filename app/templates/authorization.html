@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="static/css/nav_bar.css">
     <link rel="stylesheet" href="static/css/left_bar.css">
     <link rel="stylesheet" href="static/css/scroll_bar.css">
+    <link rel="stylesheet" href="static/css/animation.css">
+    <link rel="stylesheet" href="static/css/modal_window.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,100..900;1,100..900&display=swap"
@@ -27,10 +29,22 @@
             <img src="static/image/logo.png" alt="logo" class="site-logo">
             <h1 class="logo-name reset-logo-name">AI Agent</h1>
         </div>
+        <div class="drop-down-menu">
+            <div class="edging">
+                <button id="drop-menu">ChatGPT</button>
+                <div id='arrow-ico' class="arrow-right"></div>
+            </div>
+            <ul class="drop-down-list">
+                <!-- Сюда JS будет добавлять li -->
+                <li class="drop-menu-item">ChatGPT</li>
+                <li class="drop-menu-item">DeepSeek</li>
+                <li class="drop-menu-item">Gemini</li>
+            </ul>
+        </div>
         <div class="list-block">
             <ul class="list-bar">
-                <li class="first-list-item">Поддержка</li>
-                <li class="first-list-item">Авторизация</li>
+                <li class="first-list-item" id="support-button">Поддержка</li>
+                <li class="first-list-item" id="authorization-button">Авторизация</li>
             </ul>
         </div>
     </nav>
@@ -48,14 +62,40 @@
             </div>
             <div class="left-bar-history">
                 <ul id="chat-history">
-                    <script src="static/js/chat_history.js"></script>
                     <!-- Сюда JS будет добавлять li -->
                 </ul>
             </div>
         </aside>
-        <section>
-        </section>
     </div>
+    <div class="modal-overlay-blur">
+        <div class="modal-overlay">
+            <div class="modal-head">
+                <span class="modal-text">AI AGENT<img src="static/image/logo.png" alt="logo" width="36" height="36"
+                        id="logo"><br>Вы
+                    можете войти или зарегистриоваться</span>
+                <div class="modal-choise">
+                    <button class="button-choice" id="button-log">Войти</button>
+                    <button class="button-choice" id="button-reg">Зарегистрироваться</button>
+                    <div class="toggle-bg"></div>
+                </div>
+            </div>
+            <div class="modal-form">
+                <form action="api/fetch" method="post" id="authorization-form">
+                    <label for="login">Логин:</label>
+                    <input type="text" id="login" class="input-block">
+                    <label for="password">Пароль:</label>
+                    <input type="password" id="password" class="input-block">
+                </form>
+            </div>
+            <div class="footer">
+                <button type="submit" for="authorization-form" id="main-button" class="footer-button">Войти</button>
+                <button id="goole-authorization" class="footer-button">Войти через гугл</button>
+            </div>
+        </div>
+    </div>
+    <script src="static/js/chat_history.js"></script>
+    <script src="static/js/dropdown_menu.js"></script>
+    <script src="static/js/modal-window.js"></script>
 </body>
 
 </html>

@@ -1,0 +1,43 @@
+@keyframes jelly {
+    0% { transform: scale(1, 1); }
+    30% { transform: scale(1.25, 0.75); }
+    40% { transform: scale(0.75, 1.25); }
+    50% { transform: scale(1.15, 0.85); }
+    100% { transform: scale(1, 1); }
+}
+
+.site-logo:hover {
+    animation: jelly 0.6s both;
+}
+
+.logo-name::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(to right, transparent, rgba(255,255,255,0.2), transparent);
+    transform: skewX(-25deg);
+}
+
+.logo-name:hover::before {
+    left: 150%;
+    transition: 0.5s;
+}
+
+.first-list-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, transparent, rgba(255,255,255,0.2), transparent);
+    transform: skewX(-25deg);
+}
+
+.first-list-item:hover::before {
+    left: 150%;
+    transition: 0.5s;
+}
