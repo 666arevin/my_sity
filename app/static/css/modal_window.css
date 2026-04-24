@@ -165,6 +165,10 @@
 
 }
 
+label {
+    pointer-events: none;
+}
+
 .input-block {
     all: unset;
     box-sizing: border-box;
