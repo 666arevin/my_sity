@@ -105,6 +105,10 @@ body {
     overflow: hidden;
 }
 
+.first-list-item:hover {
+    cursor: pointer;
+}
+
 /* div вв котором лежит список и кнопка и все остальное */
 .drop-down-menu {
     position: relative;

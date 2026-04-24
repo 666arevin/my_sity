@@ -1,6 +1,41 @@
+.modal-overlay-blur.visible {
+    display: block;
+}
+
+.modal-overlay-blur.register .modal-overlay {
+    height: 32rem;
+}
+.modal-overlay-blur.register .toggle-bg {
+    left: 50%;
+}
+
+.modal-overlay-blur.register #button-reg {
+    color: #fff;
+}
+
+.modal-overlay-blur.register #button-log {
+    color: #acacac;
+}
+
+.modal-overlay-blur {
+    display: block;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+
+    left: 0;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(8px);
+
+    z-index: 100;
+}
+
 .modal-overlay {
-    position: fixed;   /* Привязываем к экрану */
-    top: 50%;          /* Сдвигаем верхний край на середину */
+    position: fixed;
+    /* Привязываем к экрану */
+    top: 50%;
+    /* Сдвигаем верхний край на середину */
     left: 50%;
     transform: translate(-50%, -50%);
 
@@ -9,12 +44,13 @@
     align-items: center;
 
     width: 25rem;
-    height: 32rem;
+    height: 27rem;
 
     color: #fff;
     background-color: #171717;
     border-radius: 24px;
 
+    transition: 0.3s;
 }
 
 /* Шапка модального окна */
@@ -55,12 +91,13 @@
 
     height: 2rem;
     align-self: stretch;
-    
-    margin: 0 2rem;
+
+    margin: 0 1.5rem;
 
     background-color: #222529;
     border-radius: 16px;
 }
+
 
 .toggle-bg {
     position: absolute;
@@ -75,35 +112,75 @@
     transition: 0.5s;
 }
 
-.toggle-bg.active {
-    left: 50%;
-}
 
-/* #button-log:hover ~.toggle-bg {
-    left: 50%;
-} */
 
 .button-choice {
     z-index: 2;
     border-radius: 16px;
 
     border: none;
-    color: #fff;
+    font-size: 1rem;
 
     width: 100%;
     align-self: stretch;
     background: transparent;
 }
 
+#button-log {
+    color: #fff;
+    transition: 0.3s;
+}
+
+#button-reg {
+    color: #acacac;
+    transition: 0.3s;
+}
+
 .button-choice:hover {
     cursor: pointer;
 }
 
-/* #button-log {
-    background-color: #2c3035;
+.modal-form {
+    align-self: stretch;
+    margin: 0 2rem;
+    margin-top: 1.8rem;
+}
+
+#authorization-form {
+    display: flex;
+    flex-direction: column;
+
+    gap: 0.3rem;
 
 }
 
-#button-reg {
-    background-color: #222529;
-} */
+.input-block {
+    all: unset;
+
+    border-radius: 10px;
+    background-color: #2C3035;
+
+    height: 1.8rem;
+    padding-left: 10px;
+}
+
+.footer {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+
+    gap: 1rem;
+
+    margin: 2rem;
+}
+
+.footer-button {
+    all: unset;
+    align-self: center;
+    
+    height: 1.8rem;
+    padding: 0 10px;
+    background-color: #2C3035;
+    border-radius: 16px;
+}
+

@@ -43,8 +43,8 @@
         </div>
         <div class="list-block">
             <ul class="list-bar">
-                <li class="first-list-item">Поддержка</li>
-                <li class="first-list-item">Авторизация</li>
+                <li class="first-list-item" id="support-button">Поддержка</li>
+                <li class="first-list-item" id="authorization-button">Авторизация</li>
             </ul>
         </div>
     </nav>
@@ -67,27 +67,30 @@
             </div>
         </aside>
     </div>
-    <div class="modal-overlay">
-        <div class="modal-head">
-            <span class="modal-text">AI AGENT<img src="static/image/logo.png" alt="logo" width="36" height="36" id="logo"><br>Вы
-                можете войти или зарегистриоваться</span>
-            <div class="modal-choise">
-                <button class="button-choice" id="button-log">Войти</button>
-                <button class="button-choice" id="button-reg">Зарегистрироваться</button>
-                <div class="toggle-bg"></div>
+    <div class="modal-overlay-blur">
+        <div class="modal-overlay">
+            <div class="modal-head">
+                <span class="modal-text">AI AGENT<img src="static/image/logo.png" alt="logo" width="36" height="36"
+                        id="logo"><br>Вы
+                    можете войти или зарегистриоваться</span>
+                <div class="modal-choise">
+                    <button class="button-choice" id="button-log">Войти</button>
+                    <button class="button-choice" id="button-reg">Зарегистрироваться</button>
+                    <div class="toggle-bg"></div>
+                </div>
             </div>
-        </div>
-        <div class="modal-form">
-            <form action="api/fetch" method="post" id="authorization-form">
-                <label for="login">Логин:</label>
-                <input type="text" id="login">
-                <label for="password">Пароль:</label>
-                <input type="password" id="password">
-            </form>
-        </div>
-        <div class="footer">
-            <button type="submit" for="authorization-form">Войти</button>
-            <button>Войти через гугл</button>
+            <div class="modal-form">
+                <form action="api/fetch" method="post" id="authorization-form">
+                    <label for="login">Логин:</label>
+                    <input type="text" id="login" class="input-block">
+                    <label for="password">Пароль:</label>
+                    <input type="password" id="password" class="input-block">
+                </form>
+            </div>
+            <div class="footer">
+                <button type="submit" for="authorization-form" id="main-button" class="footer-button">Войти</button>
+                <button id="goole-authorization" class="footer-button">Войти через гугл</button>
+            </div>
         </div>
     </div>
     <script src="static/js/chat_history.js"></script>
