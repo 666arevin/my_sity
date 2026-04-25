@@ -81,6 +81,32 @@ summary {
 }
 
 .chat-item {
+    margin: 0.6rem 0.5rem;
+    padding: 0.4rem;
+
     color: white;
     list-style-type: none;
+
+    box-sizing: border-box;
+    border: 2px solid #414141;
+    border-radius: 16px;
 }
+
+.chat-item-span {
+    opacity: 0.6;
+}
+
+
+.chat-item:hover {
+    cursor: pointer;
+    border-color: #acacac;
+
+    background-color: #3b3d3f;
+}
+
+hr {
+    width: 100%;
+    border: none;
+    border-top: 2px solid #222529;
+}
+
