@@ -10,10 +10,16 @@ def print_hello():
 def index():
     return render_template("authorization.html")
 
-@app.route('/api/fetch', methods=['POST'])
+@app.route('/api/authorization', methods=['POST'])
 def authorization():
     login = request.form.get('login')
     password = request.form.get('password')
     print(f"Login - {login}, password - {password}.")
 
+    return redirect(url_for('index'))
+
+@app.route('/api/userinput', methods=["POST"])
+def user_input():
+    textarea = request.form.get('prompt')
+    
     return redirect(url_for('index'))
