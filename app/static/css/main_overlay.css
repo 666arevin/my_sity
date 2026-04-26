@@ -79,3 +79,9 @@
     display: block;
     margin: 0;
 }
+
+.chat-block.active {
+    & .greeting {
+        display: none;
+    }
+}
