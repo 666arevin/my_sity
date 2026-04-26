@@ -3,16 +3,27 @@
         align-self: flex-end;
         margin-bottom: 0.2rem;
     }
+
     & #send-prompt {
         align-self: flex-end;
         margin-bottom: 0.1rem;
     }
 }
 
+.chat-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    margin-top: 25rem;
+    padding: 0.2rem;
+
+    transition: 1s;
+}
+
 /* основной блок в котром будет все лежать */
 .chat-block {
-    margin: auto;
-    margin-top: 25rem;
 
     max-width: 40rem;
 
@@ -23,6 +34,8 @@
     /* настройка текста */
     color: #fff;
     font-size: larger;
+
+    transition: 1s;
 }
 
 /* span приветствие AI agent */
@@ -89,8 +102,29 @@
     transform: scale(1.2);
 }
 
-.chat-block.active {
+.service-info {
+    color: #ffffff;
+    font-size: smaller;
+
+    height: 19px;
+
+    display: none;
+}
+
+.chat-wrapper.active {
+    & .service-info {
+        display: block;
+    }
+
+    & {
+        margin-top: auto;
+    }
+
     & .greeting {
         display: none;
+    }
+
+    & .search-string {
+        margin-bottom: 0.25rem;
     }
 }

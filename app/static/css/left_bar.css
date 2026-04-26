@@ -9,6 +9,7 @@
 
     height: 95.6vh;
     width: 16rem;
+    flex-shrink: 0;
 
     overflow-y: auto;
     /* доавляет прокрутку */

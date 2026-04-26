@@ -23,8 +23,9 @@ TextArea.addEventListener('input', () => {
 const SendButton = document.querySelector('#send-prompt')
 // input в который пользователь может положить файл
 const InputFiles = document.querySelector('#file-input')
-// виртуальная форма
-const formData = new FormData();
+// это блок который отвечает за позицианирование chat-block
+const ChatWrapper = document.querySelector('.chat-wrapper')
+
 
 // обрабатывает нажатия на enter и enter + shift
 function EnterHandlers(event) {
@@ -41,7 +42,10 @@ function EnterHandlers(event) {
 };
 
 function SendUserInput() {
+    // виртуальная форма
+    ChatWrapper.classList.add('active');
 
+    const formData = new FormData();
     const Text = TextArea.textContent;
     formData.append('prompt', Text);
     fetch('/api/userinput', {method: 'POST', body: formData});
