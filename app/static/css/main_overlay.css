@@ -37,7 +37,9 @@
     align-items: center;
     justify-content: space-between;
 
-    width: 30rem;
+    /* width: 30rem; */
+
+    min-width: 30rem;
 
     margin: 0;
     padding: 0.4rem;
@@ -52,17 +54,15 @@
 #user-prompt {
     all: unset;
 
-    width: 100%;
     min-height: 1.5rem;
     max-height: 20rem;
+    min-width: 27rem;
 
     margin-left: 0.6rem;
     margin-right: 0.6rem;
 
     resize: none;
     overflow-y: auto;
-
-    word-break: break-word;
 }
 
 /* кнопка отправки */
