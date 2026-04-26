@@ -1,0 +1,76 @@
+.chat-block.big-area {
+    & .img-ico {
+        align-self: flex-end;
+        margin-bottom: 0.2rem;
+    }
+    & #send-prompt {
+        align-self: flex-end;
+        margin-bottom: 0.1rem;
+    }
+}
+
+/* основной блок в котром будет все лежать */
+.chat-block {
+    margin: auto;
+    margin-top: 25rem;
+
+    max-width: 40rem;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    /* настройка текста */
+    color: #fff;
+    font-size: larger;
+}
+
+/* span приветствие AI agent */
+.greeting {
+    margin-bottom: 3rem
+}
+
+/* Блок с блоками - (добавленеие файлов, строка ввода, кнопка отправки) */
+.search-string {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    width: 30rem;
+
+    margin: 0;
+    padding: 0.4rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+
+    background-color: rgb(48, 48, 114);
+    border-radius: 16px;
+}
+
+/* это textarea для ввода текста */
+#user-prompt {
+    all: unset;
+
+    width: 100%;
+    min-height: 1.5rem;
+    max-height: 20rem;
+
+    margin-left: 0.6rem;
+    margin-right: 0.6rem;
+
+    resize: none;
+    overflow-y: auto;
+
+    word-break: break-word;
+}
+
+/* кнопка отправки */
+#send-prompt {
+    all: unset;
+}
+
+.img-ico {
+    display: block;
+    margin: 0;
+}
