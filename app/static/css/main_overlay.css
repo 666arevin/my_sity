@@ -1,5 +1,5 @@
 .chat-block.big-area {
-    & .img-ico {
+    & #label-ico {
         align-self: flex-end;
         margin-bottom: 0.2rem;
     }
@@ -78,6 +78,15 @@
 .img-ico {
     display: block;
     margin: 0;
+    pointer-events: auto;
+    transition: 0.2s;
+}
+
+
+.img-ico:hover {
+    cursor: pointer;
+
+    transform: scale(1.2);
 }
 
 .chat-block.active {
