@@ -37,9 +37,8 @@
     align-items: center;
     justify-content: space-between;
 
-    /* width: 30rem; */
-
     min-width: 30rem;
+    max-width: 44rem;
 
     margin: 0;
     padding: 0.4rem;
@@ -52,17 +51,23 @@
 
 /* это textarea для ввода текста */
 #user-prompt {
-    all: unset;
-
-    min-height: 1.5rem;
+    width: 100%;
+    min-height: 1.6rem;
     max-height: 20rem;
     min-width: 27rem;
 
     margin-left: 0.6rem;
     margin-right: 0.6rem;
 
-    resize: none;
     overflow-y: auto;
+    outline: none;
+
+    line-height: 1.5;
+    white-space: pre-wrap;
+    word-break: break-word;
+    cursor: text;
+
+    word-break: break-word;
 }
 
 /* кнопка отправки */
