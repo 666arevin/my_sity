@@ -1,5 +1,5 @@
 .chat-block.big-area {
-    & #label-ico {
+    & .label-ico {
         align-self: flex-end;
         margin-bottom: 0.2rem;
     }
@@ -11,6 +11,7 @@
 
 .main-content {
     width: 100%;
+    display: flex;
 }
 
 /* основной блок в котром будет все лежать */
@@ -20,7 +21,7 @@
 
     max-width: 40rem;
 
-    display: flex;
+    display: none;
     flex-direction: column;
     align-items: center;
     /* настройка текста */

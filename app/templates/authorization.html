@@ -71,7 +71,18 @@
         <main class="main-content">
             <div class="chat-block">
                 <span class="greeting">Я твой персональный ИИ помошник, о чем хочешь поговрить?</span>
-                <form action="api/prompt" method="post" class="search-string">
+                <form class="search-string">
+                    <label for="file-input" class="label-ico">
+                        <img src="static/image/add_file.png" alt="plus" width="18" height="18" class="img-ico">
+                    </label>
+                    <div id="user-prompt" contenteditable="true" placeholder="Введите текст..."></div>
+                    <button type="button" id="send-prompt"><img src="static/image/send.png" alt="send_ico" width="22"
+                            height="22" class="img-ico"></button>
+                    <input type="file" id="file-input" style="display: none;" multiple>
+                </form>
+            </div>
+            <div class="active-chat-container">
+                <form class="search-string active-chat">
                     <label for="file-input" id="label-ico">
                         <img src="static/image/add_file.png" alt="plus" width="18" height="18" class="img-ico">
                     </label>
@@ -80,6 +91,7 @@
                             height="22" class="img-ico"></button>
                     <input type="file" id="file-input" style="display: none;" multiple>
                 </form>
+                <span id="service-information">AI agent может допускать ошибка, не забывайте проверять информацию.</span>
             </div>
         </main>
     </div>
