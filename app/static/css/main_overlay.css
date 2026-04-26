@@ -9,6 +9,10 @@
     }
 }
 
+.main-content {
+    width: 100%;
+}
+
 /* основной блок в котром будет все лежать */
 .chat-block {
     margin: auto;
@@ -19,7 +23,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-
     /* настройка текста */
     color: #fff;
     font-size: larger;
