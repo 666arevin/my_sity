@@ -13,21 +13,19 @@
 .chat-wrapper {
     width: 100%;
     display: flex;
-    flex-direction: row;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 
-    margin-top: 25rem;
     padding: 0.2rem;
 
-    transition: 1s;
 }
 
 /* основной блок в котром будет все лежать */
 .chat-block {
-
+    margin-top: 25rem;
     max-width: 40rem;
 
-    display: none;
+    display: flex;
     flex-direction: column;
     align-items: center;
     /* настройка текста */
@@ -115,7 +113,7 @@
         display: block;
     }
 
-    & {
+    & .chat-block{
         margin-top: auto;
     }
 
@@ -126,4 +124,20 @@
     & .search-string {
         margin-bottom: 0.25rem;
     }
+}
+
+.chat-areae {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+
+    width: 48%;
+    min-width: 45rem;
+    flex-grow: 1;
+    
+    box-sizing: border-box;
+    background-color: #171717;
+    border-radius: 16px;
+    border: 2px solid #000000;
 }

@@ -1,19 +1,23 @@
 .wrapper {
     display: flex;
+    width: 100%;
+    height: 100%;
 }
 
 .left-bar {
     display: flex;
     flex-direction: column;
     background-color: #171717;
+    border-right: 2px solid #222529;
 
-    height: 95.6vh;
-    width: 16rem;
-    flex-shrink: 0;
+    min-width: 16rem;
+    flex-shrink: 1;
+    z-index: 2;
 
     overflow-y: auto;
     /* доавляет прокрутку */
     color-scheme: light dark;
+    transition: 0.3s;
 }
 
 
@@ -111,3 +115,8 @@ hr {
     border-top: 2px solid #222529;
 }
 
+@media (max-width: 1000px) {
+    .left-bar {
+        display: none; /* Скрываем совсем, открываем потом по кнопке */
+    }
+}
