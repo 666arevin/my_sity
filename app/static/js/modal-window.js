@@ -1,12 +1,26 @@
 
 const Buttons = document.querySelector('.list-bar');
-const ModalWindow = document.querySelector('.modal-overlay-blur');
+const ModalWindowBG = document.querySelector('.modal-overlay-blur');
 
 function closemodal(event){
-    if (event.target === ModalWindow) {
-        ModalWindow.classList.remove('visible');
+    if (event.target === ModalWindowBG) {
+        ModalWindowBG.classList.remove('visible');
         console.info('close');
-        ModalWindow.removeEventListener('click', closemodal)
+        ModalWindowBG.removeEventListener('click', closemodal);
+    }
+}
+
+function handleMouseUp (upEvent) {
+    if (upEvent.target === ModalWindowBG) {
+        ModalWindowBG.classList.remove('visible');
+        document.removeEventListener('mouseup', handleMouseUp)
+        ModalWindowBG.removeEventListener('mousedown', handleMouseDown)
+    }
+}
+
+function handleMouseDown (event) {
+    if (event.target === ModalWindowBG) {
+        document.addEventListener('mouseup', handleMouseUp);
     }
 }
 
@@ -15,8 +29,8 @@ function OpenModalWindow(event) {
     event.stopPropagation();
 
     if (event.target.id === 'authorization-button') {
-        ModalWindow.classList.add('visible');
-        ModalWindow.addEventListener('click', closemodal)
+        ModalWindowBG.classList.add('visible');
+        ModalWindowBG.addEventListener('mousedown', handleMouseDown)
     }
 }
 
@@ -28,12 +42,12 @@ const MainButton = document.querySelector('#main-button')
 
 function AnimationBG(event) {
     if (event.target.id === 'button-log') {
-        ModalWindow.classList.remove('register')
+        ModalWindowBG.classList.remove('register')
         MainButton.textContent = 'Войти';
     }
     
     if (event.target.id === 'button-reg') {
-        ModalWindow.classList.add('register');
+        ModalWindowBG.classList.add('register');
         MainButton.textContent = 'Зарегистрироваться';
     }
 

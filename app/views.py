@@ -21,5 +21,5 @@ def authorization():
 @app.route('/api/userinput', methods=["POST"])
 def user_input():
     textarea = request.form.get('prompt')
-    
+    print(textarea)
     return redirect(url_for('index'))
