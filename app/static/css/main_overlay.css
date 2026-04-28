@@ -1,5 +1,5 @@
 .chat-block.big-area {
-    & .label-ico {
+    & #label-ico {
         align-self: flex-end;
         margin-bottom: 0.2rem;
     }
@@ -19,6 +19,7 @@
 
     padding: 0.2rem;
     overflow: hidden;
+    position: relative;
 }
 
 /* основной блок в котром будет все лежать */
@@ -49,7 +50,7 @@
     justify-content: space-between;
 
     min-width: 30rem;
-    max-width: 44rem;
+    max-width: 52rem;
 
     margin: 0;
     padding: 0.4rem;
@@ -107,7 +108,20 @@
     }
 
     & .chat-block{
-        margin-top: auto;
+        margin: 0;
+        position: absolute;
+        bottom: 0.5rem;
+
+        max-width: 100%;
+        width: 53%;
+        min-width: 50rem;
+
+        background-color: #171717;
+        border-radius: 0 0 16px 16px;
+        box-sizing: border-box;
+        border: 2px solid #000000;
+        border-top: none;
+
     }
 
     & .greeting {
