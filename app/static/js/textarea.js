@@ -41,14 +41,43 @@ function EnterHandlers(event) {
     };
 };
 
-function SendUserInput() {
+function renderUserInput(text, ai_agent) {
+    // это общий блок для чата
+    const ChatArea = document.querySelector('.chat-areae');
+    // берем из html заготовку
+    let template = document.querySelector('#user-tpl');
+    // клонируем его чтобы не менять в коде
+    const CloneTemplate = template.content.cloneNode(true);
+    // Ищем span чтобы встаить текст
+    let span = CloneTemplate.querySelector('span');
+    
+    const MessegeDiv = CloneTemplate.querySelector('.message');
+    // создаем span для сообщения пользователя
+    const MainSpan = document.createElement('span');
+    MainSpan.classList.add('mes-text');
+    MainSpan.textContent = text;
+    MessegeDiv.prepend(MainSpan);
+
+    span.textContent = '14:28';
+
+    ChatArea.appendChild(CloneTemplate);
+}
+
+async function SendUserInput() {
+    // текст который ввел пользователь
+    const Text = TextArea.textContent;
     // виртуальная форма
     ChatWrapper.classList.add('active');
+    
+    renderUserInput(Text, 'ChatGPT')
+    // renderAIInput()
 
     const formData = new FormData();
-    const Text = TextArea.textContent;
+    
     formData.append('prompt', Text);
-    fetch('/api/userinput', {method: 'POST', body: formData});
+    let response = await fetch('/api/userinput', { method: 'POST', body: formData });
+    response = await response.json();
+    console.info(response.data)
 };
 
 SendButton.addEventListener('click', SendUserInput);

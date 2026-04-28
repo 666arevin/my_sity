@@ -1,6 +1,8 @@
 from . import app
 from flask import render_template
-from flask import redirect, url_for, request
+from flask import redirect, url_for, request, jsonify
+from .ai_agent import ChatGPT
+import markdown
 
 def print_hello():
     print("Hello, word!")
@@ -20,6 +22,9 @@ def authorization():
 
 @app.route('/api/userinput', methods=["POST"])
 def user_input():
-    textarea = request.form.get('prompt')
-    print(textarea)
-    return redirect(url_for('index'))
+    print("Получил")
+    # textarea = request.form.get('prompt')
+    # resp = ChatGPT(textarea, "free")
+    # html = markdown.markdown(resp, extensions=['fenced_code', 'tables'])
+    # print(html)
+    return "200"

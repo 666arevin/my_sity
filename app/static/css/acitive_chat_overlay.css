@@ -1,26 +1,75 @@
-/* контейнер в котром лежит обасть для ввода (form) */
-.active-chat-container {
-    display: flex;
+/* это спа в самом низу страницы при активном диалоге */
+.service-info {
+    color: #ffffff;
+    font-size: smaller;
+
+    height: 19px;
+
+    display: none;
+}
+
+/* блок в котром будет чат с пользователем */
+.chat-areae {
+    display: none;
     flex-direction: column;
     align-items: center;
 
+
+    width: 48%;
+    /* height: 70rem; */
+    min-width: 60rem;
+    flex-grow: 1;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+
+    box-sizing: border-box;
+    background-color: #171717;
+    border-radius: 16px;
+    border: 2px solid #000000;
+
+    overflow-y: auto;
+}
+
+/* это div который растянут на всю ширину, область для сообщения пользователя */
+.message-area {
+    display: flex;
+    justify-content: flex-end;
+
+    box-sizing: border-box;
     width: 100%;
-    margin-top: auto;
-    padding: 0.6rem;
+    padding: 2rem;
     padding-bottom: 0.3rem;
 
-    color: #fff;
-    font-size: larger;
 }
 
-/* это блок с формами ввода и отправки данных form */
-.active-chat {
-    margin-bottom: 0.3rem;
-    
+.ai-messege-area {
+    justify-content: flex-start !important;
 }
 
-#service-information {
-    opacity: 0.7;
-    color: #fff;
-    font-size: smaller;
+/* div в котром лежит текст 2 span с текстом */
+.message {
+    display: flex;
+    flex-direction: column;
+
+    background-color: rgb(48, 48, 114);
+    border-radius: 16px;
+
+    padding: 1rem;
+    padding-bottom: 0.4rem;
+    max-width: 38rem;
+}
+
+/* текст сообщения */
+.mes-text {
+    color: #ffffff;
+    opacity: 0.9;
+}
+
+/* Подпись под сообщениями */
+.service-information {
+    margin-left: auto;
+
+    opacity: 0.6;
+    color: #ffffff;
+    font-size: 0.8rem;
 }

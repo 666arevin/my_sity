@@ -12,12 +12,13 @@
 
 .chat-wrapper {
     width: 100%;
+    height: calc(100vh - 3.4rem);
     display: flex;
     flex-direction: column;
     align-items: center;
 
     padding: 0.2rem;
-
+    overflow: hidden;
 }
 
 /* основной блок в котром будет все лежать */
@@ -99,14 +100,6 @@
     transform: scale(1.2);
 }
 
-.service-info {
-    color: #ffffff;
-    font-size: smaller;
-
-    height: 19px;
-
-    display: none;
-}
 
 .chat-wrapper.active {
     & .service-info {
@@ -123,21 +116,9 @@
 
     & .search-string {
         margin-bottom: 0.25rem;
+        margin-top: 0.35rem;
     }
-}
-
-.chat-areae {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-
-    width: 48%;
-    min-width: 45rem;
-    flex-grow: 1;
-    
-    box-sizing: border-box;
-    background-color: #171717;
-    border-radius: 16px;
-    border: 2px solid #000000;
+    & .chat-areae {
+        display: flex;
+    }
 }
