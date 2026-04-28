@@ -67,6 +67,7 @@
 .mes-text {
     color: #ffffff;
     opacity: 0.9;
+    font-size: 1.05rem;
 }
 
 /* Подпись под сообщениями */
@@ -75,7 +76,7 @@
 
     opacity: 0.6;
     color: #ffffff;
-    font-size: 0.8rem;
+    font-size: 0.7rem;
 }
 
 

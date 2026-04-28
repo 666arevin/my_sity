@@ -2,6 +2,7 @@
 const TextArea = document.querySelector('#user-prompt');
 const ChatBlock = document.querySelector('.chat-block ');
 
+
 function adjustHeight(el, ChatBlock) {
 
     if (el.scrollHeight > 24) {
@@ -54,15 +55,19 @@ function ClickHandlers(event) {
     }
 }
 
+// это общий блок для чата
+const ChatArea = document.querySelector('.chat-areae');
+// берем из html заготовку
+let template = document.querySelector('#user-tpl');
+
 function renderUserInput(text, ai_agent) {
-    // это общий блок для чата
-    const ChatArea = document.querySelector('.chat-areae');
-    // берем из html заготовку
-    let template = document.querySelector('#user-tpl');
     // клонируем его чтобы не менять в коде
     const CloneTemplate = template.content.cloneNode(true);
     // Ищем span чтобы встаить текст
     let span = CloneTemplate.querySelector('span');
+    // берем время сейчас
+    let now = new Date()
+    let time = now.toLocaleTimeString(('ru-RU', { timeZone: 'Europe/Moscow' }));
 
     const MessegeDiv = CloneTemplate.querySelector('.message');
     // создаем span для сообщения пользователя
@@ -71,9 +76,27 @@ function renderUserInput(text, ai_agent) {
     MainSpan.textContent = text;
     MessegeDiv.prepend(MainSpan);
 
-    span.textContent = '14:28';
+    span.textContent = time.slice(0, -3);
 
     ChatArea.appendChild(CloneTemplate);
+}
+
+function renderAIInput(text, ai_agent) {
+    // клонируем template
+    const CloneTemplateAI = template.content.cloneNode(true);
+    // Ищем span чтобы встаить текст
+    let span = CloneTemplateAI.querySelector('span');
+    // берем время сейчас
+    let now = new Date()
+    let time = now.toLocaleTimeString(('ru-RU', { timeZone: 'Europe/Moscow' }));
+
+    // div в котром будет лежать текст ИИ
+    const MessegeDiv = CloneTemplateAI.querySelector('.message');
+    MessegeDiv.insertAdjacentHTML('afterbegin', text);
+
+    span.textContent = ` ${ai_agent}` + time.slice(0, -3);
+    // добавляем код на страницу
+    ChatArea.appendChild(CloneTemplateAI);
 }
 
 
@@ -98,8 +121,7 @@ async function SendUserInput(event) {
     // виртуальная форма
     const formData = new FormData();
 
-
-    renderUserInput(Text, 'ChatGPT')
+    renderUserInput(Text, 'ChatGPT');
     // renderAIInput()
 
     formData.append('prompt', Text);
@@ -115,10 +137,12 @@ async function SendUserInput(event) {
     try {
         let response = await fetch('/api/userinput', { method: 'POST', body: formData, signal: abortController.signal });
         response = await response.json();
-        console.info('Ответ от сервера получен')
+        renderAIInput(response.data, "ChatGPT");
+        console.info('Ответ от сервера получен');
     } catch (error) {
-        console.info('Операция остановлена пользователем')
+        console.info(error);
     } finally {
+        ChatBlock.classList.remove('sending');
         ChatBlock.classList.remove('no-response');
     }
 
