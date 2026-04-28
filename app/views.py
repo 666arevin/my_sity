@@ -3,6 +3,7 @@ from flask import render_template
 from flask import redirect, url_for, request, jsonify
 from .ai_agent import ChatGPT
 import markdown
+import time
 
 def print_hello():
     print("Hello, word!")
@@ -27,4 +28,5 @@ def user_input():
     # resp = ChatGPT(textarea, "free")
     # html = markdown.markdown(resp, extensions=['fenced_code', 'tables'])
     # print(html)
+    time.sleep(10)
     return "200"

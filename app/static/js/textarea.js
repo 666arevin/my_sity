@@ -25,6 +25,8 @@ const SendButton = document.querySelector('#send-prompt')
 const InputFiles = document.querySelector('#file-input')
 // это блок который отвечает за позицианирование chat-block
 const ChatWrapper = document.querySelector('.chat-wrapper')
+// кнопка отмены запроса
+const Cancel = document.querySelector('.cancellation')
 
 
 // обрабатывает нажатия на enter и enter + shift
@@ -32,14 +34,25 @@ function EnterHandlers(event) {
     if (event.key === 'Enter') {
         if (event.shiftKey) {
             return;
-        } else if (TextArea.textContent.length > 0) {
-            SendUserInput();
+        } else if (TextArea.textContent.trim().length > 0) {
+            SendUserInput(event);
             event.preventDefault();
         } else {
             event.preventDefault();
+            return;
         };
     };
 };
+
+function ClickHandlers(event) {
+    if (TextArea.textContent.trim().length > 0) {
+        SendUserInput(event);
+        event.preventDefault();
+    } else {
+        event.preventDefault();
+        return;
+    }
+}
 
 function renderUserInput(text, ai_agent) {
     // это общий блок для чата
@@ -50,7 +63,7 @@ function renderUserInput(text, ai_agent) {
     const CloneTemplate = template.content.cloneNode(true);
     // Ищем span чтобы встаить текст
     let span = CloneTemplate.querySelector('span');
-    
+
     const MessegeDiv = CloneTemplate.querySelector('.message');
     // создаем span для сообщения пользователя
     const MainSpan = document.createElement('span');
@@ -63,22 +76,56 @@ function renderUserInput(text, ai_agent) {
     ChatArea.appendChild(CloneTemplate);
 }
 
-async function SendUserInput() {
+
+function AbortFun(abortController) {
+    abortController.abort();
+}
+
+
+async function SendUserInput(event) {
+    // создаем контроллер для await
+    let abortController = new AbortController()
+    // сразу снимаем все слушатели чтобы пользователь не мог отправить 2 запроса 
+    SendButton.removeEventListener('click', ClickHandlers);
+    document.removeEventListener('keydown', EnterHandlers);
+    event.preventDefault()
+    // как только пользователь нажал включается анимация загрузки
+    ChatBlock.classList.add('sending');
+    // делаем чат активным если еще нет
+    ChatWrapper.classList.add('active');
     // текст который ввел пользователь
     const Text = TextArea.textContent;
     // виртуальная форма
-    ChatWrapper.classList.add('active');
-    
+    const formData = new FormData();
+
+
     renderUserInput(Text, 'ChatGPT')
     // renderAIInput()
 
-    const formData = new FormData();
-    
     formData.append('prompt', Text);
-    let response = await fetch('/api/userinput', { method: 'POST', body: formData });
-    response = await response.json();
-    console.info(response.data)
+    // ставим таймер
+    setTimeout(() => {
+        ChatBlock.classList.remove('sending');
+        ChatBlock.classList.add('no-response');
+    }, 4000);
+    // если ответа нет даем пользователю право отменить запрос
+    Cancel.addEventListener('click', AbortFun.bind(null, abortController));
+
+    // делаем запрос на сервер с отправкой данных
+    try {
+        let response = await fetch('/api/userinput', { method: 'POST', body: formData, signal: abortController.signal });
+        response = await response.json();
+        console.info('Ответ от сервера получен')
+    } catch (error) {
+        console.info('Операция остановлена пользователем')
+    } finally {
+        ChatBlock.classList.remove('no-response');
+    }
+
+    Cancel.removeEventListener('click', AbortFun)
+    SendButton.addEventListener('click', ClickHandlers);
+    document.addEventListener('keydown', EnterHandlers);
 };
 
-SendButton.addEventListener('click', SendUserInput);
+SendButton.addEventListener('click', ClickHandlers);
 document.addEventListener('keydown', EnterHandlers);

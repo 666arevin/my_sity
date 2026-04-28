@@ -85,9 +85,13 @@
                     <label for="file-input" id="label-ico">
                         <img src="static/image/add_file.png" alt="plus" width="18" height="18" class="img-ico">
                     </label>
-                    <div id="user-prompt" contenteditable="true" placeholder="Введите текст..."></div>
+                    <div id="user-prompt" contenteditable="plaintext-only" placeholder="Введите текст..."></div>
                     <button type="button" id="send-prompt"><img src="static/image/send.png" alt="send_ico" width="22"
-                            height="22" class="img-ico"></button>
+                            height="22" class="img-ico">
+                    </button>
+                    <div class="spinner"></div>
+                    <button type="button" class="cancellation"><img src="static/image/cancel.png" alt="cancel_send"
+                            width="22" height="22"></button>
                     <input type="file" id="file-input" style="display: none;" multiple>
                 </form>
                 <span class="service-info">AI agent может допускать ошибки, проверяйте полученную информацию.</span>
