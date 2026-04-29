@@ -23,10 +23,10 @@ def authorization():
 
 @app.route('/api/userinput', methods=["POST"])
 def user_input():
-    print("Получил")
-    textarea = request.form.get('prompt')
-    resp = ChatGPT(textarea, "free")
-    html = markdown.markdown(resp, extensions=['fenced_code', 'tables'])
-    print(html)
-    return jsonify({"data": html})
+    # print("Получил")
+    # textarea = request.form.get('prompt')
+    # resp = ChatGPT(textarea, "free")
+    # html = markdown.markdown(resp, extensions=['fenced_code', 'tables'])
+    # print(html)
+    # return jsonify({"data": html})
     return "200"

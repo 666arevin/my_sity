@@ -94,7 +94,11 @@ function renderAIInput(text, ai_agent) {
     const MessegeDiv = CloneTemplateAI.querySelector('.message');
     MessegeDiv.insertAdjacentHTML('afterbegin', text);
 
-    span.textContent = ` ${ai_agent}` + time.slice(0, -3);
+    // добавляем время и название ии
+    span.textContent = `${ai_agent} ${time.slice(0, -3)}`;
+    // добавляем класс определяющий сообщения от ИИ
+    const messageArea = CloneTemplateAI.firstElementChild;
+    messageArea.classList.add('ai-messege-area');
     // добавляем код на страницу
     ChatArea.appendChild(CloneTemplateAI);
 }
@@ -127,8 +131,10 @@ async function SendUserInput(event) {
     formData.append('prompt', Text);
     // ставим таймер
     setTimeout(() => {
-        ChatBlock.classList.remove('sending');
-        ChatBlock.classList.add('no-response');
+        if (ChatBlock.classList.contains('sending')) {
+            ChatBlock.classList.remove('sending');
+            ChatBlock.classList.add('no-response');
+        }
     }, 4000);
     // если ответа нет даем пользователю право отменить запрос
     Cancel.addEventListener('click', AbortFun.bind(null, abortController));
@@ -144,6 +150,7 @@ async function SendUserInput(event) {
     } finally {
         ChatBlock.classList.remove('sending');
         ChatBlock.classList.remove('no-response');
+        console.info('удалем иконку')
     }
 
     Cancel.removeEventListener('click', AbortFun)
