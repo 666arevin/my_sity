@@ -61,6 +61,7 @@
     padding: 1rem;
     padding-bottom: 0.4rem;
     max-width: 38rem;
+    height: auto;
 
     white-space: pre-wrap;
     word-break: break-all;

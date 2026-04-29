@@ -122,6 +122,7 @@ async function SendUserInput(event) {
     ChatWrapper.classList.add('active');
     // текст который ввел пользователь
     const Text = TextArea.textContent;
+    TextArea.textContent = ''
     // виртуальная форма
     const formData = new FormData();
 

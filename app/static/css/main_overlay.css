@@ -69,6 +69,7 @@
 
     margin-left: 0.6rem;
     margin-right: 0.6rem;
+    margin-top: 0.1rem;
 
     overflow-y: auto;
     outline: none;
@@ -79,6 +80,8 @@
     cursor: text;
 
     word-break: break-word;
+
+    font-size: 1.1rem;
 }
 
 /* кнопка отправки */
