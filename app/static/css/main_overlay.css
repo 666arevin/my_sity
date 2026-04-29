@@ -107,13 +107,14 @@
     }
 
     & .chat-block{
+        /* display: none; */
         margin: 0;
-        position: absolute;
-        bottom: 0.5rem;
+        margin-bottom: 0.5rem;
 
         max-width: none;
         width: 53%;
         min-width: 50rem;
+        max-height: 6.5%;
 
         background-color: #171717;
         border-radius: 0 0 16px 16px;

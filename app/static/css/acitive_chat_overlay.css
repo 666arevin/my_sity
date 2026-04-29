@@ -17,15 +17,15 @@
     width: 53%;
     min-width: 50rem;
     flex-grow: 1;
-    max-height: 97%;
+    max-height: 93.5%;
     flex-shrink: 0;
     margin-top: 0.3rem;
-    margin-bottom: 0.3rem;
 
     box-sizing: border-box;
     background-color: #171717;
-    border-radius: 16px;
+    border-radius: 16px 16px 0 0;
     border: 2px solid #000000;
+    border-bottom: none;
 
     overflow-y: auto;
     scrollbar-gutter: stable;
