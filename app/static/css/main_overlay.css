@@ -104,24 +104,23 @@
 .chat-wrapper.active {
     & .service-info {
         display: block;
+        margin-bottom: 0.3rem;
     }
 
     & .chat-block{
         /* display: none; */
         margin: 0;
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.3rem;
 
         max-width: none;
         width: 53%;
         min-width: 50rem;
-        max-height: 6.5%;
 
         background-color: #171717;
         border-radius: 0 0 16px 16px;
         box-sizing: border-box;
         border: 2px solid #000000;
         border-top: none;
-
     }
 
     & .greeting {
