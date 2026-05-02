@@ -1,0 +1,13 @@
+.message.ai-messege table {
+    overflow-x: auto !important;
+    word-break: normal;
+    display: block;
+}
+
+.message.ai-messege pre {
+    overflow-x: auto !important;
+}
+
+.message.ai-messege code {
+    
+}

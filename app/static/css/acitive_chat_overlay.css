@@ -28,6 +28,7 @@
     border-bottom: none;
 
     overflow-y: auto;
+    overflow-x: hidden;
     scrollbar-gutter: stable;
 }
 
@@ -46,8 +47,13 @@
     font-size: 1.05rem;
 }
 
+
 .ai-messege-area {
     justify-content: flex-start !important;
+}
+
+.ai-messege {
+    background: transparent !important;
 }
 
 /* div в котром лежит текст 2 span с текстом */
@@ -64,7 +70,7 @@
     height: auto;
 
     white-space: pre-wrap;
-    word-break: break-all;
+    word-break: break-word;
 }
 
 
@@ -130,6 +136,7 @@
     & .cancellation {
         display: block;
     }
+
     & #send-prompt {
         display: none;
     }

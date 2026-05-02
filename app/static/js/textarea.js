@@ -99,6 +99,7 @@ function renderAIInput(text, ai_agent) {
     // добавляем класс определяющий сообщения от ИИ
     const messageArea = CloneTemplateAI.firstElementChild;
     messageArea.classList.add('ai-messege-area');
+    MessegeDiv.classList.add('ai-messege');
     // добавляем код на страницу
     ChatArea.appendChild(CloneTemplateAI);
 }
@@ -145,13 +146,11 @@ async function SendUserInput(event) {
         let response = await fetch('/api/userinput', { method: 'POST', body: formData, signal: abortController.signal });
         response = await response.json();
         renderAIInput(response.data, "ChatGPT");
-        console.info('Ответ от сервера получен');
     } catch (error) {
         console.info(error);
     } finally {
         ChatBlock.classList.remove('sending');
         ChatBlock.classList.remove('no-response');
-        console.info('удалем иконку')
     }
 
     Cancel.removeEventListener('click', AbortFun)
