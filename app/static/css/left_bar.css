@@ -37,7 +37,6 @@
     display: flex;
     align-items: center;
 
-    border-bottom: 3px solid #222529;
     height: 2.6rem;
 
     padding-left: 0.8rem;
@@ -47,6 +46,7 @@
 .containers:hover .ico-funcs,
 .containers:hover .h2 {
     transform: scale(1.1);
+    cursor: pointer;
 }
 
 .h2-reset {
@@ -119,4 +119,8 @@ hr {
     .left-bar {
         display: none; /* Скрываем совсем, открываем потом по кнопке */
     }
+}
+
+.separator {
+    margin-bottom: 0rem;
 }

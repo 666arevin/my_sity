@@ -99,7 +99,6 @@ function renderAIInput(text, ai_agent) {
     // добавляем класс определяющий сообщения от ИИ
     const messageArea = CloneTemplateAI.firstElementChild;
     messageArea.classList.add('ai-messege-area');
-    MessegeDiv.classList.add('ai-messege');
     // добавляем код на страницу
     ChatArea.appendChild(CloneTemplateAI);
 }

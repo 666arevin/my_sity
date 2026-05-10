@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="static/css/modal_window.css">
     <link rel="stylesheet" href="static/css/main_overlay.css">
     <link rel="stylesheet" href="static/css/ render_AI.css">
+    <link rel="stylesheet" href="static/css/highlighted_lang.css">
     <link rel="stylesheet" href="static/css/acitive_chat_overlay.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -71,6 +72,232 @@
         </aside>
         <main class="chat-wrapper active">
             <div class="chat-areae">
+                <div class="message-area ai-messege-area">
+                    <div class="message">
+                        <h1>Пример документа с таблицами</h1>
+                        <p>Ниже вы увидите пример текста, в котором использованы несколько таблиц.<br>
+                            Markdown‑синтаксис позволяет быстро преобразовать их в красиво отформатированные таблицы как
+                            в браузере, так и в каких–либо Markdown‑редакторах.</p>
+                        <hr>
+                        <h2>1. Таблица «Список продуктов»</h2>
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>№</th>
+                                        <th>Продукт</th>
+                                        <th>Единицы</th>
+                                        <th>Цена ($)</th>
+                                        <th>Итоговая стоимость</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>Яблоки</td>
+                                        <td>5 шт.</td>
+                                        <td>0.60</td>
+                                        <td>3.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>Бананы</td>
+                                        <td>10 шт.</td>
+                                        <td>0.30</td>
+                                        <td>3.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>Морковь</td>
+                                        <td>3 шт.</td>
+                                        <td>0.50</td>
+                                        <td>1.50</td>
+                                    </tr>
+                                    <tr>
+                                        <td>4</td>
+                                        <td>Кукуруза</td>
+                                        <td>2 шт.</td>
+                                        <td>0.90</td>
+                                        <td>1.80</td>
+                                    </tr>
+                                    <tr>
+                                        <td>5</td>
+                                        <td>Помидоры</td>
+                                        <td>4 шт.</td>
+                                        <td>0.80</td>
+                                        <td>3.20</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <blockquote>
+                            <p><strong>Ключевой момент</strong>: Для расчёта итоговой стоимости умножаем количество на
+                                цену.<br>
+                                Можно добавить колонку с <code>=</code> формулой в редакторах, поддерживающих расчёт
+                                (например, в Obsidian или некоторые онлайн‑редакторы).</p>
+                        </blockquote>
+                        <hr>
+                        <h2>2. Таблица «График продаж»</h2>
+                        <div class="table-wrap">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Год</th>
+                                            <th>Январь</th>
+                                            <th>Февраль</th>
+                                            <th>Март</th>
+                                            <th>Апрель</th>
+                                            <th>Май</th>
+                                            <th>Итого</th>
+                                            <th>Итого</th>
+                                            <th>Итого</th>
+                                            <th>Итого</th>
+                                            <th>Итого</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>2022</td>
+                                            <td>1200</td>
+                                            <td>950</td>
+                                            <td>1020</td>
+                                            <td>1100</td>
+                                            <td>1300</td>
+                                            <td>5470</td>
+                                            <td>5470</td>
+                                            <td>5470</td>
+                                            <td>5470</td>
+                                        </tr>
+                                        <tr>
+                                            <td>2023</td>
+                                            <td>1400</td>
+                                            <td>1120</td>
+                                            <td>1490</td>
+                                            <td>1310</td>
+                                            <td>1450</td>
+                                            <td>6770</td>
+                                        </tr>
+                                        <tr>
+                                            <td>2024</td>
+                                            <td>1600</td>
+                                            <td>1400</td>
+                                            <td>1680</td>
+                                            <td>1510</td>
+                                            <td>1650</td>
+                                            <td>7840</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                        </div>
+                        <blockquote>
+                            <p><strong>Совет</strong>: Если хотите подсчитать итоговые суммы в редакторе, используйте
+                                таблицы CSV с импортом формул.</p>
+                        </blockquote>
+                        <hr>
+                        <h2>3. Таблица «Перевод по темам»</h2>
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Номера</th>
+                                        <th>Урок</th>
+                                        <th>Тема</th>
+                                        <th>Длительность (мин)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td></td>
+                                        <td>Введение</td>
+                                        <td>15</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td></td>
+                                        <td>Алгоритмы</td>
+                                        <td>30</td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td></td>
+                                        <td>Структуры данных</td>
+                                        <td>45</td>
+                                    </tr>
+                                    <tr>
+                                        <td>4</td>
+                                        <td></td>
+                                        <td>ООП</td>
+                                        <td>60</td>
+                                    </tr>
+                                    <tr>
+                                        <td>5</td>
+                                        <td></td>
+                                        <td>Дизайн паттерны</td>
+                                        <td>45</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <hr>
+                        <h2>4. Таблица «Данные о пользователях» (с форматированными датами)</h2>
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Имя</th>
+                                        <th>Зарегистрирован</th>
+                                        <th>Активен</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>001</td>
+                                        <td>Анна</td>
+                                        <td>2024‑01‑15</td>
+                                        <td>Да</td>
+                                    </tr>
+                                    <tr>
+                                        <td>002</td>
+                                        <td>Боб</td>
+                                        <td>2024‑02‑19</td>
+                                        <td>Нет</td>
+                                    </tr>
+                                    <tr>
+                                        <td>003</td>
+                                        <td>Вика</td>
+                                        <td>2024‑03‑03</td>
+                                        <td>Да</td>
+                                    </tr>
+                                    <tr>
+                                        <td>004</td>
+                                        <td>Дэвид</td>
+                                        <td>2024‑03-28</td>
+                                        <td>Да</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <blockquote>
+                            <p><strong>Как улучшить табличку</strong>:<br>
+                                1. Добавьте ссылку на профиль: <code>[████](https://example.com/profiles/001)</code><br>
+                                2. Для цветовой разметки в некоторых редакторах Markdown можно использовать HTML‑теги.
+                            </p>
+                        </blockquote>
+                        <hr>
+                        <h2>Итоги</h2>
+                        <ul>
+                            <li>Markdown – лаконичный способ создавать таблицы. </li>
+                            <li>Для более «живых» расчётов лучше комбинировать таблицы с простыми скриптами или
+                                плагинами. </li>
+                            <li>Поддержка таблиц в разрезе экспорта (PDF, HTML, DOCX) делает их универсальными для
+                                отчётов, презентаций, заметок. </li>
+                        </ul>
+                        <p>Надеюсь, этот пример пригодится вам в работе!</p>
+                        <span class="service-information">ChatGPT 16:16</span>
+                    </div>
+                </div>
             </div>
             <div class="chat-block">
                 <span class="greeting">Я твой персональный ИИ помошник, о чем хочешь поговрить?</span>
@@ -131,6 +358,7 @@
     <script src="static/js/dropdown_menu.js"></script>
     <script src="static/js/modal-window.js"></script>
     <script src="static/js/textarea.js"></script>
+    <script src="static/js/scrollbar.js"></script>
 </body>
 
 </html>

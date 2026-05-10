@@ -6,6 +6,7 @@ from . import utils
 import markdown
 import time
 import re
+from . import utils
 
 
 
@@ -29,10 +30,11 @@ def authorization():
 def user_input():
     print("Получил")
     textarea = request.form.get('prompt')
-    resp = utils.clean_markdown_response(ChatGPT(textarea, "gpt-5.4-mini").strip())
-    html = markdown.markdown(resp, extensions=['fenced_code', 'tables'])
-    with open("data.txt", '+a', encoding="utf-8") as f:
+    resp = str(ChatGPT(textarea, "free")).strip()
+    html = utils.wrap_tables(resp)
+    html = utils.code_parser(html)
+    with open("data.txt", 'w', encoding="utf-8") as f:
         f.write("Необработанный - " + resp)
-        f.write("\nОбработанный - " + html)
+        f.write("\nОбработанный - " + str(html))
     return jsonify({"data": html})
-    return "200"
+

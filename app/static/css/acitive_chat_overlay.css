@@ -47,13 +47,16 @@
     font-size: 1.05rem;
 }
 
-
+/* настраиваем как себя будет вести сообщение от ИИ */
 .ai-messege-area {
     justify-content: flex-start !important;
+
 }
 
-.ai-messege {
-    background: transparent !important;
+.ai-messege-area .message {
+    background: transparent;
+
+    color: #fafafa;
 }
 
 /* div в котром лежит текст 2 span с текстом */
@@ -64,13 +67,16 @@
     background-color: rgb(48, 48, 114);
     border-radius: 16px;
 
+    padding-bottom: 0.4rem;
     padding: 1rem;
     padding-bottom: 0.4rem;
-    max-width: 38rem;
+    max-width: 100%;
     height: auto;
 
     white-space: pre-wrap;
     word-break: break-word;
+
+    font-weight: 400;
 }
 
 

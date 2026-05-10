@@ -16,7 +16,7 @@
 }
 
 #user-prompt::-webkit-scrollbar,
-.chat-areae::-webkit-scrollbar {
+.chat-areae::-webkit-scrollbar{
     width: 9px;
 }
 
