@@ -129,7 +129,13 @@ async function SendUserInput(event) {
     renderUserInput(Text, 'ChatGPT');
     // renderAIInput()
 
-    formData.append('prompt', Text);
+    // собираем данные и создаем форму
+    const ai_v = document.querySelector('#drop-menu').textContent;
+
+    formData.append('ai_v', ai_v);
+    formData.append('content', Text);
+    formData.append('role', 'user');
+
     // ставим таймер
     setTimeout(() => {
         if (ChatBlock.classList.contains('sending')) {

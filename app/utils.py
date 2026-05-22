@@ -78,12 +78,8 @@ def code_parser(text: str) -> str:
     return str(soup)
 
 
-def factorial(n: int) -> int:
-    if n <= 1:
-        return 1
-    return n * factorial(n - 1)
 
-print(factorial(5))  # Вывод: 120
+
 
 
 
