@@ -1,3 +1,9 @@
+// кнопка поддержки
+const SupportButton = document.querySelector("#support-button")
+
+SupportButton.addEventListener("click", () => 
+    window.open("https://t.me/Imadrewn", "_blank"
+    ));
 
 const Buttons = document.querySelector('.list-bar');
 const ModalWindowBG = document.querySelector('.modal-overlay-blur');

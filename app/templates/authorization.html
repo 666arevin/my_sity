@@ -33,16 +33,37 @@
             <img src="static/image/logo.png" alt="logo" class="site-logo">
             <h1 class="logo-name reset-logo-name">AI Agent</h1>
         </div>
-        <div class="drop-down-menu">
-            <div class="edging">
-                <button id="drop-menu">ChatGPT</button>
+        <div class="drop-down-menu first-drop-menu">
+            <div class="edging" id="ai-models">
+                <button class="drop-menu" id="choose-ai">ChatGPT</button>
                 <div id='arrow-ico' class="arrow-right"></div>
             </div>
-            <ul class="drop-down-list">
+            <ul class="drop-down-list first-drop-list">
                 <!-- Сюда JS будет добавлять li -->
-                <li class="drop-menu-item">ChatGPT</li>
-                <li class="drop-menu-item">DeepSeek</li>
-                <li class="drop-menu-item">Gemini</li>
+                <li class="drop-menu-item"><span class="main-info">ChatGPT</span></li>
+                <li class="drop-menu-item"><span class="main-info">DeepSeek</span></li>
+                <li class="drop-menu-item"><span class="main-info">Gemini</span></li>
+            </ul>
+        </div>
+        <div class="drop-down-menu second-drop-menu">
+            <div class="edging" id="ai-mode">
+                 <button class="drop-menu" id="choose-mode">Medium</button>
+                 <div id='arrow-ico' class="arrow-right"></div>
+            </div>
+            <ul class="drop-down-list second-drop-list">
+                <!-- Сюда JS будет добавлять li -->
+                <li class="drop-menu-item">
+                    <span class="main-info">Low</span><br>
+                    <span class="explanation">Режим поверхностного рассуждения, максимальная экономия токенов</span>
+                </li>
+                <li class="drop-menu-item">
+                    <span class="main-info">Medium</span><br>
+                    <span class="explanation">Стандартный режим с балансом между качеством и скоростью</span>
+                </li>
+                <li class="drop-menu-item">
+                    <span class="main-info">Deep</span><br>
+                    <span class="explanation">Глубокий анализ, ИИ помнит контекст в деталях</span>
+                </li>
             </ul>
         </div>
         <div class="list-block">

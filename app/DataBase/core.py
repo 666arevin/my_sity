@@ -29,6 +29,7 @@ class DataBaseManager():
             table (_type_): класс таблицы.
             content (list[dict]): список со словарями данных.
         """
+        print(f"insert_data отработал, content: {content}")
         # проверяем что на входе есть данные
         if content == None:
             print("Нет данных для сохранения")

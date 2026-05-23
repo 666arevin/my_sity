@@ -2,6 +2,10 @@
 const TextArea = document.querySelector('#user-prompt');
 const ChatBlock = document.querySelector('.chat-block ');
 
+// скролл чата вниз
+window.addEventListener('DOMContentLoaded', () => {
+    ChatArea.scrollTop = ChatArea.scrollHeight;
+});
 
 function adjustHeight(el, ChatBlock) {
 
@@ -79,6 +83,8 @@ function renderUserInput(text, ai_agent) {
     span.textContent = time.slice(0, -3);
 
     ChatArea.appendChild(CloneTemplate);
+    // скролим чат вниз
+    ChatArea.scrollTop = ChatArea.scrollHeight;
 }
 
 function renderAIInput(text, ai_agent) {
@@ -101,6 +107,8 @@ function renderAIInput(text, ai_agent) {
     messageArea.classList.add('ai-messege-area');
     // добавляем код на страницу
     ChatArea.appendChild(CloneTemplateAI);
+    // скролим чат вниз
+    ChatArea.scrollTop = ChatArea.scrollHeight;
 }
 
 
@@ -130,7 +138,7 @@ async function SendUserInput(event) {
     // renderAIInput()
 
     // собираем данные и создаем форму
-    const ai_v = document.querySelector('#drop-menu').textContent;
+    const ai_v = document.querySelector('#choose-ai').textContent;
 
     formData.append('ai_v', ai_v);
     formData.append('content', Text);

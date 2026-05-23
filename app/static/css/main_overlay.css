@@ -19,6 +19,7 @@
 
     overflow: hidden;
     position: relative;
+    background-color: transparent;
 }
 
 /* основной блок в котром будет все лежать */
@@ -136,5 +137,6 @@
     }
     & .chat-areae {
         display: flex;
+        scroll-behavior: smooth; 
     }
 }

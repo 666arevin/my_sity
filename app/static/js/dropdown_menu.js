@@ -1,46 +1,78 @@
-
-const ParentContainer = document.querySelector('.drop-down-menu');
-const ButtonContainer = document.querySelector('.edging');
-const DropMenu = document.querySelector('.drop-down-list');
-const Button = document.querySelector('#drop-menu');
-
-
-DropMenu.addEventListener('click', (event) => {
-    // Проверяем, что кликнули именно по пункту меню (li)
-    if (event.target.classList.contains('drop-menu-item')) {
-        
-        const choice = event.target.textContent; // Получаем текст (напр. "ChatGPT")
-        
-        // 1. Меняем текст кнопки на выбор пользователя
-        Button.textContent = choice;
-        
-        // 2. Закрываем меню
-        close();
-    }
-});
+// первое выпадающие меню
+const ParentContainer = document.querySelector('.first-drop-menu');
+const ButtonContainer = document.querySelector('#ai-models');
+const DropMenu = document.querySelector('.first-drop-list');
+const Button = document.querySelector('#choose-ai');
 
 
+// второе выпадающее меню
+// это общий контенйер нужен для добавления класса visible
+const ParentContainer_2 = document.querySelector('.second-drop-menu');
+// это контейнер с кнопкой, нужен для открытия списка
+const ButtonContainer_2 = document.querySelector('#ai-mode');
+// это сам список, нужен для получения текста выбранного пункта
+const DropMenu_2 = document.querySelector('.second-drop-list');
+// это кнопка, нужен для изменения текста на выбранный пункт
+const Button_2 = document.querySelector('#choose-mode');
 
-function ShowDropMenu(event) {
-    event.stopPropagation();
+
+function OpenMenu(event, parent_container, menu, button) {
+    // делаем список видимым если он еще не открыт
+    let isVisible = parent_container.classList.toggle("visible")
+    // останавливаем событие, чтобы меню сразу не закрылось
+    event.stopPropagation()
+}
+
+function CloseMenu(parent_container) {
+    // удаляем класс, который делал список видимым
+    parent_container.classList.remove("visible");
+}
+
+function ChooseListItem(event, parent_container, button) {
     
-    // Если меню уже открыто — закрываем, если нет — открываем
-    const isVisible = ParentContainer.classList.toggle('visible');
+    // если клик по пункту из списка
+    if (event.target.classList.contains('drop-menu-item')) {
+        // получаем текст элемента, на котрой кликнули
+        let TargetText = event.target.querySelector(".main-info").textContent
+        // меняем текст кнопки на выбранный
+        button.textContent = TargetText;
 
-
-    if (isVisible) {
-        // Вешаем событие на окно, только если меню открылось
-        window.addEventListener('click', close);
-    } else {
-        // Если закрыли кнопкой — снимаем обработчик
-        window.removeEventListener('click', close);
+        CloseMenu(parent_container);
     }
 }
 
-function close() {
-    ParentContainer.classList.remove('visible');
-    // Как только закрыли — удаляем слушатель с окна
-    window.removeEventListener('click', close);
+function CloseAllMenus(event) {
+    // если клик не по пункту, закрываем все меню
+    if (!event.target.classList.contains("drop-menu-item")) {
+        ParentContainer.classList.remove("visible");
+        ParentContainer_2.classList.remove("visible");
+    }
 }
 
-ButtonContainer.addEventListener('click', ShowDropMenu);
+
+// вещаем слушатели
+// слушатель который будет закрывать все меню
+window.addEventListener('click', (event) => CloseAllMenus(event))
+// Клик по контейнеру, который ответчает за открытие
+ButtonContainer.addEventListener(
+    'click',
+     (event) => OpenMenu(
+        event, ParentContainer, DropMenu, Button
+     ))
+ButtonContainer_2.addEventListener(
+    'click',
+     (event) => OpenMenu(
+        event, ParentContainer_2, DropMenu_2, Button_2
+     ))
+
+// слушатель для списка
+DropMenu.addEventListener(
+    'click',
+    (event) => ChooseListItem(
+        event, ParentContainer, Button
+    ))
+DropMenu_2.addEventListener(
+    'click',
+    (event) => ChooseListItem(
+        event, ParentContainer_2, Button_2
+    ))

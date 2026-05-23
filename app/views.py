@@ -32,7 +32,6 @@ def user_input():
     # базу данных
     save_to_meatdata(request.form.to_dict())
 
-
     textarea = request.form.get('prompt')
     resp = str(AI_request(textarea, model="free")).strip()
     html = utils.wrap_tables(resp)
