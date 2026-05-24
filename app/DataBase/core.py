@@ -1,6 +1,7 @@
 from app.DataBase.connect import engine
 from .models import Base
 from sqlalchemy import orm, desc
+from typing import Any
 
 
 class DataBaseManager():
@@ -45,9 +46,20 @@ class DataBaseManager():
         except Exception as e:
             print(f"произошла ошибка {e}")
     
-    def get_chats(self, table):
+    def get_chats(self, table) -> list[Any]:
+        """Функция получает данные из указанной
+        таблицы
+
+        Args:
+            table (Base): Класс таблицы, который
+            сущестует в БД.
+
+        Returns:
+            list: Список объектов таблицы.
+        """
         with self.session_obj() as ses:
-            return ses.query(table).order_by(desc(table.created_at)).all()
+            res = ses.query(table).order_by(desc(table.created_at)).all()
+            return res
 
 
 

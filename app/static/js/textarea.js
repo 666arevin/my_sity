@@ -64,7 +64,7 @@ const ChatArea = document.querySelector('.chat-areae');
 // берем из html заготовку
 let template = document.querySelector('#user-tpl');
 
-function renderUserInput(text, ai_agent) {
+function renderUserInput(text, mes_time = null) {
     // клонируем его чтобы не менять в коде
     const CloneTemplate = template.content.cloneNode(true);
     // Ищем span чтобы встаить текст
@@ -80,14 +80,19 @@ function renderUserInput(text, ai_agent) {
     MainSpan.textContent = text;
     MessegeDiv.prepend(MainSpan);
 
-    span.textContent = time.slice(0, -3);
+    if (mes_time == null) {
+        span.textContent = time.slice(0, -3);
+    } else {
+        time = mes_time;
+    }
+    
 
     ChatArea.appendChild(CloneTemplate);
     // скролим чат вниз
     ChatArea.scrollTop = ChatArea.scrollHeight;
 }
 
-function renderAIInput(text, ai_agent) {
+function renderAIInput(text, ai_agent, mes_time = null) {
     // клонируем template
     const CloneTemplateAI = template.content.cloneNode(true);
     // Ищем span чтобы встаить текст
@@ -101,7 +106,12 @@ function renderAIInput(text, ai_agent) {
     MessegeDiv.insertAdjacentHTML('afterbegin', text);
 
     // добавляем время и название ии
-    span.textContent = `${ai_agent} ${time.slice(0, -3)}`;
+    if (mes_time == null) {
+        span.textContent = `${ai_agent} ${time.slice(0, -3)}`;
+    } else {
+        span.textContent = `${ai_agent} ${mes_time}`;
+    }
+
     // добавляем класс определяющий сообщения от ИИ
     const messageArea = CloneTemplateAI.firstElementChild;
     messageArea.classList.add('ai-messege-area');

@@ -107,12 +107,18 @@
 
 .chat-wrapper.active {
     & .service-info {
-        display: block;
-        margin-bottom: 0.3rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+
+        font-size: 0.73rem;
+
+        margin-bottom: 0.1rem;
+        height: fit-content; 
     }
 
     & .chat-block{
-        /* display: none; */
+        display: flex;
         margin: 0;
         margin-bottom: 0.3rem;
 

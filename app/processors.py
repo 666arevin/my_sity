@@ -51,3 +51,21 @@ def get_chats_from_db():
             "created_at": i.created_at.isoformat() if i.created_at else None
         })
     return chats_json
+
+def get_chat_data(chat_id: int):
+    # надо будет добавить обротку сессии пользователя
+    chat_data = db_manager.get_chats(Messages)
+    data_json = list()
+    # берем только сообщения с нужным id и делаем список словарей
+    for i in chat_data:
+        if str(i.chat_id) == chat_id:
+            data_json.append({
+                "role": i.role,
+                "ai_v": i.ai_v,
+                "content": i.content,
+                "retelling": i.retelling,
+                "message_time": str(i.message_time)[:-3]
+            })
+    print(f"Данные из БД для чата с id {chat_id} - {data_json}")
+    return data_json
+    
