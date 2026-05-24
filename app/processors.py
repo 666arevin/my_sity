@@ -1,13 +1,13 @@
 from .ai_agent import AI_request
 from datetime import datetime
 from .DataBase.core import DataBaseManager
-from .DataBase.models import ChatHistory
+from .DataBase.models import Messages
 
 db_manager = DataBaseManager()
 
 def save_to_meatdata(message_data: dict):
-    """Сохраняет данные в спец классе, управляющим 
-    базой данных
+    """Сохраняет сообщение в базу данных.
+    Сохраняемые параметра: роль, краткое содержание, контент, текущие, время сообщения.
 
     Args:
         message_data (dict): Словарь с данными
@@ -27,7 +27,7 @@ def save_to_meatdata(message_data: dict):
         # генерируем краткое содержание текста ИИ
         resp = AI_request(content, model="free", sys_prompt=prompt)
         message_data["retelling"] = resp
-
-    db_manager.insert_data(ChatHistory, message_data)
+    db_manager.create_table()
+    db_manager.insert_data(Messages, message_data)
     # db_manager.content = message_data
     

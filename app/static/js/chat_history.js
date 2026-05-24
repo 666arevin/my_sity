@@ -1,9 +1,9 @@
 // 1. Представим, что это данные, которые пришли с сервера
 const myChats = [
-  {epilogue: 'Готовка блинов заключает...', AI_name: "ChatGPT"},
-  {epilogue: 'Это было прекрасное утро...', AI_name: "ChatGPT"},
-  {epilogue: 'Удаление фона картинки...', AI_name: "ChatGPT"},
-  {epilogue: 'Проект устава организации...', AI_name: "ChatGPT"}
+  {epilogue: 'Готовка блинов заключает...', messages: "Количесто запросов: 3"},
+  {epilogue: 'Это было прекрасное утро...', messages: "Количесто запросов: 10"},
+  {epilogue: 'Удаление фона картинки...', messages: "Количесто запросов: 8"},
+  {epilogue: 'Проект устава организации...', messages: "Количесто запросов: 14"}
 ]
 
 // 2. Находим наш список в HTML
@@ -21,7 +21,7 @@ function renderChats(chats) {
     li.className = 'chat-item'; // Даем класс для CSS
 
     // Наполняем его внутренностями (шаблонная строка)
-    li.innerHTML = chat.epilogue + "<br><span class='chat-item-span'>" + chat.AI_name + "</span>"
+    li.innerHTML = chat.epilogue + "<br><span class='chat-item-span'" + chat.messages + "'>" + chat.messages + "</span>"
 
     // Кладем готовый li внутрь нашего ul
     listContainer.appendChild(li);

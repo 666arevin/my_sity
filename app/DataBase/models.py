@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Time, String, orm, DateTime
+from sqlalchemy import ForeignKey, Time, String, orm, DateTime
 from sqlalchemy.orm import Mapped, mapped_column
 from datetime import datetime, time, timezone
 
@@ -7,19 +7,37 @@ from datetime import datetime, time, timezone
 class Base(orm.DeclarativeBase):
     pass
 
-class ChatHistory(Base):
-    __tablename__ = "ChatHistory"
+class Messages(Base):
+    """Таблица в котрой будут храниться сообщения
+    и сервисная информация о них.
+
+    Args:
+        Base (_type_): Сервисный класс.
+    """
+    __tablename__ = "messages"
 
     id:Mapped[int] = mapped_column(primary_key=True)
+    chat_id: Mapped[int] = mapped_column(ForeignKey("chat.id"), nullable=False)
     role: Mapped[str] = mapped_column(nullable=False)
     ai_v: Mapped[str] = mapped_column(default="None")
-    retelling: Mapped[str]
     content: Mapped[str] = mapped_column(nullable=True)
+    retelling: Mapped[str]
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now())
     message_time: Mapped[time] = mapped_column(Time, nullable=True)
 
 
+class Chat(Base):
+    """Таблица для хранения информации о чатах.
 
+    Args:
+        Base (_type_): Сервисный класс.
+    """
+    __tablename__ = "chat"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    annotation: Mapped[str] = mapped_column(nullable=False)
+    req_count: Mapped[str] = mapped_column(default="None")
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now())
 
 
 

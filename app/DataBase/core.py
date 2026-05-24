@@ -1,6 +1,5 @@
 from app.DataBase.connect import engine
-from .models import Base, ChatHistory
-import sqlalchemy
+from .models import Base
 from sqlalchemy import orm
 
 
