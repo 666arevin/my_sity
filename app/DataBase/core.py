@@ -1,6 +1,6 @@
 from app.DataBase.connect import engine
 from .models import Base
-from sqlalchemy import orm
+from sqlalchemy import orm, desc
 
 
 class DataBaseManager():
@@ -44,9 +44,10 @@ class DataBaseManager():
                 ses.commit()
         except Exception as e:
             print(f"произошла ошибка {e}")
-
-
-
+    
+    def get_chats(self, table):
+        with self.session_obj() as ses:
+            return ses.query(table).order_by(desc(table.created_at)).all()
 
 
 

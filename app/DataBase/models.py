@@ -36,7 +36,7 @@ class Chat(Base):
 
     id: Mapped[int] = mapped_column(primary_key=True)
     annotation: Mapped[str] = mapped_column(nullable=False)
-    req_count: Mapped[str] = mapped_column(default="None")
+    req_count: Mapped[int] = mapped_column(default=0)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now())
 
 

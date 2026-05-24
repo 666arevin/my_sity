@@ -5,7 +5,8 @@ from .ai_agent import AI_request
 from . import utils
 from .DataBase import core
 from . import utils
-from .processors import save_to_meatdata
+from .processors import save_to_meatdata, get_chats_from_db
+from .DataBase.models import Chat
 
 
 
@@ -41,3 +42,13 @@ def user_input():
         f.write("\nОбработанный - " + str(html))
     return jsonify({"data": html})
 
+
+@app.route("/get_chats", methods=["GET"])
+def send_chats():
+    """Выдает клиенту список его чатов.
+
+    Returns:
+        _type_: json: Список словарей с данными о чатах.
+    """
+    chats = get_chats_from_db()
+    return jsonify({"data": chats})
