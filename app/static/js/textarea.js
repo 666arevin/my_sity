@@ -68,7 +68,7 @@ function renderUserInput(text, mes_time = null) {
     // клонируем его чтобы не менять в коде
     const CloneTemplate = template.content.cloneNode(true);
     // Ищем span чтобы встаить текст
-    let span = CloneTemplate.querySelector('span');
+    let span = CloneTemplate.querySelector('.service-information');
     // берем время сейчас
     let now = new Date()
     let time = now.toLocaleTimeString(('ru-RU', { timeZone: 'Europe/Moscow' }));
@@ -83,10 +83,11 @@ function renderUserInput(text, mes_time = null) {
     if (mes_time == null) {
         span.textContent = time.slice(0, -3);
     } else {
-        time = mes_time;
+        span.textContent = mes_time;
     }
+    console.log(CloneTemplate.textContent);
     
-
+    
     ChatArea.appendChild(CloneTemplate);
     // скролим чат вниз
     ChatArea.scrollTop = ChatArea.scrollHeight;
@@ -105,7 +106,6 @@ function renderAIInput(text, ai_agent, mes_time = null) {
     const MessegeDiv = CloneTemplateAI.querySelector('.message');
     MessegeDiv.insertAdjacentHTML('afterbegin', text);
 
-    // добавляем время и название ии
     if (mes_time == null) {
         span.textContent = `${ai_agent} ${time.slice(0, -3)}`;
     } else {
@@ -144,7 +144,7 @@ async function SendUserInput(event) {
     // виртуальная форма
     const formData = new FormData();
 
-    renderUserInput(Text, 'ChatGPT');
+    renderUserInput(Text);
     // renderAIInput()
 
     // собираем данные и создаем форму

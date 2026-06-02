@@ -1,6 +1,6 @@
 from app.DataBase.connect import engine
 from .models import Base
-from sqlalchemy import orm, desc
+from sqlalchemy import orm, desc, asc
 from typing import Any
 
 
@@ -29,7 +29,6 @@ class DataBaseManager():
             table (_type_): класс таблицы.
             content (list[dict]): список со словарями данных.
         """
-        print(f"insert_data отработал, content: {content}")
         # проверяем что на входе есть данные
         if content == None:
             print("Нет данных для сохранения")
@@ -58,7 +57,7 @@ class DataBaseManager():
             list: Список объектов таблицы.
         """
         with self.session_obj() as ses:
-            res = ses.query(table).order_by(desc(table.created_at)).all()
+            res = ses.query(table).order_by(asc(table.created_at)).all()
             return res
 
 

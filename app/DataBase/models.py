@@ -22,7 +22,7 @@ class Messages(Base):
     ai_v: Mapped[str] = mapped_column(default="None")
     content: Mapped[str] = mapped_column(nullable=True)
     retelling: Mapped[str]
-    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now())
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now)
     message_time: Mapped[time] = mapped_column(Time, nullable=True)
 
 
@@ -37,7 +37,7 @@ class Chat(Base):
     id: Mapped[int] = mapped_column(primary_key=True)
     annotation: Mapped[str] = mapped_column(nullable=False)
     req_count: Mapped[int] = mapped_column(default=0)
-    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now())
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now)
 
 
 

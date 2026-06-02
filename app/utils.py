@@ -54,7 +54,6 @@ def code_parser(text: str) -> str:
     formatter = HtmlFormatter(cssclass='highlight')
 
     for code in soup.select('pre > code[class]'):
-        print(code)
         lang = next(
             (c.replace('language-', '') for c in code['class'] if c.startswith('language-')),
             None
@@ -74,7 +73,6 @@ def code_parser(text: str) -> str:
         code.parent.replace_with(new_tag)
 
         # Получаем CSS для вставки в <style>
-        print(soup) 
     return str(soup)
 
 

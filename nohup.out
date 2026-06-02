@@ -1,0 +1,93 @@
+Created TensorFlow Lite XNNPACK delegate for CPU.
+MESA-LOADER: failed to open dri: /usr/lib/x86_64-linux-gnu/gbm/dri_gbm.so: невозможно открыть разделяемый объектный файл: Отказано в доступе (search paths /usr/lib/x86_64-linux-gnu/gbm, suffix _gbm)
+[7428:7428:0531/161337.836154:ERROR:chrome/browser/ui/webui/ntp/new_tab_ui.cc:54] Requested load of chrome://newtab/ for incorrect profile type.
+[7475:7481:0531/161338.249530:ERROR:net/socket/ssl_client_socket_impl.cc:924] handshake failed; returned -1, SSL error code 1, net_error -100
+[7475:7481:0531/161338.387765:ERROR:net/socket/ssl_client_socket_impl.cc:924] handshake failed; returned -1, SSL error code 1, net_error -100
+[7475:7481:0531/161338.453968:ERROR:net/socket/ssl_client_socket_impl.cc:924] handshake failed; returned -1, SSL error code 1, net_error -100
+[7475:7481:0531/161338.498445:ERROR:net/socket/ssl_client_socket_impl.cc:924] handshake failed; returned -1, SSL error code 1, net_error -100
+[7475:7481:0531/161338.583714:ERROR:net/socket/ssl_client_socket_impl.cc:924] handshake failed; returned -1, SSL error code 1, net_error -100
+[7475:7481:0531/161338.621713:ERROR:net/socket/ssl_client_socket_impl.cc:924] handshake failed; returned -1, SSL error code 1, net_error -100
+[7475:7481:0531/161339.356363:ERROR:net/socket/ssl_client_socket_impl.cc:924] handshake failed; returned -1, SSL error code 1, net_error -100
+[7475:7481:0531/161339.358833:ERROR:net/socket/ssl_client_socket_impl.cc:924] handshake failed; returned -1, SSL error code 1, net_error -100
+[7475:7481:0531/161339.496695:ERROR:net/socket/ssl_client_socket_impl.cc:924] handshake failed; returned -1, SSL error code 1, net_error -100
+[7475:7481:0531/161339.499895:ERROR:net/socket/ssl_client_socket_impl.cc:924] handshake failed; returned -1, SSL error code 1, net_error -100
+[7428:7455:0531/161341.344662:ERROR:google_apis/gcm/engine/registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+[7428:7455:0531/161401.880618:ERROR:google_apis/gcm/engine/registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+[7428:7428:0531/161431.756135:ERROR:chrome/browser/ui/webui/ntp/new_tab_ui.cc:54] Requested load of chrome://newtab/ for incorrect profile type.
+[7428:7455:0531/161505.176128:ERROR:google_apis/gcm/engine/registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+Warning: maxDynamicUniformBuffersPerPipelineLayout artificially reduced from 500000 to 16 to fit dynamic offset allocation limit.
+Warning: maxDynamicStorageBuffersPerPipelineLayout artificially reduced from 500000 to 16 to fit dynamic offset allocation limit.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1780233397.264768    9953 environment.cc:556] Selected adapter: NVIDIA GeForce RTX 3050, arch=ampere, vendor=nvidia, backend=Vulkan, adapterType=Discrete GPU
+Warning: maxDynamicUniformBuffersPerPipelineLayout artificially reduced from 500000 to 16 to fit dynamic offset allocation limit.
+Warning: maxDynamicStorageBuffersPerPipelineLayout artificially reduced from 500000 to 16 to fit dynamic offset allocation limit.
+I0000 00:00:1780233397.518731    9984 environment.cc:556] Selected adapter: NVIDIA GeForce RTX 3050, arch=ampere, vendor=nvidia, backend=Vulkan, adapterType=Discrete GPU
+[7428:7455:0531/161657.109094:ERROR:google_apis/gcm/engine/registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+[7428:7455:0531/162017.466026:ERROR:google_apis/gcm/engine/registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+[7428:7455:0531/162631.477528:ERROR:google_apis/gcm/engine/registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+Fontconfig error: Cannot load default config file: File not found
+[7428:7428:0531/200109.191805:ERROR:ui/gfx/x/atom_cache.cc:234] Add application/vnd.portal.filetransfer to kAtomsToCache
+[7428:7428:0531/200109.191831:ERROR:ui/gfx/x/atom_cache.cc:234] Add application/vnd.portal.files to kAtomsToCache
+[7475:7481:0531/205102.693400:ERROR:net/socket/ssl_client_socket_impl.cc:924] handshake failed; returned -1, SSL error code 1, net_error -100
+[7428:7428:0531/210430.610266:ERROR:mojo/public/cpp/bindings/lib/interface_endpoint_client.cc:748] Message 0 rejected by interface blink.mojom.WidgetHost
+[7428:7428:0531/210430.610294:ERROR:mojo/public/cpp/bindings/lib/interface_endpoint_client.cc:748] Message 1 rejected by interface blink.mojom.WidgetHost
+[7428:7428:0531/210430.610299:ERROR:mojo/public/cpp/bindings/lib/interface_endpoint_client.cc:748] Message 1 rejected by interface blink.mojom.WidgetHost
+[7475:7481:0531/210430.988119:ERROR:net/socket/ssl_client_socket_impl.cc:924] handshake failed; returned -1, SSL error code 1, net_error -100
+[7475:7481:0531/210431.105471:ERROR:net/socket/ssl_client_socket_impl.cc:924] handshake failed; returned -1, SSL error code 1, net_error -100
+[7428:7455:0531/224929.321611:ERROR:google_apis/gcm/engine/connection_factory_impl.cc:484] ConnectionHandler failed with net error: -2
+[7475:7481:0601/111440.249323:ERROR:net/socket/ssl_client_socket_impl.cc:924] handshake failed; returned -1, SSL error code 1, net_error -100
+[7475:7481:0601/111440.252563:ERROR:net/socket/ssl_client_socket_impl.cc:924] handshake failed; returned -1, SSL error code 1, net_error -100
+[7428:7452:0601/111440.252835:ERROR:components/sync/engine/get_updates_processor.cc:270] PostClientToServerMessage() failed during GetUpdates with error Network error (ERR_CONNECTION_CLOSED)
+[7475:7481:0601/111440.258342:ERROR:net/socket/ssl_client_socket_impl.cc:924] handshake failed; returned -1, SSL error code 1, net_error -100
+[7475:7481:0601/111440.259195:ERROR:net/socket/ssl_client_socket_impl.cc:924] handshake failed; returned -1, SSL error code 1, net_error -100
+[7428:7452:0601/111440.259367:ERROR:components/sync/engine/get_updates_processor.cc:270] PostClientToServerMessage() failed during GetUpdates with error Network error (ERR_CONNECTION_CLOSED)
+[7475:7481:0601/111442.756602:ERROR:net/socket/ssl_client_socket_impl.cc:924] handshake failed; returned -1, SSL error code 1, net_error -100
+[7475:7481:0601/111442.757214:ERROR:net/socket/ssl_client_socket_impl.cc:924] handshake failed; returned -1, SSL error code 1, net_error -100
+[7428:7451:0601/111443.057054:ERROR:components/sync/engine/get_updates_processor.cc:270] PostClientToServerMessage() failed during GetUpdates with error Network error (ERR_QUIC_PROTOCOL_ERROR)
+[7475:7481:0601/111445.355454:ERROR:net/socket/ssl_client_socket_impl.cc:924] handshake failed; returned -1, SSL error code 1, net_error -100
+[7428:7455:0601/111446.094391:ERROR:google_apis/gcm/engine/registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+[7428:7455:0601/111507.614513:ERROR:google_apis/gcm/engine/registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+[7428:7455:0601/111603.600528:ERROR:google_apis/gcm/engine/registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+[7428:7455:0601/111730.695480:ERROR:google_apis/gcm/engine/registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+[7428:7455:0601/112114.311660:ERROR:google_apis/gcm/engine/registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+[7428:7455:0601/112827.415536:ERROR:google_apis/gcm/engine/registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+[7475:7481:0601/120511.535296:ERROR:net/socket/ssl_client_socket_impl.cc:924] handshake failed; returned -1, SSL error code 1, net_error -100
+[7475:7481:0601/120511.651705:ERROR:net/socket/ssl_client_socket_impl.cc:924] handshake failed; returned -1, SSL error code 1, net_error -100
+[7428:7455:0601/174606.710702:ERROR:google_apis/gcm/engine/mcs_client.cc:750] Received close command, resetting connection.
+[7428:7455:0601/190724.072659:ERROR:google_apis/gcm/engine/connection_factory_impl.cc:484] ConnectionHandler failed with net error: -2
+[7428:7455:0601/192906.997963:ERROR:google_apis/gcm/engine/connection_factory_impl.cc:484] ConnectionHandler failed with net error: -2
+Fontconfig error: Cannot load default config file: File not found
+[7428:7455:0601/224559.068928:ERROR:google_apis/gcm/engine/connection_factory_impl.cc:484] ConnectionHandler failed with net error: -2
+[7475:7481:0601/224559.071103:ERROR:net/socket/ssl_client_socket_impl.cc:924] handshake failed; returned -1, SSL error code 1, net_error -101
+[7428:7455:0601/231037.848866:ERROR:google_apis/gcm/engine/connection_factory_impl.cc:484] ConnectionHandler failed with net error: -2
+[7475:7481:0601/231038.154357:ERROR:net/socket/ssl_client_socket_impl.cc:924] handshake failed; returned -1, SSL error code 1, net_error -100
+[7475:7481:0601/231038.456284:ERROR:net/socket/ssl_client_socket_impl.cc:924] handshake failed; returned -1, SSL error code 1, net_error -100
+[7475:7481:0602/153747.412038:ERROR:net/socket/ssl_client_socket_impl.cc:924] handshake failed; returned -1, SSL error code 1, net_error -100
+[7475:7481:0602/153747.420452:ERROR:net/socket/ssl_client_socket_impl.cc:924] handshake failed; returned -1, SSL error code 1, net_error -100
+[7475:7481:0602/153747.421420:ERROR:net/socket/ssl_client_socket_impl.cc:924] handshake failed; returned -1, SSL error code 1, net_error -100
+[7475:7481:0602/153747.423696:ERROR:net/socket/ssl_client_socket_impl.cc:924] handshake failed; returned -1, SSL error code 1, net_error -100
+[7475:7481:0602/153747.432567:ERROR:net/socket/ssl_client_socket_impl.cc:924] handshake failed; returned -1, SSL error code 1, net_error -100
+[7475:7481:0602/153747.433579:ERROR:net/socket/ssl_client_socket_impl.cc:924] handshake failed; returned -1, SSL error code 1, net_error -100
+[7428:7452:0602/153747.433862:ERROR:components/sync/engine/get_updates_processor.cc:270] PostClientToServerMessage() failed during GetUpdates with error Network error (ERR_CONNECTION_CLOSED)
+[7475:7481:0602/153748.779930:ERROR:net/socket/ssl_client_socket_impl.cc:924] handshake failed; returned -1, SSL error code 1, net_error -100
+[7475:7481:0602/153748.791147:ERROR:net/socket/ssl_client_socket_impl.cc:924] handshake failed; returned -1, SSL error code 1, net_error -100
+[7475:7481:0602/153749.494974:ERROR:net/socket/ssl_client_socket_impl.cc:924] handshake failed; returned -1, SSL error code 1, net_error -100
+[7475:7481:0602/153749.495746:ERROR:net/socket/ssl_client_socket_impl.cc:924] handshake failed; returned -1, SSL error code 1, net_error -100
+[7475:7481:0602/153749.926009:ERROR:net/socket/ssl_client_socket_impl.cc:924] handshake failed; returned -1, SSL error code 1, net_error -100
+[7475:7481:0602/153749.926722:ERROR:net/socket/ssl_client_socket_impl.cc:924] handshake failed; returned -1, SSL error code 1, net_error -100
+[7475:7481:0602/153751.780822:ERROR:net/socket/ssl_client_socket_impl.cc:924] handshake failed; returned -1, SSL error code 1, net_error -100
+[7475:7481:0602/153751.792021:ERROR:net/socket/ssl_client_socket_impl.cc:924] handshake failed; returned -1, SSL error code 1, net_error -100
+[7475:7481:0602/153752.352404:ERROR:net/socket/ssl_client_socket_impl.cc:924] handshake failed; returned -1, SSL error code 1, net_error -100
+[7428:7455:0602/153753.503911:ERROR:google_apis/gcm/engine/registration_request.cc:291] Registration response error message: QUOTA_EXCEEDED
+[7475:7481:0602/160933.753420:ERROR:net/socket/ssl_client_socket_impl.cc:924] handshake failed; returned -1, SSL error code 1, net_error -100
+[7475:7481:0602/160933.891119:ERROR:net/socket/ssl_client_socket_impl.cc:924] handshake failed; returned -1, SSL error code 1, net_error -100
+[7428:7428:0602/161841.212930:ERROR:CONSOLE:0] "Framing 'https://ogs.google.com/' violates the following report-only Content Security Policy directive: "frame-ancestors 'self'". The violation has been logged, but no further action has been taken.
+", source:  (0)
+[7428:7428:0602/161841.212954:ERROR:CONSOLE:0] "Framing 'https://ogs.google.com/' violates the following report-only Content Security Policy directive: "frame-ancestors 'self'". The violation has been logged, but no further action has been taken.
+", source:  (0)
+[7475:7481:0602/161847.669073:ERROR:net/socket/ssl_client_socket_impl.cc:924] handshake failed; returned -1, SSL error code 1, net_error -100
+[7475:7481:0602/161847.795865:ERROR:net/socket/ssl_client_socket_impl.cc:924] handshake failed; returned -1, SSL error code 1, net_error -100
+[7475:7481:0602/161853.188854:ERROR:net/socket/ssl_client_socket_impl.cc:924] handshake failed; returned -1, SSL error code 1, net_error -100
+[7475:7481:0602/161853.311272:ERROR:net/socket/ssl_client_socket_impl.cc:924] handshake failed; returned -1, SSL error code 1, net_error -100
+[7475:7481:0602/164701.055732:ERROR:net/socket/ssl_client_socket_impl.cc:924] handshake failed; returned -1, SSL error code 1, net_error -100
+[7475:7481:0602/164701.183003:ERROR:net/socket/ssl_client_socket_impl.cc:924] handshake failed; returned -1, SSL error code 1, net_error -100

@@ -5,13 +5,24 @@ from .ai_agent import AI_request
 from . import utils
 from .DataBase import core
 from . import utils
-from .processors import save_to_meatdata, get_chats_from_db, get_chat_data
-from .DataBase.models import Chat
+from .processors import save_user_message, get_chats_from_db, get_chat_data
+from .processors import save_ai_message
+from .DataBase.models import Messages, Chat
+from sqlalchemy.exc import OperationalError
 
 
 
-def print_hello():
-    print("Hello, word!")
+@app.errorhandler(OperationalError)
+def handle_db_error(error):
+    """Обработчик ошибок базы данных.
+
+    Args:
+        error (OperationalError): Исключение, связанное с базой данных.
+
+    Returns:
+        Response: Ответ с сообщением об ошибке и статусом 500.
+    """
+    return jsonify({"error": "Произошла ошибка базы данных. Пожалуйста, попробуйте позже."}), 500
 
 @app.route("/")
 @app.route("/index")
@@ -29,17 +40,18 @@ def authorization():
 @app.route('/api/userinput', methods=["POST"])
 def user_input():
     
-    # переводим полученный ответ от клиента в словарь и сохраняем в
-    # базу данных
-    save_to_meatdata(request.form.to_dict())
+    # сохраняем в БД, сообщение пользователя
+    data = request.form.to_dict()
+    save_user_message(data)
 
-    textarea = request.form.get('prompt')
+    # делаем запрос к ИИ и обрабатываем его
+    textarea = request.form.get('content')
     resp = str(AI_request(textarea, model="free")).strip()
     html = utils.wrap_tables(resp)
     html = utils.code_parser(html)
-    with open("data.txt", 'w', encoding="utf-8") as f:
-        f.write("Необработанный - " + resp)
-        f.write("\nОбработанный - " + str(html))
+    # сохраняем запрос ИИ в БД
+    save_ai_message(data, resp)
+
     return jsonify({"data": html})
 
 
@@ -55,6 +67,17 @@ def send_chats():
 
 @app.route("/get_chatData", methods=["POST"])
 def send_chat_data():
+    """Отправляет все сообщения из чата клиенту.
+
+    Returns:
+        json: Список словарей с данными о сообщениях чата.
+    """
     chat_id = request.get_json()
     data_json = get_chat_data(chat_id)
     return jsonify(data_json)
+
+@app.route("/create_chat", methods=["POST"])
+def create_chat():
+    """Создает новый чат, добавляя его в БД.
+    """
+    
