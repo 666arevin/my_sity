@@ -1,6 +1,6 @@
 from . import app
 from flask import render_template
-from flask import redirect, url_for, request, jsonify
+from flask import redirect, url_for, request, jsonify, stream_with_context, Response
 from .ai_agent import AI_request
 from . import utils
 from .DataBase import core
@@ -43,16 +43,21 @@ def user_input():
     # сохраняем в БД, сообщение пользователя
     data = request.form.to_dict()
     save_user_message(data)
-
-    # делаем запрос к ИИ и обрабатываем его
+    # получаем текст из формы
     textarea = request.form.get('content')
-    resp = str(AI_request(textarea, model="free")).strip()
-    html = utils.wrap_tables(resp)
-    html = utils.code_parser(html)
-    # сохраняем запрос ИИ в БД
-    save_ai_message(data, resp)
 
-    return jsonify({"data": html})
+    stream = stream_with_context(AI_request(textarea, model="free"))
+
+    # устаревшая часть
+    # resp = str(stream).strip()
+    # html = utils.wrap_tables(resp)
+    # html = utils.code_parser(html)
+
+
+    # сохраняем запрос ИИ в БД
+    # save_ai_message(data, resp)
+
+    return Response(stream, mimetype='text/event-stream')
 
 
 @app.route("/get_chats", methods=["GET"])

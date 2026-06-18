@@ -85,7 +85,6 @@ function renderUserInput(text, mes_time = null) {
     } else {
         span.textContent = mes_time;
     }
-    console.log(CloneTemplate.textContent);
     
     
     ChatArea.appendChild(CloneTemplate);
@@ -167,10 +166,25 @@ async function SendUserInput(event) {
     // делаем запрос на сервер с отправкой данных
     try {
         let response = await fetch('/api/userinput', { method: 'POST', body: formData, signal: abortController.signal });
-        response = await response.json();
-        renderAIInput(response.data, "ChatGPT");
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder("utf-8");
+
+        while (true) {
+            const { done, value } = await reader.read();
+
+            if (done) {
+                break;
+            }
+            const chunk = decoder.decode(value, { stream: true });
+            console.log(chunk);
+            
+        }
+        console.log(reader);
+        
+        // renderAIInput(response.data, "ChatGPT");
     } catch (error) {
-        console.info(error);
+        html = `<span class="error">Запрос был прерван пользователем</span>`;
+        renderAIInput(html, "ChatGPT");
     } finally {
         ChatBlock.classList.remove('sending');
         ChatBlock.classList.remove('no-response');
