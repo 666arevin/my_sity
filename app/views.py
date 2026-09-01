@@ -6,7 +6,6 @@ from . import utils
 from .DataBase import core
 from . import utils
 from .processors import save_user_message, get_chats_from_db, get_chat_data
-from .processors import save_ai_message
 from .DataBase.models import Messages, Chat
 from sqlalchemy.exc import OperationalError
 
@@ -46,7 +45,7 @@ def user_input():
     # получаем текст из формы
     textarea = request.form.get('content')
 
-    stream = stream_with_context(AI_request(textarea, model="free"))
+    stream = stream_with_context(AI_request(textarea, model="gpt-5.4-mini"))
 
     # устаревшая часть
     # resp = str(stream).strip()

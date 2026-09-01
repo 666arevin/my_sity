@@ -2,7 +2,7 @@ from dotenv import load_dotenv
 import os
 
 import sqlalchemy
-from sqlalchemy import Engine
+from sqlalchemy import Engine, text
 
 def get_connect_str() -> str:
     """Берет данные из .env и на их основе,
@@ -28,7 +28,7 @@ def get_connect_str() -> str:
 connect_str = get_connect_str()
 # создаем обьект подключения, но самого подключения еще нет
 engine: Engine = sqlalchemy.create_engine(
-    connect_str,
-    pool_recycle=3600,
+    url=connect_str,
+    pool_size=5,
     echo=False,
 )

@@ -3,45 +3,49 @@ from datetime import datetime
 from .DataBase.core import DataBaseManager
 from .DataBase.models import Messages, Chat
 
+"""Данный файл является прослойкой, которой берет на себя обработку данных,
+полученнх от клиента. А также вызывает менеджер DataBaseManager, который
+вставит все данные в базу данных и закомитит их."""
+
 db_manager = DataBaseManager()
 
-def save_user_message(message_data: dict) -> None:
+def save_user_message(message_data: dict, ai_response: str | None = None) -> None:
     """Сохраняет сообщение в базу данных.
     Сохраняемые параметра: роль, краткое содержание, контент, текущие, время сообщения.
 
     Args:
         message_data (dict): Словарь с данными
     """
-    # берем текущее время и доавбляем в сорварь
+    # берем текущее время и добавляем в словарь
     message_time = datetime.now().strftime("%H:%M") 
     message_data["message_time"] = message_time
 
-    # добавлем id чата
+    # добавлем id чата (пока что все сообщения относятся к 11 чату)
     message_data["chat_id"] = 11
 
-    # краткое содрежание = контенту
-    message_data["retelling"] = message_data["content"]
-        
+    # разделяем сообщение от ИИ и от пользователя
+    # если ai_response не пустое значит сообщение от ИИ
+    if ai_response:
+
+        # записываем контекст сообщения
+        message_data["content"] = ai_response
+
+        # делаем краткое содержание ответа от ИИ 
+        prompt = "Сделай краткое содержание текста, без потери смысла."
+        resp = AI_request(ai_response, model="free", sys_prompt=prompt)
+
+        # записываем краткое содержания от ИИ
+        message_data["retelling"] = resp
+
+    # если нет ai_response, значит сообщение от пользователя
+    elif ai_response == None:
+        # краткое содрежание = контенту
+        message_data["retelling"] = message_data["content"]
+
+
+    # вставляем в orm модель Messages собранный словарик
     db_manager.insert_data(Messages, message_data)
 
-def save_ai_message(request_form: dict, ai_response: str) -> None:
-    message_data = dict(request_form)
-
-    # берем текущее время и доавбляем в сорварь
-    message_time = datetime.now().strftime("%H:%M") 
-    message_data["message_time"] = message_time
-
-    # добавлем id чата и меняем некоторые значения
-    message_data["chat_id"] = 11
-    message_data["role"] = "assistant"
-    message_data["content"] = ai_response
-
-    # ответ от ИИ деаем краткое содрежание
-    prompt = "Сделай краткое содержание текста, без потери смысла."
-    resp = AI_request(ai_response, model="free", sys_prompt=prompt)
-    message_data["retelling"] = resp
-
-    db_manager.insert_data(Messages, message_data)
 
 def get_chats_from_db():
     # надо будет добавить обротку сессии пользователя
@@ -78,5 +82,3 @@ def get_chat_data(chat_id: int):
             })
     return data_json
 
-# def create_chat_in_db():
-    
