@@ -84,4 +84,12 @@ def send_chat_data():
 def create_chat():
     """Создает новый чат, добавляя его в БД.
     """
+
+
+# @app.route("/save_tmp", method=["POST"])
+# def temp():
+#     res = request.get_json()
+#     res = 
+#     with open("temp_mark.txt", mode="w", encoding="utf-8") as f:
+#         f.write()
     

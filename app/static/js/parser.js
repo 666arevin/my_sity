@@ -1,59 +1,97 @@
-// перменная в которой накапливаются не // обработанные чанк 
+// перменная в которой накапливаются не обработанные чанк 
 let MarkdownBuffer = "";
+let Memory = "";
+let ResponseStart = true;
 
-//паттерны распознования однострочный элементов рвуться при /n
-// SSL - Start of Single Line (не нужен по факту)
-const SSLPattern = /^\s{0,3}(#|---|>|-|\*|\+|\d+\.)\s+/;
-// SL - Single Line
-const SLPattern = /`.+`|!?\[.+?\]\(.+?\)/;
+// Адаптировано под актуальный синтаксис marked 
+marked.use({
+    renderer: {
+        code(token) {
+            const codeText = token.text || '';
+            const lang = token.lang || 'plaintext';
+            
+            // Защита: проверяем, загрузился ли хайлайтер в браузере
+            if (typeof window.hljs !== 'undefined') {
+                const validLanguage = hljs.getLanguage(lang) ? lang : 'plaintext';
+                const highlighted = hljs.highlight(codeText, { language: validLanguage }).value;
+                return `<pre><code class="hljs language-${validLanguage}">${highlighted}</code></pre>`;
+            }
+            
+            // Если хайлайтер по какой-то причине не успел, выводим обычный текст без покраски
+            return `<pre><code class="language-${lang}">${codeText}</code></pre>`;
+        }
+    }
+});
 
 
-// паттерн распознования многострочных элементов, разрываются /n/n
-// ML - Multi Line 
-const MLPattern = /\*\*.+\*\*|\*.+\*|\~\~.+\~\~|.```/
-// паттерны для многостросный символов, разрыыаются /n/n
+// паттерны для многострочных символов, разрываются только при парном символе.
 // MLP - Multi Line Paired
-const MLPPattern = /^\s{4,}.+|^```[a-zA-Z0-9_-]*$/
-[">", "-", "1.", "~~", /^>/,];
-// если равен 3, значит началась таблица
-let TableDetector = 0;
-// если равен 1 значит ждем /n и очищаем
-let SLDetector = 0
-// есоли равен 1, знкчит жжем /n/n или парного тега и очищаем
-let MLPDetector = 0
+const MLPPattern = /^(```|~~~|\$\$)|<think>|\[/
 
-// значение от 0 до 2, количество перенсов строки в чанке
-// Lone-Break Detector
+
+// если равен 1, значит ждем парного тега и очищаем
+let MLPDetector = 0
+// если равен 1, значит таблица
+let TableDetector = 0;
+
+// значение от 0 до 2, количество переносов
+// String-Break Detector
 let LBDetector = 0
 
-function SmartBuffer (ChunkContent) {
+function SmartBuffer (ChunkContent, done=null) {
 
-  // проверяем что буффер пуст, значит это начало строки
-  // проходимся по символам в котенте чанка
-  for (let i in ChunkContent) {
-    // если нашли символ, изменяем detector для однострочных
-    if (i in SLPattern) {
-      SLDetector = 1;
-    };
+  // если начало стриминга, чистим все буферы
+  if (ResponseStart) {
+    MarkdownBuffer = "";
+    Memory = "";
+    LBDetector = 0;
+    ResponseStart = false;
+    
+  };
 
-    // проверяем бы ли разрывы строки и считаем их количество
-    if (i == "\n") {
-      LBDetector += 1;
+  // елси конец стриминга, меняем флаг ResponseStart на true
+  if (done) {
+    ResponseStart = true;
+  };
+
+  // если закончилсь строка проверяем ее
+  if (ChunkContent.includes("\n")) {
+    // нашли разрыв строки
+    LBDetector = 1
+
+    // проверяем нет ли там спец символов, которые не закрываются при \n
+    match = MarkdownBuffer.match(MLPPattern);
+    console.log("mark -> " + MarkdownBuffer, "match -> " + match);
+
+    // если есть спец символы, которые не закрываются при \n
+    if (match) {
+      MLPDetector = 1;
     };
   };
   
 //----------
 // тут парсим текст 
   MarkdownBuffer += ChunkContent
-  HTMLText = parse(MarkdownBuffer)
-// ----------
+  HTMLText = marked.parse(MarkdownBuffer)
   
-// после проверок мы очищаем или не очищаем буффер
-// если однострочный режим и был \n чистим буффер
-  if (SLDetector == 1 && LBDetector == 1) {
-    // очищаем буффер
-    
-    SLDetector = 0
-    LBDetector = 0
+// ----------
+
+  // если нашли \n
+  if (LBDetector == 1) {
+    if (MLPDetector == 1) {
+      
+    } else {
+      // поскольку буфер будет очищен, сохраняем уже распаршенный HTML
+      Memory += HTMLText;
+      // чистим HTML чтобы не продублировать один и тот же текст
+      HTMLText = "";
+
+      MarkdownBuffer = "";
+      LBDetector = 0;
+    };
   };
+
+  console.log(MarkdownBuffer);
+  
+  return Memory + HTMLText;
 };

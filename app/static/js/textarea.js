@@ -255,7 +255,7 @@ async function processChatMessage(event) {
 
             // если подключение оборвалось, выходим из цикла
             if (done) {
-                console.log(done)
+                SmartBuffer("", done);
                 break;
             }
             try {
@@ -274,18 +274,14 @@ async function processChatMessage(event) {
 
                     // по данному пути лежит контент от ИИ
                     let content = dict_chunck.choices[0].delta.content;
-                    MarkDownText += content;
-                    res = marked.parse(MarkDownText);
-                    console.log(MarkDownText)
+                    res = SmartBuffer(content)
                     
                     RenderAIStream(res);
-                }
-            }
-            catch (error) {
+                };
+            } catch (error) {
                 console.log(error)
-            }
-        }
-        console.log(MarkDownText);
+            };
+        };
         
     } catch (error) {
         console.log(error);
