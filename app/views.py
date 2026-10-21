@@ -4,11 +4,15 @@ from flask import redirect, url_for, request, jsonify, stream_with_context, Resp
 from .ai_agent import AI_request
 from . import utils
 from .DataBase import core
-from . import utils
+import json
+from pathlib import Path
 from .processors import save_user_message, get_chats_from_db, get_chat_data
 from .DataBase.models import Messages, Chat
 from sqlalchemy.exc import OperationalError
 
+# получаем текущуию директорию
+BASE_DIR = Path(__file__).resolve().parent
+DATA_DIR = BASE_DIR / "data"
 
 
 @app.errorhandler(OperationalError)
@@ -58,6 +62,20 @@ def user_input():
 
     return Response(stream, mimetype='text/event-stream')
 
+
+@app.route('/api/streamtest', methods=["POST"])
+def test_stream():
+    with open(DATA_DIR / "mark_test.txt", "r", encoding="utf-8") as f:
+        data = f.read()
+
+    genereator = (
+        f"data: {json.dumps(data[i: i+3], ensure_ascii=False)}\n\n"
+        for i in range(0, len(data) -3 , 3)
+    )
+
+    genereator = stream_with_context(genereator)
+
+    return Response(genereator, mimetype='text/event-stream')
 
 @app.route("/get_chats", methods=["GET"])
 def send_chats():

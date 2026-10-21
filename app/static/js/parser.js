@@ -1,97 +1,240 @@
-// перменная в которой накапливаются не обработанные чанк 
+// перменная в которой накапливаются не обработанные чанк
 let MarkdownBuffer = "";
 let Memory = "";
 let ResponseStart = true;
 
-// Адаптировано под актуальный синтаксис marked 
-marked.use({
-    renderer: {
-        code(token) {
-            const codeText = token.text || '';
-            const lang = token.lang || 'plaintext';
-            
-            // Защита: проверяем, загрузился ли хайлайтер в браузере
-            if (typeof window.hljs !== 'undefined') {
-                const validLanguage = hljs.getLanguage(lang) ? lang : 'plaintext';
-                const highlighted = hljs.highlight(codeText, { language: validLanguage }).value;
-                return `<pre><code class="hljs language-${validLanguage}">${highlighted}</code></pre>`;
-            }
-            
-            // Если хайлайтер по какой-то причине не успел, выводим обычный текст без покраски
-            return `<pre><code class="language-${lang}">${codeText}</code></pre>`;
-        }
-    }
-});
+// Достаём функции из глобальных объектов, которые создали UMD-скрипты
+const { Marked } = globalThis.marked;
+const { markedHighlight } = globalThis.markedHighlight;
 
+const marked = new Marked(
+    markedHighlight({
+        langPrefix: "hljs language-",
+        highlight(code, lang) {
+            const language = hljs.getLanguage(lang) ? lang : "plaintext";
+            return hljs.highlight(code, { language }).value;
+        },
+    }),
+);
 
 // паттерны для многострочных символов, разрываются только при парном символе.
 // MLP - Multi Line Paired
-const MLPPattern = /^(```|~~~|\$\$)|<think>|\[/
+// под 0 индексом поиск открывающего тега, под 1 закрывающего
+const MLPPattern = [
+    /^(```(?!`)|~~~(?!~)|\$\$)|<think>/g,
+    /\n\s{0,3}(?:```(?!`)|~~~(?!~))(?:\n|$)|\$\$|<\/think>/
+];
+// TP - Table Pattern
+// первым лежит поиск шапки таблицы, вторым подтверждение таблицы
+const TPattern = [
+    /^\s*\|(?:[^|]+\|)+\s*/,
+    /^\s*\|(?:[-:\s]+\|)+\s*$/
+];
 
-
-// если равен 1, значит ждем парного тега и очищаем
-let MLPDetector = 0
-// если равен 1, значит таблица
+// если равен 1, значит ждем парного тега, если 2 очищаем
+let MLPDetector = 0;
+// если равен 1, значит нашли шпку, если 2 точно таблица. Рветься при \n\n
 let TableDetector = 0;
 
 // значение от 0 до 2, количество переносов
 // String-Break Detector
-let LBDetector = 0
+let SBDetector = 0;
 
-function SmartBuffer (ChunkContent, done=null) {
 
-  // если начало стриминга, чистим все буферы
-  if (ResponseStart) {
-    MarkdownBuffer = "";
-    Memory = "";
-    LBDetector = 0;
-    ResponseStart = false;
+
+function SmartBuffer(ChunkContent, done = null) {
+
+    // определяем длину чанка
+    EndBreakIndex = ChunkContent.length;
+
+    // если начало стриминга, чистим все буферы
+    if (ResponseStart) {
+        MarkdownBuffer = "";
+        Memory = "";
+        SBDetector = 0;
+        ResponseStart = false;
+    }
+
+    // если конец стриминга, меняем флаг ResponseStart на true
+    // чтобы при начале нового стриминга все буфферы были очищены
+    if (done) {
+        ResponseStart = true;
+    }
+
+    // проверка на запоздалый \n
+    if (SBDetector > 0) {
+        // если в новом чанке тоже есть \n
+        if (ChunkContent.match(/^\n+/)) {
+            // ничего не делаем, далее в коде посчитаем их количество
+            ;
+        } else {
+            // если \n нету, значит перенос был 1 в прошлом чанке
+            SBDetector = 0;
+        }
+    }
+
+    // разделяет контент в чанке на текст до \n и после
+    // content это текст до \n если \n был
+    const [Content, AfterBrake] = SplitWithN(ChunkContent);
+
     
-  };
+    //----------
+    // тут парсим текст
+    MarkdownBuffer += Content; // парсим только текст до \n
+    HTMLText = marked.parse(MarkdownBuffer);
+    
 
-  // елси конец стриминга, меняем флаг ResponseStart на true
-  if (done) {
-    ResponseStart = true;
-  };
+    // ----------
 
-  // если закончилсь строка проверяем ее
-  if (ChunkContent.includes("\n")) {
-    // нашли разрыв строки
-    LBDetector = 1
+    // после склеек всех строк начинаем проверять паттерны
+    // делаем проверку, что у нас нет никаких 
+    // if (TableDetector < 2 && MLPDetector == 0){
+    //     let NothingDetected = true 
+    // }
+    console.log("SBDetector -> " + SBDetector);
+    
+    
+    if (SBDetector > 0) {
+        let MLMatch = undefined;
+        // проверяем нет ли там спец символов, которые не закрываются при \n
+        if (MLPDetector == 0) {
+            // если еще не встречали парного тега, ищем его
+            MLMatch = MarkdownBuffer.match(MLPPattern[0]);
+        } else if (MLPDetector == 1) {
+            // если встречали, ищем закрытие
+            MLMatch = MarkdownBuffer.match(MLPPattern[1]);
+        } else {
+            MLMatch = true;
+        }
+        
+        console.log(MLMatch);
+        
+        
+        let TMatch = undefined;
+        // если шапку еще не встречали, проверяем есть ли она
+        if (TableDetector == 0) {
+            TMatch = MarkdownBuffer.match(TPattern[0]);
+            
+        // если уже встречали шапку, ищем подтверждение таблицы
+        } else if (TableDetector == 1) {
+            TMatch = MarkdownBuffer.split("\n")[1].match(TPattern[1]);
+            
+        // если TPattern стал 2, значит таблица уже обнаружена
+        } else {
+            TMatch = true;
+        }
 
-    // проверяем нет ли там спец символов, которые не закрываются при \n
-    match = MarkdownBuffer.match(MLPPattern);
-    console.log("mark -> " + MarkdownBuffer, "match -> " + match);
+        console.log("html -> " + HTMLText);
+        console.log("mark -> " + MarkdownBuffer);
 
-    // если есть спец символы, которые не закрываются при \n
-    if (match) {
-      MLPDetector = 1;
-    };
-  };
-  
-//----------
-// тут парсим текст 
-  MarkdownBuffer += ChunkContent
-  HTMLText = marked.parse(MarkdownBuffer)
-  
-// ----------
 
-  // если нашли \n
-  if (LBDetector == 1) {
-    if (MLPDetector == 1) {
-      
-    } else {
-      // поскольку буфер будет очищен, сохраняем уже распаршенный HTML
-      Memory += HTMLText;
-      // чистим HTML чтобы не продублировать один и тот же текст
-      HTMLText = "";
+        // тут 2 случая
+        // 1. мы нашли открывающий тег (сработает только 1 раз, при нахождение)
+        // 2. мы нашли закрывающий тег (сработает также 1 раз, при нахождение)
+        if (MLMatch) {
+            MLPDetector += 1;
+        }
+        
+        console.log("MLPDetector -> " + MLPDetector);
+        // проверяем, находимся ли мы в теле таблицы
+        if (TMatch === true) {
+            ;
+        // если не в теле таблицы, то нашли ли мы ее
+        } else if (TMatch) {
+            TableDetector += 1;
+            console.log("Нашли таблицу " + TableDetector);
+            
+        // если не нашли, значит таблицы нет
+        } else {
+            console.log("Не нашли таблицу");
+            
+            TableDetector = 0;
+        }
+    }
 
-      MarkdownBuffer = "";
-      LBDetector = 0;
-    };
-  };
 
-  console.log(MarkdownBuffer);
-  
-  return Memory + HTMLText;
-};
+    // если нашли \n
+    if (SBDetector > 0) {
+        if (MLPDetector == 1) {
+            ;
+
+        } else if (TableDetector == 1) {
+            
+        } else if (TableDetector == 2) {
+            if (SBDetector >= 2) {
+                // поскольку буфер будет очищен, сохраняем уже распаршенный HTML
+                Memory += HTMLText;
+
+                // чистим HTML чтобы не продублировать один и тот же текст
+                HTMLText = "";
+                MarkdownBuffer = "";
+
+                SBDetector = 0;
+                TableDetector = 0;
+            } else {
+                ;
+            }
+
+        } else {
+            // поскольку буфер будет очищен, сохраняем уже распаршенный HTML
+            Memory += HTMLText;
+            // чистим HTML чтобы не продублировать один и тот же текст
+            HTMLText = "";
+
+            MarkdownBuffer = "";
+            SBDetector = 0;
+
+            // сюда будет улетать случай когда MLPDetector = 2
+            // в этом случае мы также очищаем буфер 
+            MLPDetector = 0;
+
+        }
+    }
+
+    // важная проверка, не осталось ли не обработанного текста после \n
+    if (AfterBrake) {
+        console.log("ПОВТОРНЫЙ ЗАХОД ДЛЯ " + AfterBrake);
+        
+        SmartBuffer(AfterBrake);
+    }
+
+
+    return Memory + HTMLText;
+}
+
+function SplitWithN(ChunkContent) {
+
+	// перменная для определения, есть ли в строке \n
+	let NewlineActive = false;
+
+    // делаем проверку, что в функцию передали сообщение
+    if (typeof ChunkContent !== "string") {
+        mes = "не был передан аргумент.";
+        console.warn("pareser.js -> SplitWithN - > " + mes);
+
+        return 0;
+    }
+
+    // ищем \n в строке
+    for (let i = 0; i < ChunkContent.length; i++) {
+        if (ChunkContent[i] == "\n") {
+			// если в чанке еще небыло новых строк NewlineActive = false
+            if (!NewlineActive) {
+                
+                SBDetector += 1;
+                NewlineActive = true;
+            } else {
+                // если это продолжение \n из прошлого чанка, тогда NewlineActive true
+                SBDetector += 1;
+            }
+        } else {
+            // если это текст после \n
+            if (NewlineActive) {
+                
+                return [ChunkContent.slice(0, i), ChunkContent.slice(i)];
+            }
+        }
+    }
+    //если не было текста после \n, тогда возвращаем пустую строку (или вообще не было \n)
+    return [ChunkContent, undefined];
+}

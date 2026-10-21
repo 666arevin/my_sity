@@ -76,6 +76,7 @@ function ClickHandlers(event) {
 function GetMessageId() {
     // берем длин (количество сообщений в чате)
     let num = ChatArea.children.length
+    
     return num
 }
 
@@ -145,7 +146,7 @@ function renderAIInput(text, ai_agent, mes_time = null) {
     if (mes_time == null) {
         // если время не указано, берем текущее
         let now = new Date();
-        let time = now.toLocaleTimeString(('ru-RU', { timeZone: 'Europe/Moscow' }));
+        let time = now.toLocaleTimeString();
         span.textContent = `${ai_agent} ${time.slice(0, -3)}`;
     } else {
         span.textContent = `${ai_agent} ${mes_time}`;
@@ -166,11 +167,17 @@ function renderAIInput(text, ai_agent, mes_time = null) {
     // скролим чат вниз
     ChatArea.scrollTop = ChatArea.scrollHeight;
 }
-
+/**
+ * Функция заменяет текст уже выведенного сообщения клиенту
+ * на новый, указанный в text.
+ * 
+ * @param {*} text 
+ */
 function RenderAIStream(text) {
     // получаем id последнего добавленного сообщения
     const mes_id = GetMessageId();
     
+    // получаем по id нужное сообщение
     let CurrentMessage = ChatArea.querySelector(`#id-${mes_id}`);
     CurrentMessage = CurrentMessage.querySelector(".message").querySelector(".main-information");
 
@@ -237,7 +244,7 @@ async function processChatMessage(event) {
 
     // делаем запрос на сервер с отправкой данных
     try {
-        let response = await fetch('/api/userinput', { method: 'POST', body: formData, signal: abortController.signal });
+        let response = await fetch('/api/streamtest', { method: 'POST', body: formData, signal: abortController.signal });
         // создаеv html обьект, куда будем складывать сообщения от ИИ
         renderAIInput("", "ChatGPT")
         // открываем поток для чтения данных
@@ -268,13 +275,17 @@ async function processChatMessage(event) {
                 // проходимся по списку, где 1 элемент - 1 чанк
                 // в каждом чанке лежит json с контентом от ИИ
                 for (let i of list_chunks) {
+                    
 
                     // парсим json в словарь
-                    let dict_chunck = JSON.parse(i);
+                    let dict_chunck = JSON.parse(i.slice(6));
+                    console.log(i.slice(6));
+                    
 
-                    // по данному пути лежит контент от ИИ
-                    let content = dict_chunck.choices[0].delta.content;
-                    res = SmartBuffer(content)
+                    // // по данному пути лежит контент от ИИ
+                    // let content = dict_chunck.choices[0].delta.content;
+                    
+                    res = SmartBuffer(dict_chunck)
                     
                     RenderAIStream(res);
                 };
