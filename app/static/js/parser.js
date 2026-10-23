@@ -30,11 +30,16 @@ const TPattern = [
     /^\s*\|(?:[^|]+\|)+\s*/,
     /^\s*\|(?:[-:\s]+\|)+\s*$/
 ];
+// LP - List Pattern
+// находит списки, которые рвутся при \n\n
+const LPattern = /^\s{0,3}(?:[-*+]|\d+\.)\s/
 
 // если равен 1, значит ждем парного тега, если 2 очищаем
 let MLPDetector = 0;
 // если равен 1, значит нашли шпку, если 2 точно таблица. Рветься при \n\n
 let TableDetector = 0;
+// если равен 1 значит найден список. Рветься при \n\n
+let ListDetector = 0;
 
 // значение от 0 до 2, количество переносов
 // String-Break Detector
@@ -82,74 +87,26 @@ function SmartBuffer(ChunkContent, done = null) {
     // тут парсим текст
     MarkdownBuffer += Content; // парсим только текст до \n
     HTMLText = marked.parse(MarkdownBuffer);
-    
-
     // ----------
 
-    // после склеек всех строк начинаем проверять паттерны
-    // делаем проверку, что у нас нет никаких 
-    // if (TableDetector < 2 && MLPDetector == 0){
-    //     let NothingDetected = true 
-    // }
+
     console.log("SBDetector -> " + SBDetector);
     
-    
     if (SBDetector > 0) {
-        let MLMatch = undefined;
-        // проверяем нет ли там спец символов, которые не закрываются при \n
-        if (MLPDetector == 0) {
-            // если еще не встречали парного тега, ищем его
-            MLMatch = MarkdownBuffer.match(MLPPattern[0]);
-        } else if (MLPDetector == 1) {
-            // если встречали, ищем закрытие
-            MLMatch = MarkdownBuffer.match(MLPPattern[1]);
-        } else {
-            MLMatch = true;
-        }
+        // проверка на парный тег, изменяет глобальыне перменные
+        FindPairedTag(MarkdownBuffer)
         
-        console.log(MLMatch);
-        
-        
-        let TMatch = undefined;
-        // если шапку еще не встречали, проверяем есть ли она
-        if (TableDetector == 0) {
-            TMatch = MarkdownBuffer.match(TPattern[0]);
-            
-        // если уже встречали шапку, ищем подтверждение таблицы
-        } else if (TableDetector == 1) {
-            TMatch = MarkdownBuffer.split("\n")[1].match(TPattern[1]);
-            
-        // если TPattern стал 2, значит таблица уже обнаружена
-        } else {
-            TMatch = true;
-        }
+        // проверка на таблицу
+        FindTableMD(MarkdownBuffer)
 
+        // проверка на список
+        FindListMD(MarkdownBuffer)
+        
+    
         console.log("html -> " + HTMLText);
         console.log("mark -> " + MarkdownBuffer);
-
-
-        // тут 2 случая
-        // 1. мы нашли открывающий тег (сработает только 1 раз, при нахождение)
-        // 2. мы нашли закрывающий тег (сработает также 1 раз, при нахождение)
-        if (MLMatch) {
-            MLPDetector += 1;
-        }
-        
         console.log("MLPDetector -> " + MLPDetector);
-        // проверяем, находимся ли мы в теле таблицы
-        if (TMatch === true) {
-            ;
-        // если не в теле таблицы, то нашли ли мы ее
-        } else if (TMatch) {
-            TableDetector += 1;
-            console.log("Нашли таблицу " + TableDetector);
-            
-        // если не нашли, значит таблицы нет
-        } else {
-            console.log("Не нашли таблицу");
-            
-            TableDetector = 0;
-        }
+
     }
 
 
@@ -160,7 +117,7 @@ function SmartBuffer(ChunkContent, done = null) {
 
         } else if (TableDetector == 1) {
             
-        } else if (TableDetector == 2) {
+        } else if (TableDetector == 2 || ListDetector == 1) {
             if (SBDetector >= 2) {
                 // поскольку буфер будет очищен, сохраняем уже распаршенный HTML
                 Memory += HTMLText;
@@ -237,4 +194,61 @@ function SplitWithN(ChunkContent) {
     }
     //если не было текста после \n, тогда возвращаем пустую строку (или вообще не было \n)
     return [ChunkContent, undefined];
+}
+
+function FindListMD(MDContent) {
+    let LMatch = undefined
+    // ищем паттерн
+    LMatch = MDContent.match(LPattern)
+
+    // если патерн найден, записываем
+    if (LMatch) {
+        ListDetector = 1;
+    }
+}
+
+function FindTableMD(MDContent) {
+    let TMatch = undefined;
+    // если шапку еще не встречали, проверяем есть ли она
+    if (TableDetector == 0) {
+        TMatch = MDContent.match(TPattern[0]);
+        
+    // если уже встречали шапку, ищем подтверждение таблицы
+    } else if (TableDetector == 1) {
+        TMatch = MDContent.split("\n")[1].match(TPattern[1]);
+    }
+
+    // если не в теле таблицы, то нашли ли мы ее
+    if (TMatch) {
+        TableDetector += 1;
+        console.log("Нашли таблицу " + TableDetector);
+        
+    // если нашли шабку но дальше нет таблицы
+    } else if (TableDetector == 1) {
+        console.log("Не нашли таблицу");
+        
+        TableDetector = 0;
+    }
+}
+
+function FindPairedTag(MDContent) {
+
+    let MLMatch = undefined;
+    // проверяем нет ли там спец символов, которые не закрываются при \n
+    if (MLPDetector == 0) {
+        // если еще не встречали парного тега, ищем его
+        MLMatch = MDContent.match(MLPPattern[0]);
+    } else if (MLPDetector == 1) {
+        // если встречали, ищем закрытие
+        MLMatch = MDContent.match(MLPPattern[1]);
+    } else {
+        MLMatch = true;
+    }
+    
+    // тут 2 случая
+    // 1. мы нашли открывающий тег (сработает только 1 раз, при нахождение)
+    // 2. мы нашли закрывающий тег (сработает также 1 раз, при нахождение)
+    if (MLMatch) {
+        MLPDetector += 1;
+    }
 }
