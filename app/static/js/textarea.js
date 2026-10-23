@@ -7,6 +7,12 @@ window.addEventListener('DOMContentLoaded', () => {
     ChatArea.scrollTop = ChatArea.scrollHeight;
 });
 
+function ShowCancelButtom() {
+    // показывает кнопку отмены
+    ChatBlock.classList.remove('sending');
+    ChatBlock.classList.add('no-response');
+}
+
 function adjustHeight(el, ChatBlock) {
 
     if (el.scrollHeight > 24) {
@@ -88,8 +94,8 @@ let template = document.querySelector('#user-tpl');
 /**
  * Функция renderUserInput отрисовывает сообщение пользователя на странице.
  * 
- * @param {*} text -> текст пользователя из поля для ввода
- * @param {*} mes_time -> время сообщения, если не указано, то берется текущее
+ * @param {string} text -> текст пользователя из поля для ввода
+ * @param {string} mes_time -> время сообщения, если не указано, то берется текущее
  * @returns -> None
  */
 function renderUserInput(text, mes_time = null) {
@@ -123,10 +129,13 @@ function renderUserInput(text, mes_time = null) {
     ChatArea.scrollTop = ChatArea.scrollHeight;
 }
 /**
- * Описание функции renderAIInput
+ * Создает первичный контейнер для сообщений то ИИ.
+ * создает только сам контейнер с сервисной информацией.
  * 
+ * @param {string} ai_agent 
+ * @param {*} mes_time 
  */
-function renderAIInput(text, ai_agent, mes_time = null) {
+function renderAIInput(ai_agent, mes_time = null) {
     // определяем нужные переменные
     // клонируем template
     const CloneTemplateAI = template.content.cloneNode(true);
@@ -165,7 +174,10 @@ function renderAIInput(text, ai_agent, mes_time = null) {
     // добавляем полученный обьект с ответом ИИ на страницу
     ChatArea.appendChild(CloneTemplateAI);
     // скролим чат вниз
-    ChatArea.scrollTop = ChatArea.scrollHeight;
+    ChatArea.scrollTo({
+        top: ChatArea.scrollHeight,
+        behavior: 'smooth'
+    });
 }
 /**
  * Функция заменяет текст уже выведенного сообщения клиенту
@@ -214,10 +226,7 @@ async function processChatMessage(event) {
 
     // текст который ввел пользователь, очищаем поле для ввода
     const Text = TextArea.textContent;
-    TextArea.textContent = ''
-    // отрисовываем сообщение пользователя на странице
-    renderUserInput(Text);
-
+    TextArea.textContent = '';
 
     // создаем виртуальную форму
     const formData = new FormData();
@@ -229,30 +238,30 @@ async function processChatMessage(event) {
     formData.append('content', Text);
     formData.append('role', 'user');
 
-    // ставим таймер через которое можно отмнить запрос к ИИ
-    const chatTimeout = setTimeout(() => {
-        // проверяем через 1.5 сек, что ответ от ИИ еще не пришел (есть класс sending)
-        if (ChatBlock.classList.contains('sending')) {
+    // отрисовываем сообщение пользователя на странице
+    renderUserInput(Text);
+    // создаеv html обьект, куда будем складывать сообщения от ИИ
+    renderAIInput(ai_v)
 
-            // показываем кнопку отмены,
-            ChatBlock.classList.remove('sending');
-            ChatBlock.classList.add('no-response');
-        }
-    }, 1500);
+    // ставим таймер через которое можно отмнить запрос к ИИ
+    const chatTimeout = setTimeout(ShowCancelButtom, 1500)
+
     // если ответа нет, даем пользователю право отменить запрос
     Cancel.addEventListener('click', AbortFun.bind(null, abortController));
 
     // делаем запрос на сервер с отправкой данных
     try {
         let response = await fetch('/api/streamtest', { method: 'POST', body: formData, signal: abortController.signal });
-        // создаеv html обьект, куда будем складывать сообщения от ИИ
-        renderAIInput("", "ChatGPT")
+        if (response.ok) {
+            window.clearTimeout(chatTimeout)
+            // показываем кнопку отмены
+            ShowCancelButtom()
+        }
+        
         // открываем поток для чтения данных
         const reader = response.body.getReader();
         const decoder = new TextDecoder("utf-8");
 
-        // это буфер для хранения текста который нужно распарсить
-        let MarkDownText = "";
         // запускаем цикл для чтения чанков от ИИ
         while (true) {
             // читаем следующий чанк

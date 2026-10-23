@@ -59,6 +59,9 @@ function SmartBuffer(ChunkContent, done = null) {
         Memory = "";
         SBDetector = 0;
         ResponseStart = false;
+        ListDetector = 0;
+        MLPDetector = 0;
+        TableDetector = 0;
     }
 
     // если конец стриминга, меняем флаг ResponseStart на true
@@ -126,6 +129,7 @@ function SmartBuffer(ChunkContent, done = null) {
 
                 SBDetector = 0;
                 TableDetector = 0;
+                ListDetector = 0;
             } else {
                 ;
             }
