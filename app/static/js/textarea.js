@@ -38,6 +38,8 @@ const InputFiles = document.querySelector('#file-input')
 const ChatWrapper = document.querySelector('.chat-wrapper')
 // кнопка отмены запроса
 const Cancel = document.querySelector('.cancellation')
+// размер шрифта у пользователя
+const rootFontSize = parseFloat(window.getComputedStyle(document.documentElement).fontSize);
 
 
 // обрабатывает нажатия на enter и enter + shift
@@ -125,6 +127,8 @@ function renderUserInput(text, mes_time = null) {
 
     // склонированную и отредактированную заготовка добавляем в блок чата
     ChatArea.appendChild(CloneTemplate);
+    // создаем спец путой блок
+    ChatArea.style.paddingBottom = '65.5rem';
     // скролим чат вниз
     ChatArea.scrollTop = ChatArea.scrollHeight;
 }
@@ -185,16 +189,19 @@ function renderAIInput(ai_agent, mes_time = null) {
  * 
  * @param {*} text 
  */
-function RenderAIStream(text) {
-    // получаем id последнего добавленного сообщения
-    const mes_id = GetMessageId();
-    
-    // получаем по id нужное сообщение
-    let CurrentMessage = ChatArea.querySelector(`#id-${mes_id}`);
-    CurrentMessage = CurrentMessage.querySelector(".message").querySelector(".main-information");
+function RenderAIStream(text, CurrentMessage) {
 
+    let BeforHeight = CurrentMessage.offsetHeight;
     // вставляем текст внутрь элемента для отрисовки на странице
-    CurrentMessage.innerHTML = text
+    CurrentMessage.innerHTML = text;
+    // насколько высота стала больше
+    let HeightDiff = (CurrentMessage.offsetHeight - BeforHeight) / rootFontSize;
+    
+    // текущие размер нижнего отступа
+    let CurrentPaddingB = parseFloat(ChatArea.style.paddingBottom);
+    // уменьшаем padding насколько вырос текст
+    ChatArea.style.paddingBottom = (CurrentPaddingB - HeightDiff) + "rem";
+
 }
 
 function AbortFun(abortController) {
@@ -205,7 +212,7 @@ function AbortFun(abortController) {
  * Функция processChatMessage обрабатывает логку отправки сообщения,
  * введенного пользователем.
  * 
- * @param {*} event -> сам обьект события (нажатие на кнопку отправки)
+ * @param {*} event -> сам объект события (нажатие на кнопку отправки)
  */
 async function processChatMessage(event) {
     
@@ -242,6 +249,10 @@ async function processChatMessage(event) {
     renderUserInput(Text);
     // создаеv html обьект, куда будем складывать сообщения от ИИ
     renderAIInput(ai_v)
+    // получаем ссылку на последние добавленное сообщение
+    const mes_id = GetMessageId();
+    let CurrentMessage = ChatArea.querySelector(`#id-${mes_id}`);
+    CurrentMessage = CurrentMessage.querySelector(".message").querySelector(".main-information");
 
     // ставим таймер через которое можно отмнить запрос к ИИ
     const chatTimeout = setTimeout(ShowCancelButtom, 1500)
@@ -285,10 +296,8 @@ async function processChatMessage(event) {
                 // в каждом чанке лежит json с контентом от ИИ
                 for (let i of list_chunks) {
                     
-
                     // парсим json в словарь
                     let dict_chunck = JSON.parse(i.slice(6));
-                    console.log(i.slice(6));
                     
 
                     // // по данному пути лежит контент от ИИ
@@ -296,7 +305,7 @@ async function processChatMessage(event) {
                     
                     res = SmartBuffer(dict_chunck)
                     
-                    RenderAIStream(res);
+                    RenderAIStream(res, CurrentMessage);
                 };
             } catch (error) {
                 console.log(error)

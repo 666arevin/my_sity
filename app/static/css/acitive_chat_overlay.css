@@ -19,7 +19,6 @@
     flex-grow: 1;
     flex-shrink: 1;
     margin-top: 0.3rem;
-    padding-bottom: 65.5rem;
 
     box-sizing: border-box;
     background-color: #171717;
@@ -31,6 +30,8 @@
     overflow-x: hidden;
     scrollbar-gutter: stable;
 }
+
+
 
 /* это div который растянут на всю ширину, область для сообщения пользователя */
 .message-area {
