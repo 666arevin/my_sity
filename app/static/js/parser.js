@@ -1,3 +1,4 @@
+
 // перменная в которой накапливаются не обработанные чанк
 let MarkdownBuffer = "";
 let Memory = "";
@@ -45,7 +46,7 @@ let ListDetector = 0;
 // String-Break Detector
 let SBDetector = 0;
 
-
+log.setLevel("warn")
 
 function SmartBuffer(ChunkContent, done = null) {
 
@@ -90,7 +91,7 @@ function SmartBuffer(ChunkContent, done = null) {
     // ----------
 
 
-    console.log("SBDetector -> " + SBDetector);
+    log.debug("SBDetector -> " + SBDetector);
     
     if (SBDetector > 0) {
         // проверка на парный тег, изменяет глобальыне перменные
@@ -102,11 +103,9 @@ function SmartBuffer(ChunkContent, done = null) {
         // проверка на список
         FindListMD(MarkdownBuffer)
         
-    
-        console.log("html -> " + HTMLText);
-        console.log("mark -> " + MarkdownBuffer);
-        console.log("MLPDetector -> " + MLPDetector);
-
+        log.debug("html -> " + HTMLText);
+        log.debug("mark -> " + MarkdownBuffer);
+        log.debug("MLPDetector -> " + MLPDetector);
     }
 
 
@@ -114,9 +113,8 @@ function SmartBuffer(ChunkContent, done = null) {
     if (SBDetector > 0) {
         if (MLPDetector == 1) {
             ;
-
         } else if (TableDetector == 1) {
-            
+            ;
         } else if (TableDetector == 2 || ListDetector == 1) {
             if (SBDetector >= 2) {
                 // поскольку буфер будет очищен, сохраняем уже распаршенный HTML
@@ -150,7 +148,7 @@ function SmartBuffer(ChunkContent, done = null) {
 
     // важная проверка, не осталось ли не обработанного текста после \n
     if (AfterBrake) {
-        console.log("ПОВТОРНЫЙ ЗАХОД ДЛЯ " + AfterBrake);
+        log.debug("ПОВТОРНЫЙ ЗАХОД ДЛЯ " + AfterBrake);
         
         SmartBuffer(AfterBrake);
     }
@@ -167,7 +165,7 @@ function SplitWithN(ChunkContent) {
     // делаем проверку, что в функцию передали сообщение
     if (typeof ChunkContent !== "string") {
         mes = "не был передан аргумент.";
-        console.warn("pareser.js -> SplitWithN - > " + mes);
+        log.warn("pareser.js -> SplitWithN - > " + mes);
 
         return 0;
     }
@@ -221,11 +219,11 @@ function FindTableMD(MDContent) {
     // если не в теле таблицы, то нашли ли мы ее
     if (TMatch) {
         TableDetector += 1;
-        console.log("Нашли таблицу " + TableDetector);
+        log.debug("Нашли таблицу " + TableDetector);
         
     // если нашли шабку но дальше нет таблицы
     } else if (TableDetector == 1) {
-        console.log("Не нашли таблицу");
+        log.debug("Не нашли вторую часть таблицы");
         
         TableDetector = 0;
     }
