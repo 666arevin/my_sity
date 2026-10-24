@@ -20,22 +20,25 @@
 /* таблица */
 .ai-messege-area .message table {
     word-break: normal;
-    border-collapse: collapse;
+
     table-layout: auto;
-    box-sizing: border-box;
     width: 100%;
 
-    background-color: rgb(51, 51, 51);
+    background-color: #222124;
 
+    padding: 0.5rem;
+
+}
+
+.ai-messege-area .message table thead {
+    background-color: rgb(48, 48, 114);
 }
 
 
 /* настройка ячеейк заголовка */
 .ai-messege-area .message table thead th {
     padding: 0.5rem 1rem;
-    min-width: 10rem;
 
-    color: #fff;
     font-size: 1rem;
 }
 
@@ -43,18 +46,15 @@
     width: fit-content;
 }
 
+.ai-messege-area .message table thead th:last-child {
+    border-right: none;
+}
+
 
 .ai-messege-area .message table thead tr th {
     border-right: 16px solid #222124;
 }
 
-.ai-messege-area .message table thead tr th:last-child {
-    border-right: none;
-}
-
-.ai-messege-area .message table tr {
-    border-bottom: 1px solid rgb(92, 92, 92);
-}
 
 
 .ai-messege-area .message table tbody {
@@ -66,7 +66,6 @@
 .ai-messege-area .message table tbody tr td {
     border-right: 16px solid #222124;
     padding: 0.4rem 1rem;
-    padding-left: 1rem;
 
 }
 
@@ -135,12 +134,20 @@
 
 
 /* заголовки и абзацы (параграфы)*/
+
+.ai-messege-area .message h1 {
+    font-size: 1.5rem;
+    margin-left: 0;
+    margin: 0.4rem;
+}
 .ai-messege-area .message h2 {
     font-size: 1.3rem;
+    margin: 0;
 }
 
 .ai-messege-area .message h3 {
     font-size: 1.1rem;
+    margin: 0;
 
 }
 
