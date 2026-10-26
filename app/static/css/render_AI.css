@@ -29,6 +29,15 @@
 
 }
 
+.ai-messege-area .main-information > * {
+    opacity: 0;
+    transition: opacity 0.4s ease
+}
+
+.ai-messege-area .main-information .visible {
+    opacity: 1;
+}
+
 
 /* настройка ячеейк заголовка */
 .ai-messege-area .message table thead th {

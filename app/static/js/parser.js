@@ -1,8 +1,11 @@
 
-// перменная в которой накапливаются не обработанные чанк
-let MarkdownBuffer = "";
-let Memory = "";
-let ResponseStart = true;
+// определяем перменные и флаги
+let MarkdownBuffer = ""; // нераспаршенный текст (буфер)
+let Memory = ""; // перменная тунель, чтобы очистить HTMLText но не потерять данные
+let HTMLText = ""; // накопленный распаршенный HTML
+let ResponseStart = true; // флаг, является ли чанк первым
+let isDataReady = false; // флаг, был ли обработан тег и готов ли он к отрисовки
+let AfterBrake = undefined; // данные после \n если такое было в чанке
 
 // Достаём функции из глобальных объектов, которые создали UMD-скрипты
 const { Marked } = globalThis.marked;
@@ -48,7 +51,7 @@ let SBDetector = 0;
 
 log.setLevel("warn")
 
-function SmartBuffer(ChunkContent, done = null) {
+function SmartBuffer(ChunkContent, recursion, done = null) {
 
     // определяем длину чанка
     EndBreakIndex = ChunkContent.length;
@@ -68,6 +71,10 @@ function SmartBuffer(ChunkContent, done = null) {
     // чтобы при начале нового стриминга все буфферы были очищены
     if (done) {
         ResponseStart = true;
+        TagClosed();
+        console.log("Закончил");
+        console.log(HTMLText);
+        
     }
 
     // проверка на запоздалый \n
@@ -84,13 +91,12 @@ function SmartBuffer(ChunkContent, done = null) {
 
     // разделяет контент в чанке на текст до \n и после
     // content это текст до \n если \n был
-    const [Content, AfterBrake] = SplitWithN(ChunkContent);
+    [Content, AfterBrake] = SplitWithN(ChunkContent);
 
     
     //----------
-    // тут парсим текст
+    // тут накапливаем md текст
     MarkdownBuffer += Content; // парсим только текст до \n
-    HTMLText = marked.parse(MarkdownBuffer);
     // ----------
 
 
@@ -98,19 +104,18 @@ function SmartBuffer(ChunkContent, done = null) {
     
     if (SBDetector > 0) {
         // проверка на парный тег, изменяет глобальыне перменные
-        FindPairedTag(MarkdownBuffer)
+        FindPairedTag(MarkdownBuffer);
         
         // проверка на таблицу
-        FindTableMD(MarkdownBuffer)
+        FindTableMD(MarkdownBuffer);
 
         // проверка на список
-        FindListMD(MarkdownBuffer)
+        FindListMD(MarkdownBuffer);
         
         log.debug("html -> " + HTMLText);
         log.debug("mark -> " + MarkdownBuffer);
         log.debug("MLPDetector -> " + MLPDetector);
     }
-
 
     // если нашли \n
     if (SBDetector > 0) {
@@ -120,45 +125,31 @@ function SmartBuffer(ChunkContent, done = null) {
             ;
         } else if (TableDetector == 2 || ListDetector == 1) {
             if (SBDetector >= 2) {
-                // поскольку буфер будет очищен, сохраняем уже распаршенный HTML
-                Memory += HTMLText;
+                TagClosed()
 
-                // чистим HTML чтобы не продублировать один и тот же текст
-                HTMLText = "";
-                MarkdownBuffer = "";
-
-                SBDetector = 0;
-                TableDetector = 0;
-                ListDetector = 0;
             } else {
                 ;
             }
 
         } else {
-            // поскольку буфер будет очищен, сохраняем уже распаршенный HTML
-            Memory += HTMLText;
-            // чистим HTML чтобы не продублировать один и тот же текст
-            HTMLText = "";
-
-            MarkdownBuffer = "";
-            SBDetector = 0;
-
-            // сюда будет улетать случай когда MLPDetector = 2
-            // в этом случае мы также очищаем буфер 
-            MLPDetector = 0;
-
+            TagClosed()
         }
     }
 
+    
     // важная проверка, не осталось ли не обработанного текста после \n
     if (AfterBrake) {
         log.debug("ПОВТОРНЫЙ ЗАХОД ДЛЯ " + AfterBrake);
         
-        SmartBuffer(AfterBrake);
-    }
+        SmartBuffer(AfterBrake, true);
+    };
 
-
-    return Memory + HTMLText;
+    // если не рекурсия и есть данные для отгрузки
+    if (!recursion && isDataReady) {
+        
+        isDataReady = false;
+        return HTMLText;
+    };
 }
 
 function SplitWithN(ChunkContent) {
@@ -253,4 +244,19 @@ function FindPairedTag(MDContent) {
     if (MLMatch) {
         MLPDetector += 1;
     }
+}
+
+function TagClosed() {
+    // парсим данные и очищаем буфер
+    HTMLText = marked.parse(MarkdownBuffer);
+    MarkdownBuffer = "";
+
+    // обнуляем все детекторы
+    SBDetector = 0;
+    TableDetector = 0;
+    ListDetector = 0;
+    MLPDetector = 0;
+
+    // данные готовы к отгрузки
+    isDataReady = true;
 }

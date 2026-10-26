@@ -193,7 +193,11 @@ function RenderAIStream(text, CurrentMessage) {
 
     let BeforHeight = CurrentMessage.offsetHeight;
     // вставляем текст внутрь элемента для отрисовки на странице
-    CurrentMessage.innerHTML = text;
+    CurrentMessage.insertAdjacentHTML('beforeend', text);
+    requestAnimationFrame(() => {
+        CurrentMessage.lastElementChild.classList.add('visible');
+    });
+
     // насколько высота стала больше
     let HeightDiff = (CurrentMessage.offsetHeight - BeforHeight) / rootFontSize;
     
@@ -207,7 +211,7 @@ function RenderAIStream(text, CurrentMessage) {
 function AbortFun(abortController) {
     abortController.abort();
 }
-
+const sleep = ms => new Promise(r => setTimeout(r, ms));
 /**
  * Функция processChatMessage обрабатывает логку отправки сообщения,
  * введенного пользователем.
@@ -303,9 +307,15 @@ async function processChatMessage(event) {
                     // // по данному пути лежит контент от ИИ
                     // let content = dict_chunck.choices[0].delta.content;
                     
-                    res = SmartBuffer(dict_chunck)
+                    res = SmartBuffer(dict_chunck, false);
                     
-                    RenderAIStream(res, CurrentMessage);
+                    // SmartBuffer выдает результат когда был сформирован
+                    // окончательный тег
+                    if (res) {
+                        RenderAIStream(res, CurrentMessage);
+                    }
+                    await sleep(1);
+                    
                 };
             } catch (error) {
                 console.log(error)
