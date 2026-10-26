@@ -24,7 +24,7 @@ def AI_request(prompt: str, model: str = "free", sys_prompt: str = "Верни �
     Returns:
         str: Ответ от ИИ
     """
-
+    print("AI_request start")
     models = {
         "gpt-5.4-mini": "openai/gpt-5.4-mini",
         "gpt-5.4-nano": "openai/gpt-5.4-nano",

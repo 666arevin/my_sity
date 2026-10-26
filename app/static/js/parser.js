@@ -71,9 +71,8 @@ function SmartBuffer(ChunkContent, recursion, done = null) {
     // чтобы при начале нового стриминга все буфферы были очищены
     if (done) {
         ResponseStart = true;
+        // если это концовка текста, то закрываем тег и выдаем данные
         TagClosed();
-        console.log("Закончил");
-        console.log(HTMLText);
         
     }
 

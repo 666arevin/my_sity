@@ -266,7 +266,7 @@ async function processChatMessage(event) {
 
     // делаем запрос на сервер с отправкой данных
     try {
-        let response = await fetch('/api/streamtest', { method: 'POST', body: formData, signal: abortController.signal });
+        let response = await fetch('/api/userinput', { method: 'POST', body: formData, signal: abortController.signal });
         if (response.ok) {
             window.clearTimeout(chatTimeout)
             // показываем кнопку отмены
@@ -286,7 +286,6 @@ async function processChatMessage(event) {
 
             // если подключение оборвалось, выходим из цикла
             if (done) {
-                SmartBuffer("", done);
                 break;
             }
             try {
@@ -301,13 +300,13 @@ async function processChatMessage(event) {
                 for (let i of list_chunks) {
                     
                     // парсим json в словарь
-                    let dict_chunck = JSON.parse(i.slice(6));
+                    let dict_chunck = JSON.parse(i);
                     
 
                     // // по данному пути лежит контент от ИИ
-                    // let content = dict_chunck.choices[0].delta.content;
+                    let content = dict_chunck.choices[0].delta.content;
                     
-                    res = SmartBuffer(dict_chunck, false);
+                    res = SmartBuffer(content, false);
                     
                     // SmartBuffer выдает результат когда был сформирован
                     // окончательный тег
@@ -328,6 +327,14 @@ async function processChatMessage(event) {
         // html = `<span class="error">Запрос был прерван пользователем</span>`;
         // renderAIInput(html, "ChatGPT");
     } finally {
+        // в конце стриимнга отправлеям спец конструкцию
+        // чтобы получить все оставшиеся данные
+        res = SmartBuffer("", false, true);   
+        if (res) {
+            RenderAIStream(res, CurrentMessage);
+        }
+        await sleep(1);
+
         ChatBlock.classList.remove('sending');
         ChatBlock.classList.remove('no-response');
     }
