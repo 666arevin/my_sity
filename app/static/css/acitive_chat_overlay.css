@@ -34,7 +34,7 @@
 
 
 /* это div который растянут на всю ширину, область для сообщения пользователя */
-.message-area {
+.messege-area {
     display: flex;
     justify-content: flex-end;
 
@@ -45,7 +45,7 @@
 
     color: #ffffff;
     opacity: 0.9;
-    font-size: 1.05rem;
+    font-size: 0.9rem;
 }
 
 /* настраиваем как себя будет вести сообщение от ИИ */
@@ -54,14 +54,15 @@
 
 }
 
-.ai-messege-area .message {
+.ai-messege-area .messege {
     background: transparent;
 
     color: #fafafa;
+    width: 100%;
 }
 
 /* div в котром лежит текст 2 span с текстом */
-.message {
+.messege {
     display: flex;
     flex-direction: column;
 

@@ -7,7 +7,14 @@ window.addEventListener('DOMContentLoaded', () => {
     ChatArea.scrollTop = ChatArea.scrollHeight;
 });
 
-function ShowCancelButtom() {
+function ShowCancelButton(response) {
+
+    if (response && response.ok) {
+        // удаляем анимацию загузки сообщения от ИИ
+        const PlugEl = document.querySelector('#plug');
+        PlugEl.remove();
+    }
+    
     // показывает кнопку отмены
     ChatBlock.classList.remove('sending');
     ChatBlock.classList.add('no-response');
@@ -48,7 +55,7 @@ function EnterHandlers(event) {
         if (event.shiftKey) {
             return;
         } else if (TextArea.textContent.trim().length > 0) {
-            processChatMessage(event);
+            processChatMessege(event);
             event.preventDefault();
         } else {
             event.preventDefault();
@@ -67,7 +74,7 @@ function ClickHandlers(event) {
     if (TextArea.textContent.trim().length > 0) {
 
         // функция обработки отправки сообщения на сервер
-        processChatMessage(event);
+        processChatMessege(event);
         // блокирует дальнейшее взаимодействие браузера с этим событием
         event.preventDefault();
 
@@ -81,7 +88,7 @@ function ClickHandlers(event) {
 
 
 
-function GetMessageId() {
+function GetMessegeId() {
     // берем длин (количество сообщений в чате)
     let num = ChatArea.children.length
     
@@ -111,7 +118,7 @@ function renderUserInput(text, mes_time = null) {
     let time = now.toLocaleTimeString(('ru-RU', { timeZone: 'Europe/Moscow' }));
 
     // находим div в котром будет лежать основной текст пользователя
-    const MessegeDiv = CloneTemplate.querySelector('.message');
+    const MessegeDiv = CloneTemplate.querySelector('.messege');
     // создаем span для сообщения пользователя и заполняем его
     const MainSpan = document.createElement('span');
     MainSpan.classList.add('mes-text');
@@ -146,14 +153,25 @@ function renderAIInput(ai_agent, mes_time = null) {
     // Ищем сервисный span для отображения время сообщения
     let span = CloneTemplateAI.querySelector('span');
     // div в котром будет лежать текст ИИ
-    const MessegeDiv = CloneTemplateAI.querySelector('.message');
+    const MessegeDiv = CloneTemplateAI.querySelector('.messege');
 
 
     // работаем с нашим макетом html
     // делаем span куда будет вставляться сообщение от ИИ
     const MainSpan = document.createElement('span');
     MainSpan.classList.add("main-information")
-    MessegeDiv.prepend(MainSpan)
+
+    // добавляем заглушку пока не придет ответ от ИИ
+    const plug = document.createElement('div');
+    plug.id = 'plug';
+
+    for (let i = 0; i < 3; i++) {
+        plug.appendChild(document.createElement('div'));
+    }
+    
+    // добавляем элементы на страницу
+    MainSpan.append(plug);
+    MessegeDiv.prepend(MainSpan);
 
     // определяем сервисную инфомацию
     if (mes_time == null) {
@@ -167,14 +185,14 @@ function renderAIInput(ai_agent, mes_time = null) {
 
 
     // добавляем класс определяющий сообщения от ИИ
-    const messageArea = CloneTemplateAI.firstElementChild;
-    messageArea.classList.add('ai-messege-area');
+    const messegeArea = CloneTemplateAI.firstElementChild;
+    messegeArea.classList.add('ai-messege-area');
 
     // получаем id сообщения
-    let mes_id = GetMessageId()
+    let mes_id = GetMessegeId()
     // прибавляем 1 так как создаем новое сообщение
     mes_id += 1
-    messageArea.id = `id-${mes_id}`
+    messegeArea.id = `id-${mes_id}`
     // добавляем полученный обьект с ответом ИИ на страницу
     ChatArea.appendChild(CloneTemplateAI);
     // скролим чат вниз
@@ -191,9 +209,9 @@ function renderAIInput(ai_agent, mes_time = null) {
  */
 
 const DParser = new DOMParser();
-function RenderAIStream(text, CurrentMessage) {
+function RenderAIStream(text, CurrentMessege) {
 
-    let BeforHeight = CurrentMessage.offsetHeight;
+    let BeforHeight = CurrentMessege.offsetHeight;
 
     // парсим сырой HTML
     const doc = DParser.parseFromString(text, 'text/html');
@@ -201,20 +219,20 @@ function RenderAIStream(text, CurrentMessage) {
 
     // добавляем нужные класс
     element.classList.add('content');
-    
+
     // создаем элемент обертку
     const newChunk = document.createElement('div');
     newChunk.classList.add('chunk-wrapper');
     newChunk.appendChild(element);
 
     // вставляем текст внутрь элемента для отрисовки на странице
-    CurrentMessage.appendChild(newChunk);
+    CurrentMessege.appendChild(newChunk);
     requestAnimationFrame(() => {
         newChunk.classList.add('visible');
     });
 
     // насколько высота стала больше
-    let HeightDiff = (CurrentMessage.offsetHeight - BeforHeight) / rootFontSize;
+    let HeightDiff = (CurrentMessege.offsetHeight - BeforHeight) / rootFontSize;
     
     // текущие размер нижнего отступа
     let CurrentPaddingB = parseFloat(ChatArea.style.paddingBottom);
@@ -228,12 +246,12 @@ function AbortFun(abortController) {
 }
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 /**
- * Функция processChatMessage обрабатывает логку отправки сообщения,
+ * Функция processChatMessege обрабатывает логку отправки сообщения,
  * введенного пользователем.
  * 
  * @param {*} event -> сам объект события (нажатие на кнопку отправки)
  */
-async function processChatMessage(event) {
+async function processChatMessege(event) {
     
     // создаем контроллер для await
     let abortController = new AbortController()
@@ -269,24 +287,26 @@ async function processChatMessage(event) {
     // создаеv html обьект, куда будем складывать сообщения от ИИ
     renderAIInput(ai_v)
     // получаем ссылку на последние добавленное сообщение
-    const mes_id = GetMessageId();
-    let CurrentMessage = ChatArea.querySelector(`#id-${mes_id}`);
-    CurrentMessage = CurrentMessage.querySelector(".message").querySelector(".main-information");
+    const mes_id = GetMessegeId();
+    let CurrentMessege = ChatArea.querySelector(`#id-${mes_id}`);
+    CurrentMessege = CurrentMessege.querySelector(".messege").querySelector(".main-information");
 
     // ставим таймер через которое можно отмнить запрос к ИИ
-    const chatTimeout = setTimeout(ShowCancelButtom, 1500)
+    const chatTimeout = setTimeout(() => {
+        ShowCancelButton(false);
+    }, 1500);
 
     // если ответа нет, даем пользователю право отменить запрос
     Cancel.addEventListener('click', AbortFun.bind(null, abortController));
 
     // делаем запрос на сервер с отправкой данных
     try {
+        await sleep(1000);
         let response = await fetch('/api/userinput', { method: 'POST', body: formData, signal: abortController.signal });
-        if (response.ok) {
-            window.clearTimeout(chatTimeout)
-            // показываем кнопку отмены
-            ShowCancelButtom()
-        }
+        
+        window.clearTimeout(chatTimeout);
+        // показываем кнопку отмены
+        ShowCancelButton(response);
         
         // открываем поток для чтения данных
         const reader = response.body.getReader();
@@ -326,7 +346,7 @@ async function processChatMessage(event) {
                     // SmartBuffer выдает результат когда был сформирован
                     // окончательный тег
                     if (res) {
-                        RenderAIStream(res, CurrentMessage);
+                        RenderAIStream(res, CurrentMessege);
                     }
                     await sleep(1);
                     
@@ -346,11 +366,11 @@ async function processChatMessage(event) {
         // чтобы получить все оставшиеся данные
         res = SmartBuffer("", false, true);   
         if (res) {
-            RenderAIStream(res, CurrentMessage);
+            RenderAIStream(res, CurrentMessege);
         }
         await sleep(1);
-
-        ChatBlock.classList.remove('sending');
+        
+        // убираем кнопку отмены запросы
         ChatBlock.classList.remove('no-response');
     }
 

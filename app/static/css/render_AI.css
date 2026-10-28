@@ -1,10 +1,47 @@
+/* некотоыре переменные */
+:root {
+    /* настройка для размера шрифта */
+    --a: 1rem;
+    --b: 1.06;
+
+    /* настройка для размера нижнего margin */
+    --marg-bottom-start: 0.12rem;
+    --marg-bottom-step: 1.5;
+
+    /* настройка для размера общего */
+    --marg-start: 0.12rem;
+    --marg-step: 1.5;
+}
+
+
+/*Настройка основного контейнера*/
+.messege .main-information {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.ai-messege-area .main-information .chunk-wrapper {
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    display: flex;
+}
+
+.ai-messege-area .messege .content {
+    flex-grow: 1;
+}
+
+.ai-messege-area .main-information .visible {
+    opacity: 1;
+}
+
 /* редактиврование таблиц в ответе */
-.ai-messege-area .message strong {
+.ai-messege-area .messege strong {
     color: #fff !important;
 }
 
 /* контейнер в котором лежит таблица */
-.ai-messege-area .message .table-wrap {
+.ai-messege-area .messege .table-wrap {
     display: flex;
     overflow-x: auto;
     background-color: #222124;
@@ -18,7 +55,7 @@
 }
 
 /* таблица */
-.ai-messege-area .message table {
+.ai-messege-area .messege table {
     word-break: normal;
 
     table-layout: auto;
@@ -30,80 +67,72 @@
 
 }
 
-.ai-messege-area .message table thead {
+.ai-messege-area .messege table thead {
     background-color: rgb(48, 48, 114);
 }
 
-.ai-messege-area .main-information > * {
-    opacity: 0;
-    transition: opacity 0.4s ease
-}
-
-.ai-messege-area .main-information .visible {
-    opacity: 1;
-}
 
 
 /* настройка ячеейк заголовка */
-.ai-messege-area .message table thead th {
+.ai-messege-area .messege table thead th {
     padding: 0.5rem 1rem;
 
     font-size: 1rem;
 }
 
-.ai-messege-area .message table thead th:nth-child(1) {
+.ai-messege-area .messege table thead th:nth-child(1) {
     width: fit-content;
 }
 
-.ai-messege-area .message table thead th:last-child {
+.ai-messege-area .messege table thead th:last-child {
     border-right: none;
 }
 
 
-.ai-messege-area .message table thead tr th {
+.ai-messege-area .messege table thead tr th {
     border-right: 16px solid #222124;
 }
 
 
 
-.ai-messege-area .message table tbody {
+.ai-messege-area .messege table tbody {
     background-color: rgb(51, 51, 51);
 
 }
 
 
-.ai-messege-area .message table tbody tr td {
+.ai-messege-area .messege table tbody tr td {
     border-right: 16px solid #222124;
     padding: 0.4rem 1rem;
 
 }
 
-.ai-messege-area .message table tbody tr td:last-child {
+.ai-messege-area .messege table tbody tr td:last-child {
     border-right: none;
 }
 
-.ai-messege-area .message table tbody tr td:first-child {
+.ai-messege-area .messege table tbody tr td:first-child {
     text-align: center;
 }
 
 
 /* ползунок для таблицы */
-.ai-messege-area .message .table-wrap::-webkit-scrollbar {
+.ai-messege-area .messege .table-wrap::-webkit-scrollbar {
     height: 8px;
 }
 
-.ai-messege-area .message .table-wrap::-webkit-scrollbar-track {
+.ai-messege-area .messege .table-wrap::-webkit-scrollbar-track {
     background-color: transparent;
     /* Фон дорожки */
 }
 
-.ai-messege-area .message .table-wrap::-webkit-scrollbar-thumb {
+.ai-messege-area .messege .table-wrap::-webkit-scrollbar-thumb {
     background: transparent;
     /* Цвет самого ползунка */
     border-radius: 10px;
 }
 
-.ai-messege-area .message .table-wrap.scroll::-webkit-scrollbar-thumb {
+.ai-messege-area .messege .table-wrap.scroll::-webkit-scrollbar-thumb {
     background-color: #7a7a7a;
 }
 
@@ -114,12 +143,12 @@
 
 
 /* настройка цитирования */
-.ai-messege-area .message blockquote {
+.ai-messege-area .messege blockquote {
     display: flex;
 
     box-sizing: border-box;
-    margin: 1rem 0;
-    padding: 0.6rem;
+    padding: 0.4rem 1.2rem;
+    margin: 0.6rem 0;
 
     background-color: rgb(30, 30, 48);
     border: 2px solid rgb(77, 77, 136);
@@ -130,10 +159,9 @@
     font-family: "Noto Sans Mono", monospace;
     font-optical-sizing: auto;
     font-weight: 380;
-    font-size: 0.95rem;
 }
 
-.ai-messege-area .message blockquote p {
+.ai-messege-area .messege blockquote p {
     white-space: normal;
     line-height: 1.7;
     margin: 0;
@@ -144,23 +172,57 @@
 
 /* заголовки и абзацы (параграфы)*/
 
-.ai-messege-area .message h1 {
-    font-size: 1.5rem;
-    margin-left: 0;
-    margin: 0.4rem;
+.ai-messege-area .messege h1 {
+    font-size: calc(var(--a) * pow(var(--b), 5));
+
+    margin: calc(var(--marg-start) * pow(var(--marg-step), 5)) 0;
+    margin-bottom: calc(
+        var(--marg-bottom-start) * pow(var(--marg-bottom-step), 5)
+        );
 }
-.ai-messege-area .message h2 {
-    font-size: 1.3rem;
-    margin: 0;
+.ai-messege-area .messege h2 {
+    font-size: calc(var(--a) * pow(var(--b), 4));
+    margin: calc(var(--marg-start) * pow(var(--marg-step), 4)) 0;
+    margin-bottom: calc(
+        var(--marg-bottom-start) * pow(var(--marg-bottom-step), 4)
+        );
 }
 
-.ai-messege-area .message h3 {
-    font-size: 1.1rem;
-    margin: 0;
+.ai-messege-area .messege h3 {
+    font-size: calc(var(--a) * pow(var(--b), 3));
+    margin: calc(var(--marg-start) * pow(var(--marg-step), 3)) 0;
+    margin-bottom: calc(
+        var(--marg-bottom-start) * pow(var(--marg-bottom-step), 3)
+        );
+}
+
+.ai-messege-area .messege h4 {
+    font-size: calc(var(--a) * pow(var(--b), 2));
+    margin: calc(var(--marg-start) * pow(var(--marg-step), 2)) 0;
+    margin-bottom: calc(
+        var(--marg-bottom-start) * pow(var(--marg-bottom-step), 2)
+        );
 
 }
 
-.ai-messege-area .message p {
+.ai-messege-area .messege h5 {
+    font-size: calc(var(--a) * pow(var(--b), 1));
+    margin: calc(var(--marg-start) * pow(var(--marg-step), 1)) 0;
+    margin-bottom: calc(
+        var(--marg-bottom-start) * pow(var(--marg-bottom-step), 1)
+        );
+
+}
+
+.ai-messege-area .messege h6 {
+    font-size: calc(var(--a) * pow(var(--b), 0));
+    margin: calc(var(--marg-start) * pow(var(--marg-step), 0)) 0;
+    margin-bottom: calc(
+        var(--marg-bottom-start) * pow(var(--marg-bottom-step), 0)
+        );
+}
+
+.ai-messege-area .messege p {
     white-space: normal;
     line-height: 1.3;
     margin: 0;
@@ -169,17 +231,18 @@
 
 
 /* настройка pre и code */
-.ai-messege-area .message > pre {
+.ai-messege-area .messege pre {
     border: 2px solid #424240;
     background-color: #252524;
     border-radius: 16px;
 
-    padding: 1rem;
+    padding: 0.6rem 1.2rem;
+    margin: 0.6rem 0;
 
     white-space: normal;
 }
 
-.ai-messege-area .message code {
+.ai-messege-area .messege code {
     font-family: "Noto Sans Mono", monospace;
     font-optical-sizing: auto;
     font-weight: 380;
@@ -189,27 +252,93 @@
 
 
 
-
-
 /* настройка списков */
-.ai-messege-area .message ul {
+.ai-messege-area .messege ul,
+.ai-messege-area .messege ol {
     white-space: normal;
+    margin: 0.9rem 0;
+    padding-left: 2rem;
 
 }
 
-.ai-messege-area .message ul li {
+.ai-messege-area .messege ul li,
+.ai-messege-area .messege ol li {
     margin-bottom: 0.6rem;
 }
 
+/* ссылки, фото */
+.ai-messege-area .messege a {
+    color: rgb(91 91 255);
+    text-decoration: underline dotted;
+}
+
+.ai-messege-area .messege img {
+    box-sizing: content-box;
+    max-width: 100%;
+    max-height: 100%;
+    margin: 1rem 0;
+}
 
 
 
+/* остальные элементы */
+.ai-messege-area .messege hr {
+    margin: 0.9rem 0;
+}
+
+#plug {
+    width: 5rem;
+    height: 2rem;
+
+    border-radius: 10px;
+    background-color: rgb(37 37 93);
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+#plug > div {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background-color: #e3e3e3;
+
+    animation: loading 1.2s linear infinite;
+}
+
+#plug :nth-child(1) {
+    animation-delay: 0s;
+}
+#plug :nth-child(2) {
+    animation-delay: 0.2s;
+}
+#plug :nth-child(3) {
+    animation-delay: 0.4s;
+}
 
 
+#flasher {
+    background-color: #7a7a7a !important;
+}
 
 
 /* сервисная информация */
 
-.ai-messege-area .message .service-information {
+.ai-messege-area .messege .service-information {
     padding: 0.7rem;
+}
+
+
+
+/* анимации */
+
+@keyframes loading {
+    25%, 75% {
+        background-color: rgb(37 37 93);
+    }
+    50% {
+         background-color: #e3e3e3;
+    }
 }
