@@ -189,13 +189,28 @@ function renderAIInput(ai_agent, mes_time = null) {
  * 
  * @param {*} text 
  */
+
+const DParser = new DOMParser();
 function RenderAIStream(text, CurrentMessage) {
 
     let BeforHeight = CurrentMessage.offsetHeight;
+
+    // парсим сырой HTML
+    const doc = DParser.parseFromString(text, 'text/html');
+    const element = doc.body.firstChild;
+
+    // добавляем нужные класс
+    element.classList.add('content');
+    
+    // создаем элемент обертку
+    const newChunk = document.createElement('div');
+    newChunk.classList.add('chunk-wrapper');
+    newChunk.appendChild(element);
+
     // вставляем текст внутрь элемента для отрисовки на странице
-    CurrentMessage.insertAdjacentHTML('beforeend', text);
+    CurrentMessage.appendChild(newChunk);
     requestAnimationFrame(() => {
-        CurrentMessage.lastElementChild.classList.add('visible');
+        newChunk.classList.add('visible');
     });
 
     // насколько высота стала больше

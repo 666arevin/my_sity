@@ -10,6 +10,7 @@ let AfterBrake = undefined; // данные после \n если такое б
 // Достаём функции из глобальных объектов, которые создали UMD-скрипты
 const { Marked } = globalThis.marked;
 const { markedHighlight } = globalThis.markedHighlight;
+const markedKatex = globalThis.markedKatex;
 
 const marked = new Marked(
     markedHighlight({
@@ -20,6 +21,7 @@ const marked = new Marked(
         },
     }),
 );
+marked.use(markedKatex({ throwOnError: false }));
 
 // паттерны для многострочных символов, разрываются только при парном символе.
 // MLP - Multi Line Paired
