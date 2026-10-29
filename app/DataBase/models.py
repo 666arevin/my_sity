@@ -16,7 +16,7 @@ class Messages(Base):
     """
     __tablename__ = "messages"
 
-    id:Mapped[int] = mapped_column(primary_key=True)
+    id: Mapped[int] = mapped_column(primary_key=True)
     chat_id: Mapped[int] = mapped_column(ForeignKey("chat.id"), nullable=False)
     role: Mapped[str] = mapped_column(nullable=False)
     ai_v: Mapped[str] = mapped_column(default="None")

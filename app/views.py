@@ -87,7 +87,7 @@ def send_chats():
     chats = get_chats_from_db()
     return jsonify({"data": chats})
 
-@app.route("/get_chatData", methods=["POST"])
+@app.route("/get_chatdata", methods=["POST"])
 def send_chat_data():
     """Отправляет все сообщения из чата клиенту.
 

@@ -60,13 +60,12 @@ async function renderChats() {
 renderChats();
 
 
-
 // взаимодействие с чатами, открытие чатов и их отрисовка
 // это все чаты
 const ChatHistoryItems = document.querySelectorAll("chat-item")
 // берем из html заготовку и кланируем ее
 let Template = document.querySelector('#user-tpl');
-const CloneTemplate = template.content.cloneNode(true);
+const CloneTemplate = Template.content.cloneNode(true);
 
 
 async function OpenChat(event) {
@@ -79,18 +78,18 @@ async function OpenChat(event) {
 		// очищаем чат
 		ChatArea.innerHTML = ''
 		// получаем id чата
-		let chatId = event.target.id.split("-")[1];
+		let ChatId = event.target.id.split("-")[1];
 
 		try {
-			let chatData = await fetch(
-				'/get_chatData', {
+			let ChatData = await fetch(
+				'/get_chatdata', {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify(chatId)
+				body: JSON.stringify(ChatId)
 			});
-			chatData = await chatData.json();
+			ChatData = await ChatData.json();
 
-			chatData.forEach(mes => {
+			ChatData.forEach(mes => {
 				if (mes.role == 'user') {
 					renderUserInput(mes.content, mes.message_time);
 				} else {
