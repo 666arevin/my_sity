@@ -1,7 +1,8 @@
 from app.DataBase.connect import engine
 from .models import Base
-from sqlalchemy import orm, desc, asc, select
-from typing import Any
+from sqlalchemy import orm, desc, asc, select, and_
+from sqlalchemy.sql.expression import Select
+from typing import Any, Callable, Optional
 
 
 """В данном файле происходит точка соприкосновения данных и sqlalchemy orm.
@@ -50,29 +51,49 @@ class DataBaseManager():
         except Exception as e:
             print(f"произошла ошибка {e}")
     
-    def get_chats(self, table: Base, key: int = None) -> list[Any]:
+    def get_data(
+            self,
+            table: Base,
+            sort: dict[str, Callable] = {},
+            **kwargs
+    ) -> list[Any]:
         """Функция получает данные из указанной
         таблицы
 
         Args:
-            table (Base): Класс таблицы, который
-            сущестует в БД.
+            table (Base): Класс таблицы, который сущестует в БД.
+            sort (dict): Словарь с правилами сортировки. Ключ это столбец
+            а значение это функция asc или desc (направление соритровки).
+            **kwargs: передаются правила для фильтрации данных
 
         Returns:
             list: Список объектов таблицы.
         """
+        table_1: Select = select(table)
+
+        # создаем правила, фильтр
+        rules = [
+            getattr(table, key) == val
+            for key, val in kwargs.items()
+        ]
+
+        # собираем правила
+        sort_rules = [
+            direction(getattr(table, key))
+            for key, direction in sort.items()
+        ]
+    
+        # делаем запрос к БД
         with self.session_obj() as ses:
-            if key:
-                stmt = (
-                    select(table)
-                    .where(table.chat_id == key)
-                    .order_by(asc(table.created_at))
-                )
-                res = ses.scalars(stmt).all()
-            else:
-                stmt = select(table).order_by(asc(table.created_at))
-                res = ses.scalars(stmt).all()
-            return res
+            stmt = (
+                table_1
+                .where(and_(*rules))
+                .order_by(*sort_rules)
+            )
+            # получаем результат списком
+            res = ses.scalars(stmt).all()
+
+        return res
 
 
 

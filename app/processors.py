@@ -2,6 +2,7 @@ from .ai_agent import AI_request
 from datetime import datetime
 from .DataBase.core import DataBaseManager
 from .DataBase.models import Messages, Chat
+from sqlalchemy import asc
 
 """Данный файл является прослойкой, которой берет на себя обработку данных,
 полученнх от клиента. А также вызывает менеджер DataBaseManager, который
@@ -66,18 +67,32 @@ def get_chats_from_db():
         })
     return chats_json
 
-def get_chat_data(chat_id: int):
-    # надо будет добавить обротку сессии пользователя
-    chat_data = db_manager.get_chats(Messages, chat_id)
-    data_json = list()
-    # берем только сообщения с нужным id и делаем список словарей
-    for i in chat_data:
-        data_json.append({
+def get_chat_data(chat_id: int) -> list[dict]:
+    """Данная функция достает из БД сообщения для нужного чата.
+
+    Args:
+        chat_id (int): id чата котоырй нужно получить.
+
+    Returns:
+        dict: 
+    """
+    # получаем данные из БД по указанному фильтру
+    chat_data = db_manager.get_data(
+        table=Messages,
+        sort={"created_at": asc},
+        chat_id=chat_id
+    )
+    
+    # формируем из полученных данных список словарей
+    data_json = [
+        {
             "role": i.role,
             "ai_v": i.ai_v,
             "content": i.content,
             "retelling": i.retelling,
             "message_time": str(i.message_time)[:-3]
-        })
+        }
+        for i in chat_data
+    ]
     return data_json
 
