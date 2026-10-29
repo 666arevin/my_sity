@@ -51,7 +51,7 @@ let ListDetector = 0;
 // String-Break Detector
 let SBDetector = 0;
 
-log.setLevel("warn")
+log.setLevel("debug")
 
 function SmartBuffer(ChunkContent, recursion, done = null) {
 
@@ -113,8 +113,6 @@ function SmartBuffer(ChunkContent, recursion, done = null) {
         // проверка на список
         FindListMD(MarkdownBuffer);
         
-        log.debug("html -> " + HTMLText);
-        log.debug("mark -> " + MarkdownBuffer);
         log.debug("MLPDetector -> " + MLPDetector);
     }
 
@@ -147,7 +145,6 @@ function SmartBuffer(ChunkContent, recursion, done = null) {
 
     // если не рекурсия и есть данные для отгрузки
     if (!recursion && isDataReady) {
-        
         isDataReady = false;
         return HTMLText;
     };
@@ -250,6 +247,9 @@ function FindPairedTag(MDContent) {
 function TagClosed() {
     // парсим данные и очищаем буфер
     HTMLText = marked.parse(MarkdownBuffer);
+    log.debug("MD -> " + MarkdownBuffer);
+    log.debug("HTML -> " + HTMLText);
+
     MarkdownBuffer = "";
 
     // обнуляем все детекторы

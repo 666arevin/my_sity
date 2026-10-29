@@ -239,7 +239,8 @@
     padding: 0.6rem 1.2rem;
     margin: 0.6rem 0;
 
-    white-space: normal;
+    font-size: 0.91rem;
+
 }
 
 .ai-messege-area .messege code {
